@@ -156,7 +156,7 @@
           name="label"
           id="label"
           bind:value={label}
-          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm bg-slate-50 dark:bg-slate-800"
+          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800"
           placeholder="optional"
         />
       </div>
@@ -172,7 +172,7 @@
           name="url"
           id="url"
           bind:value={url}
-          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm bg-slate-50 dark:bg-slate-800"
+          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800"
           placeholder="http://192.168.0.1:30000 or server.com"
         />
       </div>

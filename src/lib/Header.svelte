@@ -1,4 +1,4 @@
-<div class="flex flex-col my-8 uppercase text-center mx-auto">
+<div class="flex flex-col my-4 uppercase text-center mx-auto">
   <div class="flex items-center mx-auto">
     <img src="/logo.svg" alt="FLC" class="w-16 h-16" />
     <h1
