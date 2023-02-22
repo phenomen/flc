@@ -4,22 +4,19 @@
   "version": "1.6.0",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "tauri": "tauri",
+    "dev": "tauri dev",
+    "dev:web": "vite",
+    "build": "tauri build",
+    "build:web": "vite build",
     "icon": "tauri icon"
-  },
-  "dependencies": {
-    "@tauri-apps/api": "^1.2.0"
   },
   "devDependencies": {
     "@babichjacob/svelte-localstorage": "^1.0.1",
     "@iconify-json/heroicons": "^1.1.10",
     "@sveltejs/adapter-static": "^2.0.1",
     "@sveltejs/kit": "^1.8.3",
+    "@tauri-apps/api": "^1.2.0",
     "@tauri-apps/cli": "^1.2.3",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
