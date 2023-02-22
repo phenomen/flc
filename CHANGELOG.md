@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.7.0
+
+- Server labels
+- Links to Github and Changelog
+- Dark mode improvements
+
 ## v1.6.0
 
 - MacOS and Linux initial release.
