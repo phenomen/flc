@@ -13,6 +13,7 @@
   type Server = {
     id: string;
     host: string;
+    label: string;
     status: string;
     active: boolean;
     users: number;
@@ -26,6 +27,7 @@
 
   let loading: boolean = false;
   let url: string = "";
+  let label: string = "";
   let host: string = "";
   let message: string = "";
 
@@ -53,10 +55,10 @@
   //   appWindow.setTitle(title);
   // }
 
-  async function addServer(url: string) {
+  async function addServer(url: string, label: string) {
     if (isValid(url)) {
       const uuid = generateUUID();
-      let newServer = { id: uuid, host: host, status: "Offline", active: false };
+      let newServer = { id: uuid, host: host, label: label, status: "Offline", active: false };
       let servers = $storage;
       servers.push(newServer);
       $storage = servers;
@@ -68,6 +70,7 @@
   function cleanUp() {
     url = "";
     host = "";
+    label = "";
   }
 
   async function removeServer(id: string) {
@@ -141,31 +144,52 @@
   });
 </script>
 
-<div class="my-8">
-  <label
-    for="url"
-    class="block mb-2 text-sm font-medium text-center text-slate-500 dark:text-slate-100"
-    >Enter Foundry server IP or URL</label
-  >
-  <div id="add" class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-    <input
-      type="text"
-      id="url"
-      bind:value={url}
-      class="bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-200 text-sm rounded block w-full p-2.5"
-      placeholder="https://192.168.0.1:30000 or https://server.com/"
-    />
+<div class="my-4">
+  <div class="flex space-x-2">
+    <div>
+      <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
+        >Label</label
+      >
+      <div class="mt-1">
+        <input
+          type="text"
+          name="label"
+          id="label"
+          bind:value={label}
+          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm bg-slate-50 dark:bg-slate-800"
+          placeholder="optional"
+        />
+      </div>
+    </div>
+
+    <div class="flex-1">
+      <label for="url" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
+        >URL</label
+      >
+      <div class="mt-1">
+        <input
+          type="text"
+          name="url"
+          id="url"
+          bind:value={url}
+          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 shadow-sm focus:border-orange-500 focus:ring-orange-500 sm:text-sm bg-slate-50 dark:bg-slate-800"
+          placeholder="http://192.168.0.1:30000 or server.com"
+        />
+      </div>
+    </div>
+
     <button
       type="button"
-      class="button bg-orange-600 hover:bg-orange-500 rounded"
-      on:click={() => addServer(url)}
+      class="button bg-orange-600 hover:bg-orange-500 rounded mt-6"
+      on:click={() => addServer(url, label)}
     >
       <HeroiconsPlusCircle20Solid /> <span>Add</span>
     </button>
   </div>
-  <p class="mt-1 text-center text-slate-500 dark:text-slate-300">
-    &nbsp;{message}&nbsp;
-  </p>
+</div>
+
+<div class="text-sm text-center text-slate-500 dark:text-slate-300">
+  &nbsp;{message}&nbsp;
 </div>
 
 <ul class="my-8 grid grid-cols-1 gap-4">
@@ -180,21 +204,23 @@
       <div
         class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b border-slate-200 bg-slate-50 dark:bg-slate-600 dark:border-slate-600 shadow-sm"
       >
-        <div class="flex-1 truncate px-4 py-2 text-sm items-center">
-          <span class="font-medium text-slate-900 dark:text-slate-50">{server.host}</span>
-          <p class="text-slate-500 dark:text-slate-300 truncate flex items-center">
+        <div class="flex-1 truncate px-4 py-2 items-center">
+          <span class="text-sm font-medium text-slate-900 dark:text-slate-50"
+            >{server.label || ""}</span
+          >
+          <span class="text-sm text-slate-400">{server.host}</span>
+          <div class="text-sm text-slate-500 dark:text-slate-300 truncate flex items-center">
             {#if server.status == "Hosting"}
               Server is hosted on the official Foundry hosting partner.
             {:else if server.status === "Offline"}
-              Server is offline or unreachable. Update the status &nbsp; <HeroiconsArrowPath20Solid
-              />
+              Server is offline or unreachable.
             {:else if server.status === "Inactive"}
               Server is online but World is not loaded.
             {:else}
               Server is online | Users: {server.users} | System: {server.system}
               {server.systemVersion}
             {/if}
-          </p>
+          </div>
         </div>
       </div>
 
@@ -209,7 +235,7 @@
         {:else}
           <button
             type="button"
-            class="button bg-amber-500 hover:bg-amber-400 rounded-r"
+            class="button bg-red-500 hover:bg-red-400 rounded-r"
             on:click={() => checkServer(server.id)}
           >
             <HeroiconsArrowPath20Solid />

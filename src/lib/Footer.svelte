@@ -3,7 +3,6 @@
   import { onMount } from "svelte";
   import { localStorageWritable } from "@babichjacob/svelte-localstorage";
 
-  import HeroiconsCodeBracket from "~icons/heroicons/code-bracket";
   import HeroiconsSun20Solid from "~icons/heroicons/sun-20-solid";
   import HeroiconsMoon20Solid from "~icons/heroicons/moon-20-solid";
 
@@ -47,7 +46,11 @@
   </div>
   <div class="text-sm text-slate-500 dark:text-slate-400">
     <button on:click={() => openURL("https://github.com/phenomen/flc")}
-      >open source <HeroiconsCodeBracket /> phenomen#1337</button
+      ><span class="text-blue-500 dark:text-blue-300">github</span></button
+    >
+    &bull;
+    <button on:click={() => openURL("https://github.com/phenomen/flc/blob/main/CHANGELOG.md")}
+      ><span class="text-blue-500 dark:text-blue-300">changelog</span></button
     >
   </div>
 </div>

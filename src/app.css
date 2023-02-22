@@ -11,5 +11,5 @@ button svg {
 }
 
 .button {
-  @apply border border-transparent px-4 py-3 text-sm font-medium text-white h-full;
+  @apply border border-transparent py-2 px-3 text-sm font-medium text-white h-full;
 }
