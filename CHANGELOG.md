@@ -3,7 +3,7 @@
 ## v1.8.0
 
 - Language switch (EN/RU).
-- Better server fetch.
+- More reliable server fetch.
 
 ## v1.7.0
 
