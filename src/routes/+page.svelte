@@ -1,14 +1,18 @@
 <script lang="ts">
-  import { getClient, ResponseType } from "@tauri-apps/api/http";
+  import { fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
   import { onMount } from "svelte";
-
   import { localStorageWritable } from "@babichjacob/svelte-localstorage";
+  import i18nJson from "$lib/i18n.json";
 
   import HeroiconsPlusCircle20Solid from "~icons/heroicons/plus-circle-20-solid";
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
+
+  interface I18n {
+    [key: string]: { [key: string]: string };
+  }
 
   type Server = {
     id: string;
@@ -22,8 +26,10 @@
   };
 
   const defaultStorage: Server[] = [];
-
   const storage = localStorageWritable("storage", defaultStorage);
+
+  const i18n: I18n = i18nJson as I18n;
+  let lang = localStorageWritable("lang", "en");
 
   let loading: boolean = false;
   let url: string = "";
@@ -46,7 +52,7 @@
       host = new URL(url).origin;
       return true;
     } catch (error) {
-      message = "Please enter a valid IP or URL";
+      message = i18n.messageNotURL[$lang];
       return false;
     }
   }
@@ -80,17 +86,21 @@
 
   async function checkServer(id: string) {
     loading = true;
+
     const server = $storage.find((item: Server) => item.id === id);
     const index = $storage.findIndex((item: Server) => item.id === id);
 
-    let data;
+    let update: Server = {
+      active: false,
+      status: "Offline",
+    };
 
     if (
       server.host.includes("forge-vtt.com") ||
       server.host.includes("moltenhosting.com") ||
       server.host.includes("foundryserver.com")
     ) {
-      data = {
+      update = {
         active: true,
         status: "Hosting",
       };
@@ -98,35 +108,27 @@
       let api = {};
 
       try {
-        const client = await getClient();
-        const api = await client.get(server.host + "/api/status", {
-          timeout: 3,
-          responseType: ResponseType.JSON,
+        api = await fetch(server.host + "/api/status", {
+          method: "GET",
+          timeout: 5,
         });
-
-        data = {
-          active: api.data.active,
-          status: api.data.active ? "Active" : "Inactive",
-          users: api.data.users,
-          system: api.data.system,
-          systemVersion: api.data.systemVersion,
-        };
       } catch (error) {
-        console.log(error);
-        data = {
-          active: false,
-          status: "Offline",
-        };
+        loading = false;
       } finally {
-        data = {
-          ...data,
-          ...api,
-        };
+        if (api.ok) {
+          update = {
+            active: api.data.active,
+            status: api.data.active ? "Active" : "Inactive",
+            users: api.data.users,
+            system: api.data.system,
+            systemVersion: api.data.systemVersion,
+          };
+        }
       }
     }
 
     if (index !== -1) {
-      $storage[index] = { ...$storage[index], ...data };
+      $storage[index] = { ...$storage[index], ...update };
     }
 
     loading = false;
@@ -148,7 +150,7 @@
   <div class="flex space-x-2">
     <div>
       <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
-        >Label</label
+        >{i18n.label[$lang]}</label
       >
       <div class="mt-1">
         <input
@@ -157,14 +159,14 @@
           id="label"
           bind:value={label}
           class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800"
-          placeholder="optional"
+          placeholder={i18n.labelPlaceholder[$lang]}
         />
       </div>
     </div>
 
     <div class="flex-1">
       <label for="url" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
-        >URL</label
+        >{i18n.url[$lang]}</label
       >
       <div class="mt-1">
         <input
@@ -173,7 +175,7 @@
           id="url"
           bind:value={url}
           class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800"
-          placeholder="http://192.168.0.1:30000 or server.com"
+          placeholder={i18n.urlPlaceholder[$lang]}
         />
       </div>
     </div>
@@ -183,7 +185,7 @@
       class="button bg-orange-600 hover:bg-orange-500 rounded mt-6"
       on:click={() => addServer(url, label)}
     >
-      <HeroiconsPlusCircle20Solid /> <span>Add</span>
+      <HeroiconsPlusCircle20Solid />
     </button>
   </div>
 </div>
@@ -192,7 +194,7 @@
   &nbsp;{message}&nbsp;
 </div>
 
-<ul class="my-8 grid grid-cols-1 gap-4">
+<ul class="my-6 mb-4 grid grid-cols-1 gap-4">
   {#each $storage.slice().reverse() as server (server.id)}
     <li class="col-span-1 items-center flex">
       <div class=" text-slate-400 hover:text-red-500 items-center">
@@ -211,13 +213,15 @@
           <span class="text-sm text-slate-400">{server.host}</span>
           <div class="text-sm text-slate-500 dark:text-slate-300 truncate flex items-center">
             {#if server.status == "Hosting"}
-              Server is hosted on the official Foundry hosting partner.
+              {i18n.statusHosting[$lang]}
             {:else if server.status === "Offline"}
-              Server is offline or unreachable.
+              {i18n.statusOffline[$lang]}
             {:else if server.status === "Inactive"}
-              Server is online but World is not loaded.
+              {i18n.statusInactive[$lang]}
             {:else}
-              Server is online | Users: {server.users} | System: {server.system}
+              {i18n.statusOnline[$lang]} | {i18n.users[$lang]}: {server.users} | {i18n.system[
+                $lang
+              ]}: {server.system}
               {server.systemVersion}
             {/if}
           </div>

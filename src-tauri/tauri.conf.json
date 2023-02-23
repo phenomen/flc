@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "FLC",
-    "version": "1.7.0"
+    "version": "1.8.0"
   },
   "tauri": {
     "allowlist": {
@@ -72,7 +72,7 @@
       {
         "fullscreen": false,
         "center": true,
-        "height": 700,
+        "height": 750,
         "resizable": true,
         "title": "FLC",
         "width": 800,

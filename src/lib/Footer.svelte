@@ -11,6 +11,7 @@
   }
 
   const theme = localStorageWritable("theme", "light");
+  const lang = localStorageWritable("lang", "en");
 
   function setTheme() {
     if ($theme === "dark") {
@@ -29,28 +30,36 @@
     setTheme();
   }
 
+  function switchLang() {
+    if ($lang === "en") {
+      $lang = "ru";
+    } else {
+      $lang = "en";
+    }
+    location.reload();
+  }
+
   onMount(async () => {
     setTheme();
   });
 </script>
 
 <div class="text-center">
-  <div class="mb-4 text-slate-500 dark:text-amber-400">
+  <div class="mb-6 text-slate-500 dark:text-slate-200 items-center">
     <button on:click={() => switchTheme()}>
       {#if $theme === "dark"}
-        <HeroiconsSun20Solid />
-      {:else}
         <HeroiconsMoon20Solid />
+      {:else}
+        <HeroiconsSun20Solid />
       {/if}
+    </button>
+    <button on:click={() => switchLang()} class="uppercase font-medium">
+      <svg />{$lang}
     </button>
   </div>
   <div class="text-sm text-slate-500 dark:text-slate-400">
-    <button on:click={() => openURL("https://github.com/phenomen/flc")}
-      ><span class="text-blue-500 dark:text-blue-300">github</span></button
-    >
-    &bull;
-    <button on:click={() => openURL("https://github.com/phenomen/flc/blob/main/CHANGELOG.md")}
-      ><span class="text-blue-500 dark:text-blue-300">changelog</span></button
+    <button on:click={() => openURL("https://github.com/phenomen/flc")}>
+      <span class="text-blue-500 dark:text-blue-300 hover:underline">Github</span></button
     >
   </div>
 </div>

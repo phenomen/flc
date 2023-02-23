@@ -1,10 +1,15 @@
 # CHANGELOG
 
+## v1.8.0
+
+- Language switch (EN/RU).
+- Better server fetch.
+
 ## v1.7.0
 
-- Server labels
-- Links to Github and Changelog
-- Dark mode improvements
+- Server labels.
+- Link to Github.
+- Dark mode improvements.
 
 ## v1.6.0
 
