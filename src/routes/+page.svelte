@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { Command } from "@tauri-apps/api/shell";
   import { fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
+  import { open } from "@tauri-apps/api/dialog";
   import { onMount } from "svelte";
   import { localStorageWritable } from "@babichjacob/svelte-localstorage";
   import i18nJson from "$lib/i18n.json";
@@ -9,6 +11,9 @@
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
+  import HeroiconsFolder20Solid from "~icons/heroicons/folder-20-solid";
+  import HeroiconsPlay20Solid from "~icons/heroicons/play-20-solid";
+  import HeroiconsStop20Solid from "~icons/heroicons/stop-20-solid";
 
   interface I18n {
     [key: string]: { [key: string]: string };
@@ -26,16 +31,19 @@
   };
 
   const defaultStorage: Server[] = [];
-  const storage = localStorageWritable("storage", defaultStorage);
-
   const i18n: I18n = i18nJson as I18n;
-  let lang = localStorageWritable("lang", "en");
 
+  const lang = localStorageWritable("lang", "en");
+  const storage = localStorageWritable("storage", defaultStorage);
+  const foundryDir = localStorageWritable("foundrydir", "");
+
+  let launched: boolean = false;
   let loading: boolean = false;
   let url: string = "";
   let label: string = "";
   let host: string = "";
   let message: string = "";
+  let server: any;
 
   function generateUUID(): string {
     let uuid = window.crypto.randomUUID();
@@ -134,15 +142,55 @@
     loading = false;
   }
 
+  async function checkAllServers() {
+    $storage.forEach((item: Server) => {
+      checkServer(item.id);
+    });
+  }
+
   async function joinServer(host: string) {
     appWindow.maximize();
     window.location.href = host;
   }
 
-  onMount(async () => {
-    $storage.forEach((item: Server) => {
-      checkServer(item.id);
+  // HEADLESS SERVER
+
+  async function selectDir() {
+    const selected = await open({
+      directory: true,
     });
+
+    if (selected === null) {
+      return;
+    } else {
+      $foundryDir = selected;
+    }
+  }
+
+  async function launchServer() {
+    const dir = $foundryDir + "/resources/app/main.js";
+    const command = new Command("node", [dir]);
+
+    command.on("close", (data) => {
+      console.log(`finished with code ${data.code} ${data.signal}`);
+    });
+    command.on("error", (error) => console.error(`error: "${error}"`));
+    command.stdout.on("data", (line) => console.log(`"${line}"`));
+    command.stderr.on("data", (line) => console.log(`error: "${line}"`));
+
+    server = await command.spawn();
+    launched = true;
+    checkAllServers();
+  }
+
+  async function stopServer() {
+    await server.kill();
+    launched = false;
+    checkAllServers();
+  }
+
+  onMount(async () => {
+    checkAllServers();
   });
 </script>
 
@@ -158,7 +206,6 @@
           name="label"
           id="label"
           bind:value={label}
-          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800"
           placeholder={i18n.labelPlaceholder[$lang]}
         />
       </div>
@@ -174,7 +221,6 @@
           name="url"
           id="url"
           bind:value={url}
-          class="block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800"
           placeholder={i18n.urlPlaceholder[$lang]}
         />
       </div>
@@ -194,66 +240,125 @@
   &nbsp;{message}&nbsp;
 </div>
 
-<ul class="my-6 mb-4 grid grid-cols-1 gap-4">
-  {#each $storage.slice().reverse() as server (server.id)}
-    <li class="col-span-1 items-center flex">
-      <div class=" text-slate-400 hover:text-red-500 items-center">
-        <button type="button" on:click={() => removeServer(server.id)}>
-          <HeroiconsMinusCircle20Solid />
-        </button>
-      </div>
+<section>
+  <ul class="my-6 mb-4 grid grid-cols-1 gap-4">
+    {#each $storage.slice().reverse() as server (server.id)}
+      <li class="col-span-1 items-center flex">
+        <div class=" text-slate-400 hover:text-red-500 items-center">
+          <button type="button" on:click={() => removeServer(server.id)}>
+            <HeroiconsMinusCircle20Solid />
+          </button>
+        </div>
 
-      <div
-        class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b border-slate-200 bg-slate-50 dark:bg-slate-600 dark:border-slate-600 shadow-sm"
-      >
-        <div class="flex-1 truncate px-4 py-2 items-center">
-          <span class="text-sm font-medium text-slate-900 dark:text-slate-50"
-            >{server.label || ""}</span
-          >
-          <span class="text-sm text-slate-400">{server.host}</span>
-          <div class="text-sm text-slate-500 dark:text-slate-300 truncate flex items-center">
-            {#if server.status == "Hosting"}
-              {i18n.statusHosting[$lang]}
-            {:else if server.status === "Offline"}
-              {i18n.statusOffline[$lang]}
-            {:else if server.status === "Inactive"}
-              {i18n.statusInactive[$lang]}
-            {:else}
-              {i18n.statusOnline[$lang]} | {i18n.users[$lang]}: {server.users} | {i18n.system[
-                $lang
-              ]}: {server.system}
-              {server.systemVersion}
-            {/if}
+        <div
+          class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b border-slate-200 bg-slate-50 dark:bg-slate-600 dark:border-slate-600 shadow-sm"
+        >
+          <div class="flex-1 truncate px-4 py-2 items-center">
+            <span class="text-sm font-medium text-slate-900 dark:text-slate-50"
+              >{server.label || ""}</span
+            >
+            <span class="text-sm text-slate-400">{server.host}</span>
+            <div class="text-sm text-slate-500 dark:text-slate-300 truncate flex items-center">
+              {#if server.status == "Hosting"}
+                {i18n.statusHosting[$lang]}
+              {:else if server.status === "Offline"}
+                {i18n.statusOffline[$lang]}
+              {:else if server.status === "Inactive"}
+                {i18n.statusInactive[$lang]}
+              {:else}
+                {i18n.statusOnline[$lang]} | {i18n.users[$lang]}: {server.users} | {i18n.system[
+                  $lang
+                ]}: {server.system}
+                {server.systemVersion}
+              {/if}
+            </div>
           </div>
         </div>
-      </div>
 
-      {#if server.status === "Offline"}
-        {#if loading}
-          <button
-            type="button"
-            class="button bg-blue-500 hover:bg-blue-400 rounded-r hover:cursor-not-allowed"
-          >
-            <HeroiconsArrowPath20Solid class="animate-spin" />
-          </button>
+        {#if server.status === "Offline"}
+          {#if loading}
+            <button
+              type="button"
+              class="button bg-blue-500 hover:bg-blue-400 rounded-r hover:cursor-not-allowed"
+            >
+              <HeroiconsArrowPath20Solid class="animate-spin" />
+            </button>
+          {:else}
+            <button
+              type="button"
+              class="button bg-red-500 hover:bg-red-400 rounded-r"
+              on:click={() => checkServer(server.id)}
+            >
+              <HeroiconsArrowPath20Solid />
+            </button>
+          {/if}
         {:else}
           <button
             type="button"
-            class="button bg-red-500 hover:bg-red-400 rounded-r"
-            on:click={() => checkServer(server.id)}
+            class="button bg-emerald-500 hover:bg-emerald-400 rounded-none rounded-r"
+            on:click={() => joinServer(server.host)}
           >
-            <HeroiconsArrowPath20Solid />
+            <HeroiconsArrowRightCircle20Solid />
           </button>
         {/if}
-      {:else}
-        <button
-          type="button"
-          class="button bg-emerald-500 hover:bg-emerald-400 rounded-none rounded-r"
-          on:click={() => joinServer(server.host)}
-        >
-          <HeroiconsArrowRightCircle20Solid />
-        </button>
-      {/if}
-    </li>
-  {/each}
-</ul>
+      </li>
+    {/each}
+  </ul>
+</section>
+
+<section class="my-6">
+  {#if launched}
+    <div
+      class="w-full p-2 rounded bg-slate-200 flex space-x-2 items-center mx-auto text-center justify-center"
+    >
+      <div class="font-medium text-slate-700">{i18n.foundryServerLaunched[$lang]}</div>
+      <button
+        type="button"
+        class="button bg-red-600 hover:bg-red-500 rounded"
+        on:click={() => stopServer()}
+      >
+        <HeroiconsStop20Solid />
+      </button>
+    </div>
+  {:else}
+    <details class="bg-slate-200 p-2 rounded">
+      <summary class="text-center font-medium text-slate-700"
+        >{i18n.foundryHeadlessLauncher[$lang]}</summary
+      >
+      <div class="p-2 my-4">
+        <div class="w-full flex space-x-2">
+          <div class="w-full">
+            <div class="mt-1">
+              <input
+                type="text"
+                name="foundryDir"
+                id="foundryDir"
+                bind:value={$foundryDir}
+                disabled
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="button bg-slate-600 hover:bg-slate-500 rounded mt-1"
+            on:click={() => selectDir()}
+          >
+            <HeroiconsFolder20Solid />
+          </button>
+
+          <button
+            type="button"
+            class="button bg-blue-600 hover:bg-blue-500 rounded mt-1"
+            on:click={() => launchServer()}
+          >
+            <HeroiconsPlay20Solid />
+          </button>
+        </div>
+        <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+          {i18n.foundryDirTip[$lang]}
+        </div>
+      </div>
+    </details>
+  {/if}
+</section>

@@ -8,18 +8,32 @@
   },
   "package": {
     "productName": "FLC",
-    "version": "1.8.0"
+    "version": "1.9.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
-      "shell": {
+      "dialog": {
         "all": false,
         "open": true
       },
+      "shell": {
+        "all": false,
+        "execute": true,
+        "sidecar": false,
+        "open": true,
+        "scope": [
+          {
+            "name": "node",
+            "cmd": "node",
+            "args": true
+          }
+        ]
+      },
       "window": {
         "all": false,
-        "maximize": true
+        "maximize": true,
+        "setFullscreen": true
       },
       "http": {
         "all": false,

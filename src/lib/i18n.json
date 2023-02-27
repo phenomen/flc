@@ -42,5 +42,21 @@
   "system": {
     "en": "System",
     "ru": "Система"
+  },
+  "foundryHeadlessLauncher": {
+    "en": "Foundry VTT Node.js Server Launcher",
+    "ru": "Запуск Node.js сервера Foundry VTT"
+  },
+  "foundryDir": {
+    "en": "Foundry VTT Directory",
+    "ru": "Папка Foundry VTT"
+  },
+  "foundryDirTip": {
+    "en": "Foundry VTT app installation directory (not an User Data). Headless server requires Node.js.",
+    "ru": "Папка, в которую установлен Foundry VTT (не User Data). Для запуска требуется Node.js."
+  },
+  "foundryServerLaunched": {
+    "en": "Server is launched",
+    "ru": "Сервер запущен"
   }
 }

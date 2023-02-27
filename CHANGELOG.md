@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.9.0
+
+- Headless Foundry server launcher
+- Microphone and Camera access on MacOS
+
 ## v1.8.0
 
 - Language switch (EN/RU).
