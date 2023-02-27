@@ -309,9 +309,11 @@
 <section class="my-6">
   {#if launched}
     <div
-      class="w-full p-2 rounded bg-slate-200 flex space-x-2 items-center mx-auto text-center justify-center"
+      class="w-full p-2 rounded bg-slate-200 dark:bg-slate-800 flex space-x-2 items-center mx-auto text-center justify-center"
     >
-      <div class="font-medium text-slate-700">{i18n.foundryServerLaunched[$lang]}</div>
+      <div class="font-medium text-slate-700 dark:text-slate-300">
+        {i18n.foundryServerLaunched[$lang]}
+      </div>
       <button
         type="button"
         class="button bg-red-600 hover:bg-red-500 rounded"
@@ -321,8 +323,8 @@
       </button>
     </div>
   {:else}
-    <details class="bg-slate-200 p-2 rounded">
-      <summary class="text-center font-medium text-slate-700"
+    <details class="bg-slate-200 dark:bg-slate-800 p-2 rounded">
+      <summary class="text-center font-medium text-slate-700 dark:text-slate-300"
         >{i18n.foundryHeadlessLauncher[$lang]}</summary
       >
       <div class="p-2 my-4">
