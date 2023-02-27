@@ -33,7 +33,9 @@
       "window": {
         "all": false,
         "maximize": true,
-        "setFullscreen": true
+        "setFullscreen": true,
+        "setTitle": true,
+        "create": true
       },
       "http": {
         "all": false,

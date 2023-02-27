@@ -1,8 +1,9 @@
 <script lang="ts">
   import { Command } from "@tauri-apps/api/shell";
   import { fetch } from "@tauri-apps/api/http";
-  import { appWindow } from "@tauri-apps/api/window";
+  import { appWindow, WebviewWindow } from "@tauri-apps/api/window";
   import { open } from "@tauri-apps/api/dialog";
+
   import { onMount } from "svelte";
   import { localStorageWritable } from "@babichjacob/svelte-localstorage";
   import i18nJson from "$lib/i18n.json";
@@ -148,9 +149,19 @@
     });
   }
 
-  async function joinServer(host: string) {
-    appWindow.maximize();
-    window.location.href = host;
+  async function joinServer(host: string, label: string) {
+    const webview = new WebviewWindow("foundryview", {
+      url: host,
+    });
+
+    webview.once("tauri://created", function () {
+      webview.setTitle("Foundry " + label);
+      webview.maximize();
+    });
+
+    webview.once("tauri://error", function (e) {
+      console.log(e);
+    });
   }
 
   // HEADLESS SERVER
@@ -189,8 +200,17 @@
     checkAllServers();
   }
 
+  // SVELTE MOUNT
   onMount(async () => {
     checkAllServers();
+
+    // window.addEventListener("keydown", (e) => {
+    //   console.log(e.key);
+    // });
+
+    window.addEventListener("tauri.exit", async () => {
+      await stopServer();
+    });
   });
 </script>
 
@@ -296,7 +316,7 @@
           <button
             type="button"
             class="button bg-emerald-500 hover:bg-emerald-400 rounded-none rounded-r"
-            on:click={() => joinServer(server.host)}
+            on:click={() => joinServer(server.host, server.label)}
           >
             <HeroiconsArrowRightCircle20Solid />
           </button>
