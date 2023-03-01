@@ -1,7 +1,7 @@
 {
   "name": "flc",
   "private": true,
-  "version": "1.9.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "tauri": "tauri",
@@ -15,7 +15,7 @@
     "@babichjacob/svelte-localstorage": "^1.0.1",
     "@iconify-json/heroicons": "^1.1.10",
     "@sveltejs/adapter-static": "^2.0.1",
-    "@sveltejs/kit": "^1.8.6",
+    "@sveltejs/kit": "^1.9.2",
     "@tauri-apps/api": "^1.2.0",
     "@tauri-apps/cli": "^1.2.3",
     "@tailwindcss/forms": "^0.5.3",

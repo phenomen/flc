@@ -1,9 +1,9 @@
 <script lang="ts">
   import { Command } from "@tauri-apps/api/shell";
   import { fetch } from "@tauri-apps/api/http";
-  import { appWindow, WebviewWindow } from "@tauri-apps/api/window";
+  import { appWindow } from "@tauri-apps/api/window";
   import { open } from "@tauri-apps/api/dialog";
-
+  import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { localStorageWritable } from "@babichjacob/svelte-localstorage";
   import i18nJson from "$lib/i18n.json";
@@ -44,6 +44,7 @@
   let label: string = "";
   let host: string = "";
   let message: string = "";
+  let serverError: string = "";
   let server: any;
 
   function generateUUID(): string {
@@ -120,8 +121,14 @@
         api = await fetch(server.host + "/api/status", {
           method: "GET",
           timeout: 5,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "FLC/2.0 (Foundry Lightweight Client)",
+          },
         });
       } catch (error) {
+        console.log(error);
         loading = false;
       } finally {
         if (api.ok) {
@@ -150,18 +157,9 @@
   }
 
   async function joinServer(host: string, label: string) {
-    const webview = new WebviewWindow("foundryview", {
-      url: host,
-    });
-
-    webview.once("tauri://created", function () {
-      webview.setTitle("Foundry " + label);
-      webview.maximize();
-    });
-
-    webview.once("tauri://error", function (e) {
-      console.log(e);
-    });
+    appWindow.setTitle("Foundry " + label);
+    appWindow.maximize();
+    goto(host);
   }
 
   // HEADLESS SERVER
@@ -182,31 +180,38 @@
     const dir = $foundryDir + "/resources/app/main.js";
     const command = new Command("node", [dir]);
 
+    launched = true;
+    serverError = "";
+
     command.on("close", (data) => {
       console.log(`finished with code ${data.code} ${data.signal}`);
     });
-    command.on("error", (error) => console.error(`error: "${error}"`));
+
+    command.on("error", (error) => {
+      console.error(`error: "${error}"`);
+      launched = false;
+    });
+
     command.stdout.on("data", (line) => console.log(`"${line}"`));
-    command.stderr.on("data", (line) => console.log(`error: "${line}"`));
+    command.stderr.on("data", (line) => {
+      console.error(`error: "${line}"`);
+      serverError = "Something went wrong";
+      launched = false;
+    });
 
     server = await command.spawn();
-    launched = true;
+
     checkAllServers();
   }
 
   async function stopServer() {
     await server.kill();
     launched = false;
-    checkAllServers();
   }
 
   // SVELTE MOUNT
   onMount(async () => {
     checkAllServers();
-
-    // window.addEventListener("keydown", (e) => {
-    //   console.log(e.key);
-    // });
 
     window.addEventListener("tauri.exit", async () => {
       await stopServer();
@@ -214,7 +219,7 @@
   });
 </script>
 
-<div class="my-4">
+<div class="mt-4 mb-2">
   <div class="flex space-x-2">
     <div>
       <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
@@ -261,7 +266,7 @@
 </div>
 
 <section>
-  <ul class="my-6 mb-4 grid grid-cols-1 gap-4">
+  <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
     {#each $storage.slice().reverse() as server (server.id)}
       <li class="col-span-1 items-center flex">
         <div class=" text-slate-400 hover:text-red-500 items-center">
@@ -326,7 +331,7 @@
   </ul>
 </section>
 
-<section class="my-6">
+<section class="my-10">
   {#if launched}
     <div
       class="w-full p-2 rounded bg-slate-200 dark:bg-slate-800 flex space-x-2 items-center mx-auto text-center justify-center"
@@ -337,33 +342,34 @@
       <button
         type="button"
         class="button bg-red-600 hover:bg-red-500 rounded"
-        on:click={() => stopServer()}
+        on:click={() => {
+          stopServer();
+          checkAllServers();
+        }}
       >
         <HeroiconsStop20Solid />
       </button>
     </div>
   {:else}
-    <details class="bg-slate-200 dark:bg-slate-800 p-2 rounded">
-      <summary class="text-center font-medium text-slate-700 dark:text-slate-300"
-        >{i18n.foundryHeadlessLauncher[$lang]}</summary
-      >
-      <div class="p-2 my-4">
+    <div class="bg-slate-200 dark:bg-slate-800 p-2 rounded">
+      <h2 class="text-center font-medium text-slate-700 dark:text-slate-300">
+        {i18n.foundryHeadlessLauncher[$lang]}
+      </h2>
+      <div class="p-2">
         <div class="w-full flex space-x-2">
           <div class="w-full">
-            <div class="mt-1">
-              <input
-                type="text"
-                name="foundryDir"
-                id="foundryDir"
-                bind:value={$foundryDir}
-                disabled
-              />
-            </div>
+            <input
+              type="text"
+              name="foundryDir"
+              id="foundryDir"
+              bind:value={$foundryDir}
+              disabled
+            />
           </div>
 
           <button
             type="button"
-            class="button bg-slate-600 hover:bg-slate-500 rounded mt-1"
+            class="button bg-slate-600 hover:bg-slate-500 rounded "
             on:click={() => selectDir()}
           >
             <HeroiconsFolder20Solid />
@@ -371,7 +377,7 @@
 
           <button
             type="button"
-            class="button bg-blue-600 hover:bg-blue-500 rounded mt-1"
+            class="button bg-blue-600 hover:bg-blue-500 rounded "
             on:click={() => launchServer()}
           >
             <HeroiconsPlay20Solid />
@@ -380,7 +386,8 @@
         <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
           {i18n.foundryDirTip[$lang]}
         </div>
+        <div class="text-center text-red-500">{serverError}</div>
       </div>
-    </details>
+    </div>
   {/if}
 </section>

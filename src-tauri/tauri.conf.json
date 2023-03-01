@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "FLC",
-    "version": "1.9.0"
+    "version": "2.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -34,8 +34,7 @@
         "all": false,
         "maximize": true,
         "setFullscreen": true,
-        "setTitle": true,
-        "create": true
+        "setTitle": true
       },
       "http": {
         "all": false,
@@ -86,13 +85,14 @@
     },
     "windows": [
       {
-        "fullscreen": false,
-        "center": true,
-        "height": 750,
-        "resizable": true,
         "title": "FLC",
-        "width": 800,
-        "fileDropEnabled": false
+        "userAgent": "FLC/2.0 (Foundry Lightweight Client)",
+        "fullscreen": false,
+        "resizable": true,
+        "center": true,
+        "fileDropEnabled": false,
+        "height": 750,
+        "width": 800
       }
     ]
   }

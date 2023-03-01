@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v2.0.0
+
+- Nodejs server launcher error handling
+- Faster navigation to server URL
+- FLC User-Agent in HTTP header
+- Layout improvements
+
 ## v1.9.0
 
 - Headless Foundry server launcher
