@@ -19,17 +19,17 @@
 
   const I18n = z.record(z.record(z.string()));
 
-  const validURL = z.string().url().or(z.string().ip());
+  const validURL = z.union([z.string().url(), z.string().ip()]);
 
   const Server = z.object({
     id: z.string(),
     host: z.string(),
-    label: z.string(),
+    label: z.string().optional(),
     status: z.string(),
     active: z.boolean(),
-    users: z.number(),
-    system: z.string(),
-    systemVersion: z.string(),
+    users: z.number().optional(),
+    system: z.string().optional(),
+    systemVersion: z.string().optional(),
   });
 
   const ServerUpdate = Server.partial();
@@ -72,7 +72,13 @@
   async function addServer(url: string, label: string) {
     if (isValid(url)) {
       const uuid = generateUUID();
-      let newServer = { id: uuid, host: host, label: label, status: "Offline", active: false };
+      let newServer: Server = {
+        id: uuid,
+        host: host,
+        label: label,
+        status: "Offline",
+        active: false,
+      };
       let servers = $storage;
       servers.push(newServer);
       $storage = servers;
