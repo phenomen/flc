@@ -19,7 +19,9 @@
 
   const I18n = z.record(z.record(z.string()));
 
-  const validURL = z.union([z.string().url(), z.string().ip()]);
+  const ValidURL = z.union([z.string().url(), z.string().ip()]);
+
+  const PartnerHosting = z.enum(["forge-vtt.com", "moltenhosting.com", "foundryserver.com"]);
 
   const Server = z.object({
     id: z.string(),
@@ -35,7 +37,8 @@
   const ServerUpdate = Server.partial();
 
   type I18n = z.infer<typeof I18n>;
-  type validURL = z.infer<typeof validURL>;
+  type ValidURL = z.infer<typeof ValidURL>;
+  type PartnerHosting = z.infer<typeof PartnerHosting>;
   type Server = z.infer<typeof Server>;
   type ServerUpdate = z.infer<typeof ServerUpdate>;
 
@@ -60,7 +63,7 @@
   }
 
   function isValid(url: string): boolean {
-    if (validURL.safeParse(url).success) {
+    if (ValidURL.safeParse(url).success) {
       host = new URL(url).origin;
       return true;
     } else {
@@ -109,11 +112,7 @@
       status: "Offline",
     };
 
-    if (
-      server.host.includes("forge-vtt.com") ||
-      server.host.includes("moltenhosting.com") ||
-      server.host.includes("foundryserver.com")
-    ) {
+    if (PartnerHosting.options.findIndex((e) => e.includes(server.host))) {
       update = {
         active: true,
         status: "Hosting",
