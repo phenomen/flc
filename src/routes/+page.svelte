@@ -1,51 +1,58 @@
 <script lang="ts">
-  import { Command } from "@tauri-apps/api/shell";
   import { fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
-  import { open } from "@tauri-apps/api/dialog";
+
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  import { localStorageWritable } from "@babichjacob/svelte-localstorage";
+  import { localstore } from "svu/store";
+  import { z } from "zod";
+
   import i18nJson from "$lib/i18n.json";
+  import ServerLauncher from "$lib/ServerLauncher.svelte";
 
   import HeroiconsPlusCircle20Solid from "~icons/heroicons/plus-circle-20-solid";
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
-  import HeroiconsFolder20Solid from "~icons/heroicons/folder-20-solid";
-  import HeroiconsPlay20Solid from "~icons/heroicons/play-20-solid";
-  import HeroiconsStop20Solid from "~icons/heroicons/stop-20-solid";
 
-  interface I18n {
-    [key: string]: { [key: string]: string };
-  }
+  //TYPES
 
-  type Server = {
-    id: string;
-    host: string;
-    label: string;
-    status: string;
-    active: boolean;
-    users: number;
-    system: string;
-    systemVersion: string;
-  };
+  const I18n = z.record(z.record(z.string()));
+
+  const validURL = z.string().url().or(z.string().ip());
+
+  const Server = z.object({
+    id: z.string(),
+    host: z.string(),
+    label: z.string(),
+    status: z.string(),
+    active: z.boolean(),
+    users: z.number(),
+    system: z.string(),
+    systemVersion: z.string(),
+  });
+
+  const ServerUpdate = Server.partial();
+
+  type I18n = z.infer<typeof I18n>;
+  type validURL = z.infer<typeof validURL>;
+  type Server = z.infer<typeof Server>;
+  type ServerUpdate = z.infer<typeof ServerUpdate>;
+
+  // VARIABLES
 
   const defaultStorage: Server[] = [];
-  const i18n: I18n = i18nJson as I18n;
+  const i18n: I18n = i18nJson;
+  const lang = localstore("lang", "en");
+  const storage = localstore("storage", defaultStorage);
 
-  const lang = localStorageWritable("lang", "en");
-  const storage = localStorageWritable("storage", defaultStorage);
-  const foundryDir = localStorageWritable("foundrydir", "");
-
-  let launched: boolean = false;
   let loading: boolean = false;
   let url: string = "";
   let label: string = "";
   let host: string = "";
   let message: string = "";
-  let serverError: string = "";
-  let server: any;
+
+  //FUNCTIONS
 
   function generateUUID(): string {
     let uuid = window.crypto.randomUUID();
@@ -53,23 +60,14 @@
   }
 
   function isValid(url: string): boolean {
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-      url = "https://" + url;
-    }
-
-    try {
-      new URL(url);
+    if (validURL.safeParse(url).success) {
       host = new URL(url).origin;
       return true;
-    } catch (error) {
+    } else {
       message = i18n.messageNotURL[$lang];
       return false;
     }
   }
-
-  // function setTitle(title: string) {
-  //   appWindow.setTitle(title);
-  // }
 
   async function addServer(url: string, label: string) {
     if (isValid(url)) {
@@ -100,7 +98,7 @@
     const server = $storage.find((item: Server) => item.id === id);
     const index = $storage.findIndex((item: Server) => item.id === id);
 
-    let update: Server = {
+    let update: ServerUpdate = {
       active: false,
       status: "Offline",
     };
@@ -115,7 +113,7 @@
         status: "Hosting",
       };
     } else {
-      let api = {};
+      let api: any = {};
 
       try {
         api = await fetch(server.host + "/api/status", {
@@ -151,75 +149,22 @@
   }
 
   async function checkAllServers() {
-    $storage.forEach((item: Server) => {
-      checkServer(item.id);
-    });
+    $storage.forEach((item: Server) => checkServer(item.id));
   }
 
   async function joinServer(host: string, label: string) {
-    appWindow.setTitle("Foundry " + label);
+    //appWindow.setTitle("Foundry " + label);
     appWindow.maximize();
     goto(host);
-  }
-
-  // HEADLESS SERVER
-
-  async function selectDir() {
-    const selected = await open({
-      directory: true,
-    });
-
-    if (selected === null) {
-      return;
-    } else {
-      $foundryDir = selected;
-    }
-  }
-
-  async function launchServer() {
-    const dir = $foundryDir + "/resources/app/main.js";
-    const command = new Command("node", [dir]);
-
-    launched = true;
-    serverError = "";
-
-    command.on("close", (data) => {
-      console.log(`finished with code ${data.code} ${data.signal}`);
-    });
-
-    command.on("error", (error) => {
-      console.error(`error: "${error}"`);
-      launched = false;
-    });
-
-    command.stdout.on("data", (line) => console.log(`"${line}"`));
-    command.stderr.on("data", (line) => {
-      console.error(`error: "${line}"`);
-      serverError = "Something went wrong";
-      launched = false;
-    });
-
-    server = await command.spawn();
-
-    checkAllServers();
-  }
-
-  async function stopServer() {
-    await server.kill();
-    launched = false;
   }
 
   // SVELTE MOUNT
   onMount(async () => {
     checkAllServers();
-
-    window.addEventListener("tauri.exit", async () => {
-      await stopServer();
-    });
   });
 </script>
 
-<div class="mt-4 mb-2">
+<section class="mt-4 mb-2">
   <div class="flex space-x-2">
     <div>
       <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
@@ -259,13 +204,13 @@
       <HeroiconsPlusCircle20Solid />
     </button>
   </div>
-</div>
 
-<div class="text-sm text-center text-slate-500 dark:text-slate-300">
-  &nbsp;{message}&nbsp;
-</div>
+  <div class="text-sm text-center text-slate-500 dark:text-slate-300">
+    &nbsp;{message}&nbsp;
+  </div>
+</section>
 
-<section>
+<section class="flex-1">
   <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
     {#each $storage.slice().reverse() as server (server.id)}
       <li class="col-span-1 items-center flex">
@@ -331,63 +276,4 @@
   </ul>
 </section>
 
-<section class="my-10">
-  {#if launched}
-    <div
-      class="w-full p-2 rounded bg-slate-200 dark:bg-slate-800 flex space-x-2 items-center mx-auto text-center justify-center"
-    >
-      <div class="font-medium text-slate-700 dark:text-slate-300">
-        {i18n.foundryServerLaunched[$lang]}
-      </div>
-      <button
-        type="button"
-        class="button bg-red-600 hover:bg-red-500 rounded"
-        on:click={() => {
-          stopServer();
-          checkAllServers();
-        }}
-      >
-        <HeroiconsStop20Solid />
-      </button>
-    </div>
-  {:else}
-    <div class="bg-slate-200 dark:bg-slate-800 p-2 rounded">
-      <h2 class="text-center font-medium text-slate-700 dark:text-slate-300">
-        {i18n.foundryHeadlessLauncher[$lang]}
-      </h2>
-      <div class="p-2">
-        <div class="w-full flex space-x-2">
-          <div class="w-full">
-            <input
-              type="text"
-              name="foundryDir"
-              id="foundryDir"
-              bind:value={$foundryDir}
-              disabled
-            />
-          </div>
-
-          <button
-            type="button"
-            class="button bg-slate-600 hover:bg-slate-500 rounded "
-            on:click={() => selectDir()}
-          >
-            <HeroiconsFolder20Solid />
-          </button>
-
-          <button
-            type="button"
-            class="button bg-blue-600 hover:bg-blue-500 rounded "
-            on:click={() => launchServer()}
-          >
-            <HeroiconsPlay20Solid />
-          </button>
-        </div>
-        <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
-          {i18n.foundryDirTip[$lang]}
-        </div>
-        <div class="text-center text-red-500">{serverError}</div>
-      </div>
-    </div>
-  {/if}
-</section>
+<ServerLauncher {checkAllServers} />

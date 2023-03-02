@@ -52,7 +52,7 @@
     "ru": "Папка Foundry VTT"
   },
   "foundryDirTip": {
-    "en": "Foundry VTT app installation directory (not an User Data). Headless server requires Node.js.",
+    "en": "Foundry VTT app installation directory (not User Data). Headless server requires Node.js.",
     "ru": "Папка, в которую установлен Foundry VTT (не User Data). Для запуска требуется Node.js."
   },
   "foundryServerLaunched": {

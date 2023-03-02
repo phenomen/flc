@@ -1,12 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { localStorageWritable } from "@babichjacob/svelte-localstorage";
+  import { localstore } from "svu/store";
 
   import HeroiconsSun20Solid from "~icons/heroicons/sun-20-solid";
   import HeroiconsMoon20Solid from "~icons/heroicons/moon-20-solid";
 
-  const theme = localStorageWritable("theme", "light");
-  const lang = localStorageWritable("lang", "en");
+  const theme = localstore("theme", "light");
+  const lang = localstore("lang", "en");
 
   function setTheme() {
     if ($theme === "dark") {
