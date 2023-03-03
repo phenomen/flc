@@ -20,8 +20,6 @@
       "shell": {
         "all": false,
         "execute": true,
-        "sidecar": false,
-        "open": true,
         "scope": [
           {
             "name": "node",
@@ -32,9 +30,7 @@
       },
       "window": {
         "all": false,
-        "maximize": true,
-        "setFullscreen": true,
-        "setTitle": true
+        "maximize": true
       },
       "http": {
         "all": false,

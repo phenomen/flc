@@ -18,22 +18,18 @@
   //TYPES
 
   const I18n = z.record(z.record(z.string()));
-
   const ValidURL = z.union([z.string().url(), z.string().ip()]);
-
   const PartnerHosting = z.enum(["forge-vtt.com", "moltenhosting.com", "foundryserver.com"]);
-
   const Server = z.object({
-    id: z.string(),
-    host: z.string(),
+    id: z.string().uuid(),
+    host: z.union([z.string().url(), z.string().ip()]),
     label: z.string().optional(),
-    status: z.string(),
+    status: z.enum(["Active", "Inactive", "Hosting", "Offline"]),
     active: z.boolean(),
     users: z.number().optional(),
     system: z.string().optional(),
     systemVersion: z.string().optional(),
   });
-
   const ServerUpdate = Server.partial();
 
   type I18n = z.infer<typeof I18n>;
@@ -112,7 +108,11 @@
       status: "Offline",
     };
 
-    if (PartnerHosting.options.findIndex((e) => e.includes(server.host))) {
+    const hostingMatch = PartnerHosting.options.some((hosting) => {
+      return server.host.includes(hosting);
+    });
+
+    if (hostingMatch) {
       update = {
         active: true,
         status: "Hosting",
@@ -158,7 +158,6 @@
   }
 
   async function joinServer(host: string, label: string) {
-    //appWindow.setTitle("Foundry " + label);
     appWindow.maximize();
     goto(host);
   }

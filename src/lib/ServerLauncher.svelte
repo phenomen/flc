@@ -49,14 +49,14 @@
     });
 
     command.on("error", (error) => {
-      console.error(`error: "${error}"`);
+      console.error(error);
       launched = false;
     });
 
-    command.stdout.on("data", (line) => console.log(`"${line}"`));
+    command.stdout.on("data", (line) => console.log(line));
     command.stderr.on("data", (line) => {
-      console.error(`error: "${line}"`);
-      serverError = "Something went wrong";
+      console.error(line);
+      serverError = i18n.foundryServerError[$lang];
       launched = false;
     });
 
@@ -79,28 +79,27 @@
 </script>
 
 <section class="my-10">
-  {#if launched}
-    <div
-      class="w-full p-2 rounded bg-slate-200 dark:bg-slate-800 flex space-x-2 items-center mx-auto text-center justify-center"
-    >
-      <div class="font-medium text-slate-700 dark:text-slate-300">
-        {i18n.foundryServerLaunched[$lang]}
+  <div class="bg-slate-200 dark:bg-slate-800 p-2 rounded mx-auto text-center justify-center">
+    {#if launched}
+      <div class="flex items-center space-x-2 justify-center">
+        <div class="font-medium text-slate-700 dark:text-slate-300">
+          {i18n.foundryServerSuccess[$lang]}
+        </div>
+
+        <button
+          type="button"
+          class="button bg-red-600 hover:bg-red-500 rounded"
+          on:click={() => {
+            stopServer();
+            checkAllServers();
+          }}
+        >
+          <HeroiconsStop20Solid />
+        </button>
       </div>
-      <button
-        type="button"
-        class="button bg-red-600 hover:bg-red-500 rounded"
-        on:click={() => {
-          stopServer();
-          checkAllServers();
-        }}
-      >
-        <HeroiconsStop20Solid />
-      </button>
-    </div>
-  {:else}
-    <div class="bg-slate-200 dark:bg-slate-800 p-2 rounded">
-      <h2 class="text-center font-medium text-slate-700 dark:text-slate-300">
-        {i18n.foundryHeadlessLauncher[$lang]}
+    {:else}
+      <h2 class="font-medium text-slate-700 dark:text-slate-300">
+        {i18n.foundryServerLauncher[$lang]}
       </h2>
       <div class="p-2">
         <div class="w-full flex space-x-2">
@@ -133,8 +132,8 @@
         <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
           {i18n.foundryDirTip[$lang]}
         </div>
-        <div class="text-center text-red-500">{serverError}</div>
+        <div class="text-red-500 mt-4">{serverError}</div>
       </div>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </section>
