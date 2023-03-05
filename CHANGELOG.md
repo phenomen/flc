@@ -6,6 +6,7 @@
 - Added zod schema validation library @colinhacks/zod
 - TypeScript fixes
 - Extracted server launcher as Svelte component
+- Enabled DevTools (F12)
 
 ## v2.0.0
 
