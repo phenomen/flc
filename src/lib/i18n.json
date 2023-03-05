@@ -20,8 +20,8 @@
     "ru": "Пожалуйста введите корректный IP или URL"
   },
   "statusHosting": {
-    "en": "Server is hosted on an official Foundry VTT hosting partner.",
-    "ru": "Сервер расположен на официальном хостинге Foundry VTT."
+    "en": "Server is hosted on an official hosting partner.",
+    "ru": "Сервер расположен на официальном хостинге."
   },
   "statusOffline": {
     "en": "Server is offline or unreachable.",
@@ -43,7 +43,7 @@
     "en": "System",
     "ru": "Система"
   },
-  "foundryHeadlessLauncher": {
+  "foundryServerLauncher": {
     "en": "Foundry VTT Node.js Server Launcher",
     "ru": "Запуск Node.js сервера Foundry VTT"
   },
@@ -52,11 +52,15 @@
     "ru": "Папка Foundry VTT"
   },
   "foundryDirTip": {
-    "en": "Foundry VTT app installation directory (not an User Data). Headless server requires Node.js.",
+    "en": "Foundry VTT app installation directory (not User Data). Headless server requires Node.js.",
     "ru": "Папка, в которую установлен Foundry VTT (не User Data). Для запуска требуется Node.js."
   },
-  "foundryServerLaunched": {
-    "en": "Server is launched",
+  "foundryServerSuccess": {
+    "en": "Server is up",
     "ru": "Сервер запущен"
+  },
+  "foundryServerError": {
+    "en": "Something went wrong. See console (F12).",
+    "ru": "Что-то пошло не так. Смотрите консоль (F12)."
   }
 }

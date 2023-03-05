@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v2.1.0
+
+- Added localstorage library @nikolai-cc/svu
+- Added zod schema validation library @colinhacks/zod
+- TypeScript fixes
+- Extracted server launcher as Svelte component
+- Enabled DevTools (F12)
+
 ## v2.0.0
 
 - Nodejs server launcher error handling
