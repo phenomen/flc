@@ -79,7 +79,9 @@
 </script>
 
 <section class="my-10">
-  <div class="bg-slate-200 dark:bg-slate-800 p-2 rounded mx-auto text-center justify-center">
+  <div
+    class="bg-slate-200 dark:bg-slate-800 p-2 rounded mx-auto text-center justify-center shadow-inner"
+  >
     {#if launched}
       <div class="flex items-center space-x-2 justify-center">
         <div class="font-medium text-slate-700 dark:text-slate-300">

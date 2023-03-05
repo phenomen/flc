@@ -14,7 +14,7 @@
   "devDependencies": {
     "@iconify-json/heroicons": "^1.1.10",
     "@sveltejs/adapter-static": "^2.0.1",
-    "@sveltejs/kit": "^1.9.3",
+    "@sveltejs/kit": "^1.10.0",
     "@tauri-apps/api": "^1.2.0",
     "@tauri-apps/cli": "^1.2.3",
     "@tailwindcss/forms": "^0.5.3",
@@ -28,6 +28,6 @@
     "typescript": "^4.9.5",
     "unplugin-icons": "^0.15.3",
     "vite": "^4.1.4",
-    "zod": "^3.20.6"
+    "zod": "^3.21.0"
   }
 }

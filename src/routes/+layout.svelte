@@ -1,7 +1,7 @@
 <script>
+  import "../app.css";
   import Header from "$lib/Header.svelte";
   import Footer from "$lib/Footer.svelte";
-  import "../app.css";
 </script>
 
 <main class="max-w-xl py-8 px-2 mx-auto w-full h-full flex flex-col">

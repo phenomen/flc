@@ -217,8 +217,8 @@
 <section class="flex-1">
   <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
     {#each $storage.slice().reverse() as server (server.id)}
-      <li class="col-span-1 items-center flex">
-        <div class=" text-slate-400 hover:text-red-500 items-center">
+      <li class="items-center flex">
+        <div class=" text-slate-400 hover:text-red-500 items-center absolute -ml-8">
           <button type="button" on:click={() => removeServer(server.id)}>
             <HeroiconsMinusCircle20Solid />
           </button>
