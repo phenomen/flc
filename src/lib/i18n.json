@@ -35,6 +35,10 @@
     "en": "Server is online",
     "ru": "Сервер включён"
   },
+  "statusSkipped": {
+    "en": "Server check is skipped",
+    "ru": "Проверка сервера пропущена"
+  },
   "users": {
     "en": "Users",
     "ru": "Участники"
@@ -42,6 +46,14 @@
   "system": {
     "en": "System",
     "ru": "Система"
+  },
+  "skipCheck": {
+    "en": "Skip server check",
+    "ru": "Пропуск проверки серверов"
+  },
+  "startFullscreen": {
+    "en": "Open in fullscreen mode",
+    "ru": "Запуск в полноэкранном режиме"
   },
   "foundryServerLauncher": {
     "en": "Foundry VTT Node.js Server Launcher",

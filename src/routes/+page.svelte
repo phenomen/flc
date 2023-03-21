@@ -8,7 +8,6 @@
   import { z } from "zod";
 
   import i18nJson from "$lib/i18n.json";
-  import ServerLauncher from "$lib/ServerLauncher.svelte";
 
   import HeroiconsPlusCircle20Solid from "~icons/heroicons/plus-circle-20-solid";
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
@@ -24,7 +23,7 @@
     id: z.string().uuid(),
     host: z.union([z.string().url(), z.string().ip()]),
     label: z.string().optional(),
-    status: z.enum(["Active", "Inactive", "Hosting", "Offline"]),
+    status: z.enum(["Active", "Inactive", "Hosting", "Skipped", "Offline"]),
     active: z.boolean(),
     users: z.number().optional(),
     system: z.string().optional(),
@@ -44,6 +43,8 @@
   const i18n: I18n = i18nJson;
   const lang = localstore("lang", "en");
   const storage = localstore("storage", defaultStorage);
+  const skipCheck = localstore("skipcheck", false);
+  const startFullscreen = localstore("startfullscreen", false);
 
   let loading: boolean = false;
   let url: string = "";
@@ -117,6 +118,11 @@
         active: true,
         status: "Hosting",
       };
+    } else if ($skipCheck === true) {
+      update = {
+        active: true,
+        status: "Skipped",
+      };
     } else {
       let api: any = {};
 
@@ -157,9 +163,19 @@
     $storage.forEach((item: Server) => checkServer(item.id));
   }
 
-  async function joinServer(host: string, label: string) {
-    appWindow.maximize();
+  async function joinServer(host: string) {
+    if ($startFullscreen === true) {
+      appWindow.setFullscreen(true);
+    } else {
+      appWindow.maximize();
+    }
+
     goto(host);
+  }
+
+  $: {
+    $skipCheck;
+    checkAllServers();
   }
 
   // SVELTE MOUNT
@@ -239,6 +255,8 @@
                 {i18n.statusOffline[$lang]}
               {:else if server.status === "Inactive"}
                 {i18n.statusInactive[$lang]}
+              {:else if server.status === "Skipped"}
+                {i18n.statusSkipped[$lang]}
               {:else}
                 {i18n.statusOnline[$lang]} | {i18n.users[$lang]}: {server.users} | {i18n.system[
                   $lang
@@ -270,7 +288,7 @@
           <button
             type="button"
             class="button bg-emerald-500 hover:bg-emerald-400 rounded-none rounded-r"
-            on:click={() => joinServer(server.host, server.label)}
+            on:click={() => joinServer(server.host)}
           >
             <HeroiconsArrowRightCircle20Solid />
           </button>
@@ -278,6 +296,45 @@
       </li>
     {/each}
   </ul>
-</section>
 
-<ServerLauncher {checkAllServers} />
+  <div class="flex justify-center space-x-6">
+    <div class="flex">
+      <div class="flex h-6 items-center">
+        <input
+          id="skipCheck"
+          name="skipCheck"
+          type="checkbox"
+          class="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
+          bind:checked={$skipCheck}
+        />
+      </div>
+      <div class="ml-2 text-sm font-medium leading-6 text-slate-900 dark:text-slate-50">
+        <label for="skipCheck">{i18n.skipCheck[$lang]}</label>
+      </div>
+    </div>
+
+    <div class="flex">
+      <div class="flex h-6 items-center">
+        <input
+          id="startFullscreen"
+          name="startFullscreen"
+          type="checkbox"
+          class="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
+          bind:checked={$startFullscreen}
+        />
+      </div>
+      <div class="ml-2 text-sm font-medium leading-6 text-slate-900 dark:text-slate-50">
+        <label for="startFullscreen">{i18n.startFullscreen[$lang]}</label>
+      </div>
+    </div>
+  </div>
+
+  {#if $startFullscreen}
+    <div
+      class="text-center justify-center text-sm text-slate-600 dark:text-slate-400 my-4 max-w-md mx-auto"
+    >
+      Используйте <strong>Alt + F4</strong> (Windows) или <strong>⌘ + Q</strong> (macOS) для выхода из
+      приложения в полноэкранном режиме.
+    </div>
+  {/if}
+</section>

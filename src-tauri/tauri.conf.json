@@ -8,28 +8,20 @@
   },
   "package": {
     "productName": "FLC",
-    "version": "2.1.0"
+    "version": "2.2.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
       "dialog": {
-        "all": false,
-        "open": true
+        "all": false
       },
       "shell": {
-        "all": false,
-        "execute": true,
-        "scope": [
-          {
-            "name": "node",
-            "cmd": "node",
-            "args": true
-          }
-        ]
+        "all": false
       },
       "window": {
         "all": false,
+        "setFullscreen": true,
         "maximize": true
       },
       "http": {
@@ -87,7 +79,7 @@
         "resizable": true,
         "center": true,
         "fileDropEnabled": false,
-        "height": 750,
+        "height": 600,
         "width": 800
       }
     ]
