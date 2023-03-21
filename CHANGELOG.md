@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v2.2.0
+
+- Skip server check option (to bypass self-signed SSL)
+- Fullscreen mode option
+- Removed Node server launcher (too complex and heavy for this app)
+
 ## v2.1.0
 
 - Added localstorage library @nikolai-cc/svu
