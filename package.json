@@ -1,7 +1,7 @@
 {
   "name": "flc",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.2.5",
   "type": "module",
   "scripts": {
     "tauri": "tauri",

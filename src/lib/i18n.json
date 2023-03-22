@@ -48,12 +48,16 @@
     "ru": "Система"
   },
   "skipCheck": {
-    "en": "Skip server check",
+    "en": "Bypass server check",
     "ru": "Пропуск проверки серверов"
   },
   "startFullscreen": {
     "en": "Open in fullscreen mode",
     "ru": "Запуск в полноэкранном режиме"
+  },
+  "tipFullscreen": {
+    "en": "Use Alt + F4 (Windows) or ⌘ + Q (macOS) to exit app in fullscreen mode",
+    "ru": "Используйте Alt + F4 (Windows) или ⌘ + Q (macOS) для выхода в полноэкранном режиме"
   },
   "foundryServerLauncher": {
     "en": "Foundry VTT Node.js Server Launcher",
