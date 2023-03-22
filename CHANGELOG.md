@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.2.5
+
+- Localization fix
+
 ## v2.2.0
 
 - Skip server check option (to bypass self-signed SSL)

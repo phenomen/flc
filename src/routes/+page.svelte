@@ -163,7 +163,7 @@
     $storage.forEach((item: Server) => checkServer(item.id));
   }
 
-  async function joinServer(host: string) {
+  function joinServer(host: string) {
     if ($startFullscreen === true) {
       appWindow.setFullscreen(true);
     } else {
@@ -331,10 +331,9 @@
 
   {#if $startFullscreen}
     <div
-      class="text-center justify-center text-sm text-slate-600 dark:text-slate-400 my-4 max-w-md mx-auto"
+      class="px-4 py-2 bg-orange-100 dark:bg-orange-400 rounded-md font-medium text-center justify-center text-sm text-slate-900  my-4 max-w-sm mx-auto"
     >
-      Используйте <strong>Alt + F4</strong> (Windows) или <strong>⌘ + Q</strong> (macOS) для выхода из
-      приложения в полноэкранном режиме.
+      {i18n.tipFullscreen[$lang]}
     </div>
   {/if}
 </section>
