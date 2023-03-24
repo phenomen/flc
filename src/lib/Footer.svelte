@@ -39,7 +39,7 @@
   });
 </script>
 
-<footer class="mb-4 text-slate-500 dark:text-slate-200 items-center text-center">
+<footer class="mb-6 text-slate-500 dark:text-slate-200 items-center text-center">
   <button on:click={() => switchTheme()}>
     {#if $theme === "dark"}
       <HeroiconsMoon20Solid />
