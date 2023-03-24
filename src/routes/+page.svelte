@@ -13,6 +13,7 @@
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
+  import ServerLauncher from "$lib/ServerLauncher.svelte";
 
   //TYPES
 
@@ -44,7 +45,7 @@
   const lang = localstore("lang", "en");
   const storage = localstore("storage", defaultStorage);
   const skipCheck = localstore("skipcheck", false);
-  const startFullscreen = localstore("startfullscreen", false);
+  //const startFullscreen = localstore("startfullscreen", false);
 
   let loading: boolean = false;
   let url: string = "";
@@ -164,11 +165,7 @@
   }
 
   function joinServer(host: string) {
-    if ($startFullscreen === true) {
-      appWindow.setFullscreen(true);
-    } else {
-      appWindow.maximize();
-    }
+    appWindow.maximize();
 
     goto(host);
   }
@@ -304,7 +301,7 @@
           id="skipCheck"
           name="skipCheck"
           type="checkbox"
-          class="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
+          class="h-4 w-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
           bind:checked={$skipCheck}
         />
       </div>
@@ -312,28 +309,13 @@
         <label for="skipCheck">{i18n.skipCheck[$lang]}</label>
       </div>
     </div>
-
-    <div class="flex">
-      <div class="flex h-6 items-center">
-        <input
-          id="startFullscreen"
-          name="startFullscreen"
-          type="checkbox"
-          class="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
-          bind:checked={$startFullscreen}
-        />
-      </div>
-      <div class="ml-2 text-sm font-medium leading-6 text-slate-900 dark:text-slate-50">
-        <label for="startFullscreen">{i18n.startFullscreen[$lang]}</label>
-      </div>
-    </div>
   </div>
 
-  {#if $startFullscreen}
-    <div
-      class="px-4 py-2 bg-orange-100 dark:bg-orange-400 rounded-md font-medium text-center justify-center text-sm text-slate-900  my-4 max-w-sm mx-auto"
-    >
-      {i18n.tipFullscreen[$lang]}
-    </div>
-  {/if}
+  <div
+    class="px-4 py-2 bg-slate-200 dark:bg-slate-900 rounded-md font-medium text-center justify-center text-sm text-slate-900 dark:text-slate-100  my-4 max-w-md mx-auto"
+  >
+    {i18n.tipFullscreen[$lang]}
+  </div>
 </section>
+
+<ServerLauncher {checkAllServers} />

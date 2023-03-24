@@ -56,8 +56,8 @@
     "ru": "Запуск в полноэкранном режиме"
   },
   "tipFullscreen": {
-    "en": "Use Alt + F4 (Windows) or ⌘ + Q (macOS) to exit app in fullscreen mode",
-    "ru": "Используйте Alt + F4 (Windows) или ⌘ + Q (macOS) для выхода в полноэкранном режиме"
+    "en": "Use Ctlr/Cmd+F11 to toggle fullscreen mode",
+    "ru": "Используйте Ctrl/Cmd+F11 для переключения полноэкранного режима"
   },
   "foundryServerLauncher": {
     "en": "Foundry VTT Node.js Server Launcher",
