@@ -24,15 +24,44 @@
   let serverError: string = "";
 
   async function startServer() {
-    invoke("start_server", { params: foundryDir })
+    launched = true;
+    await invoke("start_server", { params: $foundryDir })
       .then((message) => {
         console.log(message);
-        launched = true;
+        serverError = "";
       })
       .catch((error) => {
         console.error(error);
-        serverError = error;
+        launched = false;
+
+        if (error.includes("Foundry VTT cannot start in this directory which is already locked")) {
+          serverError =
+            "-------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------- See error details in Console (F12)";
+        } else if (error.includes("Cannot find module")) {
+          serverError =
+            "------------ INCORRECT FOUNDRY VTT INSTALLATION FOLDER ----------- See error details in Console (F12)";
+        } else if (
+          error.includes("is not recognized as an internal or external command") ||
+          error.includes("program not found")
+        ) {
+          serverError =
+            "--------------------- NODEJS IS NOT INSTALLED -------------------- See error details in Console (F12)";
+        } else {
+          serverError = error;
+        }
       });
+
+    checkAllServers();
+  }
+
+  async function stopServer() {
+    try {
+      await invoke("stop_server");
+      launched = false;
+      serverError = "";
+    } catch (error) {
+      console.error(error);
+    }
 
     checkAllServers();
   }
@@ -59,6 +88,15 @@
         <div class="font-medium text-slate-700 dark:text-slate-300">
           {i18n.foundryServerSuccess[$lang]}
         </div>
+        <button
+          type="button"
+          class="button bg-red-600 hover:bg-red-500 rounded"
+          on:click={() => {
+            stopServer();
+          }}
+        >
+          <HeroiconsStop20Solid />
+        </button>
       </div>
     {:else}
       <h2 class="font-medium text-slate-700 dark:text-slate-300">
@@ -95,7 +133,11 @@
         <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
           {i18n.foundryDirTip[$lang]}
         </div>
-        <div class="text-red-500 mt-4">{serverError}</div>
+        {#if serverError.length > 1}
+          <div class="mt-4 p-2 bg-slate-900 rounded-md">
+            <p class="text-red-500 text-sm font-mono">{serverError}</p>
+          </div>
+        {/if}
       </div>
     {/if}
   </div>

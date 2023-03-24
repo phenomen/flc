@@ -7,13 +7,15 @@
   import { localstore } from "svu/store";
   import { z } from "zod";
 
+  import ServerLauncher from "$lib/ServerLauncher.svelte";
+
   import i18nJson from "$lib/i18n.json";
 
   import HeroiconsPlusCircle20Solid from "~icons/heroicons/plus-circle-20-solid";
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
-  import ServerLauncher from "$lib/ServerLauncher.svelte";
+  import HeroiconsInformationCircle from "~icons/heroicons/information-circle";
 
   //TYPES
 
@@ -312,7 +314,7 @@
   </div>
 
   <div
-    class="px-4 py-2 bg-slate-200 dark:bg-slate-900 rounded-md font-medium text-center justify-center text-sm text-slate-900 dark:text-slate-100  my-4 max-w-md mx-auto"
+    class="p-2 bg-orange-100 dark:bg-slate-700 border border-transparent dark:border-orange-200 rounded-md text-center justify-center text-sm text-orange-900 dark:text-orange-200 my-4 mx-auto"
   >
     {i18n.tipFullscreen[$lang]}
   </div>
