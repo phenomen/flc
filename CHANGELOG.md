@@ -1,6 +1,11 @@
 # CHANGELOG
 
-## v2.2.5
+## v2.4.0
+
+- Server Launcher is back! Bigger, better, faster stronger. Proper error handling and human-readable messages.
+- Proper Fullscreen Toggle hotkey! Press Ctrl/Cmd + F11 to enter or exit fullscreen.
+
+## v2.3.0
 
 - Localization fix
 

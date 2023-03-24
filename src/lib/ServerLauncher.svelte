@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { Command } from "@tauri-apps/api/shell";
   import { open } from "@tauri-apps/api/dialog";
+  import { invoke } from "@tauri-apps/api/tauri";
 
-  import { onMount } from "svelte";
   import { localstore } from "svu/store";
   import { z } from "zod";
 
@@ -23,7 +22,49 @@
 
   let launched: boolean = false;
   let serverError: string = "";
-  let server: any;
+
+  async function startServer() {
+    launched = true;
+    await invoke("start_server", { params: $foundryDir })
+      .then((message) => {
+        console.log(message);
+        serverError = "";
+      })
+      .catch((error) => {
+        console.error(error);
+        launched = false;
+
+        if (error.includes("Foundry VTT cannot start in this directory which is already locked")) {
+          serverError =
+            "-------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------- See error details in Console (F12)";
+        } else if (error.includes("Cannot find module")) {
+          serverError =
+            "------------ INCORRECT FOUNDRY VTT INSTALLATION FOLDER ----------- See error details in Console (F12)";
+        } else if (
+          error.includes("is not recognized as an internal or external command") ||
+          error.includes("program not found")
+        ) {
+          serverError =
+            "--------------------- NODEJS IS NOT INSTALLED -------------------- See error details in Console (F12)";
+        } else {
+          serverError = error;
+        }
+      });
+
+    checkAllServers();
+  }
+
+  async function stopServer() {
+    try {
+      await invoke("stop_server");
+      launched = false;
+      serverError = "";
+    } catch (error) {
+      console.error(error);
+    }
+
+    checkAllServers();
+  }
 
   async function selectDir() {
     const selected = await open({
@@ -36,46 +77,6 @@
       $foundryDir = selected;
     }
   }
-
-  async function launchServer() {
-    const dir = $foundryDir + "/resources/app/main.js";
-    const command = new Command("node", [dir]);
-
-    launched = true;
-    serverError = "";
-
-    command.on("close", (data) => {
-      console.log(`finished with code ${data.code} ${data.signal}`);
-    });
-
-    command.on("error", (error) => {
-      console.error(error);
-      launched = false;
-    });
-
-    command.stdout.on("data", (line) => console.log(line));
-    command.stderr.on("data", (line) => {
-      console.error(line);
-      serverError = i18n.foundryServerError[$lang];
-      launched = false;
-    });
-
-    server = await command.spawn();
-
-    checkAllServers();
-  }
-
-  async function stopServer() {
-    await server.kill();
-    launched = false;
-  }
-
-  // SVELTE MOUNT
-  onMount(async () => {
-    window.addEventListener("tauri.exit", async () => {
-      await stopServer();
-    });
-  });
 </script>
 
 <section class="my-10">
@@ -87,13 +88,11 @@
         <div class="font-medium text-slate-700 dark:text-slate-300">
           {i18n.foundryServerSuccess[$lang]}
         </div>
-
         <button
           type="button"
           class="button bg-red-600 hover:bg-red-500 rounded"
           on:click={() => {
             stopServer();
-            checkAllServers();
           }}
         >
           <HeroiconsStop20Solid />
@@ -126,7 +125,7 @@
           <button
             type="button"
             class="button bg-blue-600 hover:bg-blue-500 rounded "
-            on:click={() => launchServer()}
+            on:click={() => startServer()}
           >
             <HeroiconsPlay20Solid />
           </button>
@@ -134,7 +133,11 @@
         <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
           {i18n.foundryDirTip[$lang]}
         </div>
-        <div class="text-red-500 mt-4">{serverError}</div>
+        {#if serverError.length > 1}
+          <div class="mt-4 p-2 bg-slate-900 rounded-md">
+            <p class="text-red-500 text-sm font-mono">{serverError}</p>
+          </div>
+        {/if}
       </div>
     {/if}
   </div>
