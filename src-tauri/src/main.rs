@@ -3,6 +3,7 @@
     windows_subsystem = "windows"
 )]
 
+use std::os::windows::process::CommandExt;
 use std::process::{Child, Command};
 use tauri::GlobalShortcutManager;
 #[cfg(any(windows, target_os = "macos"))]
@@ -12,12 +13,13 @@ static mut CHILD_PROCESS: Option<Child> = None;
 
 #[tauri::command]
 fn start_server(params: String) -> Result<(), String> {
-    let command_arg = format!("{}/resources/app/main.js", params);
+    let path = format!("{}/resources/app/main.js", params);
 
     let child_process = Command::new("node")
-        .arg(command_arg)
+        .creation_flags(0x00000010)
+        .arg(path)
         .spawn()
-        .map_err(|e| format!("Failed to execute command: {}", e))?;
+        .expect("failed to execute process");
 
     unsafe {
         CHILD_PROCESS.replace(child_process);

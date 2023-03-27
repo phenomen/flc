@@ -2,6 +2,7 @@
   import { fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
 
+  import { slide } from "svelte/transition";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { localstore } from "svu/store";
@@ -15,7 +16,6 @@
   import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
-  import HeroiconsInformationCircle from "~icons/heroicons/information-circle";
 
   //TYPES
 
@@ -183,7 +183,7 @@
   });
 </script>
 
-<section class="mt-4 mb-2">
+<section class="my-4 mb-2">
   <div class="flex space-x-2">
     <div>
       <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
@@ -232,7 +232,7 @@
 <section class="flex-1">
   <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
     {#each $storage.slice().reverse() as server (server.id)}
-      <li class="items-center flex">
+      <li class="items-center flex" transition:slide|local>
         <div class=" text-slate-400 hover:text-red-500 items-center absolute -ml-8">
           <button type="button" on:click={() => removeServer(server.id)}>
             <HeroiconsMinusCircle20Solid />
@@ -240,7 +240,13 @@
         </div>
 
         <div
-          class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b border-slate-200 bg-slate-50 dark:bg-slate-600 dark:border-slate-600 shadow-sm"
+          class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b bg-slate-50 dark:bg-slate-600 shadow-sm"
+          class:!border-blue-500={loading}
+          class:border-emerald-500={server.status == "Hosting" ||
+            server.status == "Online" ||
+            server.status === "Inactive" ||
+            server.status == "Skipped"}
+          class:border-red-500={server.status === "Offline"}
         >
           <div class="flex-1 truncate px-4 py-2 items-center">
             <span class="text-sm font-medium text-slate-900 dark:text-slate-50"
@@ -266,23 +272,21 @@
           </div>
         </div>
 
-        {#if server.status === "Offline"}
-          {#if loading}
-            <button
-              type="button"
-              class="button bg-blue-500 hover:bg-blue-400 rounded-r hover:cursor-not-allowed"
-            >
-              <HeroiconsArrowPath20Solid class="animate-spin" />
-            </button>
-          {:else}
-            <button
-              type="button"
-              class="button bg-red-500 hover:bg-red-400 rounded-r"
-              on:click={() => checkServer(server.id)}
-            >
-              <HeroiconsArrowPath20Solid />
-            </button>
-          {/if}
+        {#if loading}
+          <button
+            type="button"
+            class="button bg-blue-500 hover:bg-blue-400 rounded-r hover:cursor-not-allowed"
+          >
+            <HeroiconsArrowPath20Solid class="animate-spin" />
+          </button>
+        {:else if server.status === "Offline"}
+          <button
+            type="button"
+            class="button bg-red-500 hover:bg-red-400 rounded-r"
+            on:click={() => checkServer(server.id)}
+          >
+            <HeroiconsArrowPath20Solid />
+          </button>
         {:else}
           <button
             type="button"
@@ -295,6 +299,12 @@
       </li>
     {/each}
   </ul>
+
+  <div
+    class="p-2 bg-orange-100 0 rounded text-center justify-center text-sm text-orange-800 dark:bg-blue-200 dark:text-blue-800 my-4 mx-auto"
+  >
+    {i18n.tipFullscreen[$lang]}
+  </div>
 
   <div class="flex justify-center space-x-6">
     <div class="flex">
@@ -311,12 +321,6 @@
         <label for="skipCheck">{i18n.skipCheck[$lang]}</label>
       </div>
     </div>
-  </div>
-
-  <div
-    class="p-2 bg-orange-100 dark:bg-slate-700 border border-transparent dark:border-orange-200 rounded-md text-center justify-center text-sm text-orange-900 dark:text-orange-200 my-4 mx-auto"
-  >
-    {i18n.tipFullscreen[$lang]}
   </div>
 </section>
 
