@@ -1,4 +1,7 @@
 <script lang="ts">
+  import type { I18n, Server, ServerUpdate } from "$lib/types";
+  import { ValidURL, PartnerHosting } from "$lib/types";
+
   import { fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
 
@@ -6,10 +9,8 @@
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { localstore } from "svu/store";
-  import { z } from "zod";
 
   import ServerLauncher from "$lib/ServerLauncher.svelte";
-
   import i18nJson from "$lib/i18n.json";
 
   import HeroiconsPlusCircle20Solid from "~icons/heroicons/plus-circle-20-solid";
@@ -17,45 +18,17 @@
   import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
   import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
 
-  //TYPES
-
-  const I18n = z.record(z.record(z.string()));
-  const ValidURL = z.union([z.string().url(), z.string().ip()]);
-  const PartnerHosting = z.enum(["forge-vtt.com", "moltenhosting.com", "foundryserver.com"]);
-  const Server = z.object({
-    id: z.string().uuid(),
-    host: z.union([z.string().url(), z.string().ip()]),
-    label: z.string().optional(),
-    status: z.enum(["Active", "Inactive", "Hosting", "Skipped", "Offline"]),
-    active: z.boolean(),
-    users: z.number().optional(),
-    system: z.string().optional(),
-    systemVersion: z.string().optional(),
-  });
-  const ServerUpdate = Server.partial();
-
-  type I18n = z.infer<typeof I18n>;
-  type ValidURL = z.infer<typeof ValidURL>;
-  type PartnerHosting = z.infer<typeof PartnerHosting>;
-  type Server = z.infer<typeof Server>;
-  type ServerUpdate = z.infer<typeof ServerUpdate>;
-
-  // VARIABLES
-
   const defaultStorage: Server[] = [];
   const i18n: I18n = i18nJson;
   const lang = localstore("lang", "en");
   const storage = localstore("storage", defaultStorage);
   const skipCheck = localstore("skipcheck", false);
-  //const startFullscreen = localstore("startfullscreen", false);
 
   let loading: boolean = false;
   let url: string = "";
   let label: string = "";
   let host: string = "";
   let message: string = "";
-
-  //FUNCTIONS
 
   function generateUUID(): string {
     let uuid = window.crypto.randomUUID();
@@ -177,13 +150,12 @@
     checkAllServers();
   }
 
-  // SVELTE MOUNT
   onMount(async () => {
     checkAllServers();
   });
 </script>
 
-<section class="my-4 mb-2">
+<section class="my-4">
   <div class="flex space-x-2">
     <div>
       <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
@@ -233,7 +205,7 @@
   <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
     {#each $storage.slice().reverse() as server (server.id)}
       <li class="items-center flex" transition:slide|local>
-        <div class=" text-slate-400 hover:text-red-500 items-center absolute -ml-8">
+        <div class="text-slate-400 hover:text-red-600 items-center absolute -ml-8">
           <button type="button" on:click={() => removeServer(server.id)}>
             <HeroiconsMinusCircle20Solid />
           </button>
@@ -246,7 +218,7 @@
             server.status == "Online" ||
             server.status === "Inactive" ||
             server.status == "Skipped"}
-          class:border-red-500={server.status === "Offline"}
+          class:border-red-600={server.status === "Offline"}
         >
           <div class="flex-1 truncate px-4 py-2 items-center">
             <span class="text-sm font-medium text-slate-900 dark:text-slate-50"
@@ -282,7 +254,7 @@
         {:else if server.status === "Offline"}
           <button
             type="button"
-            class="button bg-red-500 hover:bg-red-400 rounded-r"
+            class="button bg-red-600 hover:bg-red-500 rounded-r"
             on:click={() => checkServer(server.id)}
           >
             <HeroiconsArrowPath20Solid />
@@ -324,4 +296,6 @@
   </div>
 </section>
 
-<ServerLauncher {checkAllServers} />
+<section class="my-4">
+  <ServerLauncher {checkAllServers} />
+</section>

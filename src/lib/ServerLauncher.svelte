@@ -1,9 +1,10 @@
 <script lang="ts">
+  import type { I18n } from "$lib/types";
+
   import { open } from "@tauri-apps/api/dialog";
   import { invoke } from "@tauri-apps/api/tauri";
 
   import { localstore } from "svu/store";
-  import { z } from "zod";
 
   import i18nJson from "$lib/i18n.json";
 
@@ -12,9 +13,6 @@
   import HeroiconsStop20Solid from "~icons/heroicons/stop-20-solid";
 
   export let checkAllServers: Function;
-
-  const I18n = z.record(z.record(z.string()));
-  type I18n = z.infer<typeof I18n>;
 
   const i18n: I18n = i18nJson;
   const lang = localstore("lang", "en");
