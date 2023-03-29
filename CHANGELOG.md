@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v2.5.0
+
+- Better UX with form submit, subtle animations, loading states. 
+- Many layout and style improvements thanks to TailwindCSS 3.3 update.
+
+
 ## v2.4.0
 
 - Server Launcher is back! Bigger, better, faster stronger. Proper error handling and human-readable messages.
