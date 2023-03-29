@@ -13,10 +13,10 @@
   import ServerLauncher from "$lib/ServerLauncher.svelte";
   import i18nJson from "$lib/i18n.json";
 
-  import HeroiconsPlusCircle20Solid from "~icons/heroicons/plus-circle-20-solid";
-  import HeroiconsMinusCircle20Solid from "~icons/heroicons/minus-circle-20-solid";
-  import HeroiconsArrowPath20Solid from "~icons/heroicons/arrow-path-20-solid";
-  import HeroiconsArrowRightCircle20Solid from "~icons/heroicons/arrow-right-circle-20-solid";
+  import TablerPlus from "~icons/tabler/plus";
+  import TablerX from "~icons/tabler/x";
+  import TablerChevronsRight from "~icons/tabler/chevrons-right";
+  import TablerRefresh from "~icons/tabler/refresh";
 
   const defaultStorage: Server[] = [];
   const i18n: I18n = i18nJson;
@@ -28,7 +28,13 @@
   let url: string = "";
   let label: string = "";
   let host: string = "";
-  let message: string = "";
+  let validationMessage: string = "";
+
+  function isWindows() {
+    const userPlatform = window.navigator.platform;
+
+    return /win32/i.test(userPlatform);
+  }
 
   function generateUUID(): string {
     let uuid = window.crypto.randomUUID();
@@ -38,16 +44,22 @@
   function isValid(url: string): boolean {
     if (ValidURL.safeParse(url).success) {
       host = new URL(url).origin;
+      validationMessage = "";
       return true;
     } else {
-      message = i18n.messageNotURL[$lang];
+      validationMessage = i18n.messageNotURL[$lang];
       return false;
     }
   }
 
-  async function addServer(url: string, label: string) {
+  async function addServer() {
+    if (loading) {
+      return;
+    }
+
     if (isValid(url)) {
       const uuid = generateUUID();
+
       let newServer: Server = {
         id: uuid,
         host: host,
@@ -55,11 +67,13 @@
         status: "Offline",
         active: false,
       };
+
       let servers = $storage;
       servers.push(newServer);
       $storage = servers;
-      checkServer(uuid);
+
       cleanUp();
+      checkServer(uuid);
     }
   }
 
@@ -156,7 +170,7 @@
 </script>
 
 <section class="my-4">
-  <div class="flex space-x-2">
+  <form class="flex space-x-2" on:submit={addServer}>
     <div>
       <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
         >{i18n.label[$lang]}</label
@@ -168,6 +182,7 @@
           id="label"
           bind:value={label}
           placeholder={i18n.labelPlaceholder[$lang]}
+          class="block w-full rounded text-slate-950 dark:text-slate-100 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-950"
         />
       </div>
     </div>
@@ -183,21 +198,23 @@
           id="url"
           bind:value={url}
           placeholder={i18n.urlPlaceholder[$lang]}
+          class="block w-full rounded text-slate-950 dark:text-slate-100 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-950"
         />
       </div>
     </div>
 
     <button
-      type="button"
+      type="submit"
       class="button bg-orange-600 hover:bg-orange-500 rounded mt-6"
-      on:click={() => addServer(url, label)}
+      disabled={loading}
+      on:click={addServer}
     >
-      <HeroiconsPlusCircle20Solid />
+      <TablerPlus />
     </button>
-  </div>
+  </form>
 
-  <div class="text-sm text-center text-slate-500 dark:text-slate-300">
-    &nbsp;{message}&nbsp;
+  <div class="text-sm text-center text-orange-500 dark:text-orange-300 mt-1">
+    &nbsp;{validationMessage}&nbsp;
   </div>
 </section>
 
@@ -207,12 +224,12 @@
       <li class="items-center flex" transition:slide|local>
         <div class="text-slate-400 hover:text-red-600 items-center absolute -ml-8">
           <button type="button" on:click={() => removeServer(server.id)}>
-            <HeroiconsMinusCircle20Solid />
+            <TablerX />
           </button>
         </div>
 
         <div
-          class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b bg-slate-50 dark:bg-slate-600 shadow-sm"
+          class="flex flex-1 items-center justify-between truncate rounded-l border-l border-t border-b bg-slate-50 dark:bg-slate-800 shadow-sm"
           class:!border-blue-500={loading}
           class:border-emerald-500={server.status == "Hosting" ||
             server.status == "Online" ||
@@ -249,7 +266,7 @@
             type="button"
             class="button bg-blue-500 hover:bg-blue-400 rounded-r hover:cursor-not-allowed"
           >
-            <HeroiconsArrowPath20Solid class="animate-spin" />
+            <TablerRefresh class="animate-spin" />
           </button>
         {:else if server.status === "Offline"}
           <button
@@ -257,7 +274,7 @@
             class="button bg-red-600 hover:bg-red-500 rounded-r"
             on:click={() => checkServer(server.id)}
           >
-            <HeroiconsArrowPath20Solid />
+            <TablerRefresh />
           </button>
         {:else}
           <button
@@ -265,7 +282,7 @@
             class="button bg-emerald-500 hover:bg-emerald-400 rounded-none rounded-r"
             on:click={() => joinServer(server.host)}
           >
-            <HeroiconsArrowRightCircle20Solid />
+            <TablerChevronsRight />
           </button>
         {/if}
       </li>
@@ -273,9 +290,9 @@
   </ul>
 
   <div
-    class="p-2 bg-orange-100 0 rounded text-center justify-center text-sm text-orange-800 dark:bg-blue-200 dark:text-blue-800 my-4 mx-auto"
+    class="p-2  rounded text-center justify-center text-sm text-slate-800  dark:text-slate-400 my-4 mx-auto border border-dashed border-slate-400 dark:border-slate-600"
   >
-    {i18n.tipFullscreen[$lang]}
+    {(isWindows() ? "Ctrl" : "Cmd") + " + F11 " + i18n.tipFullscreen[$lang]}
   </div>
 
   <div class="flex justify-center space-x-6">
@@ -285,7 +302,7 @@
           id="skipCheck"
           name="skipCheck"
           type="checkbox"
-          class="h-4 w-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
+          class="h-5 w-5 rounded border-slate-300 text-orange-500 focus:ring-orange-500 dark:bg-slate-950 dark:border-slate-600"
           bind:checked={$skipCheck}
         />
       </div>

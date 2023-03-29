@@ -1,7 +1,7 @@
 {
   "name": "flc",
   "private": true,
-  "version": "2.5.0",
+  "version": "2.6.0",
   "type": "module",
   "scripts": {
     "tauri": "tauri",
@@ -12,7 +12,7 @@
     "icon": "tauri icon"
   },
   "devDependencies": {
-    "@iconify-json/heroicons": "^1.1.10",
+    "@iconify-json/tabler": "^1.1.69",
     "@sveltejs/adapter-static": "^2.0.1",
     "@sveltejs/kit": "^1.14.0",
     "@tauri-apps/api": "^1.2.0",
@@ -23,10 +23,10 @@
     "svelte-check": "^3.1.4",
     "svelte": "^3.57.0",
     "svu": "^0.2.1",
-    "tailwindcss": "^3.2.7",
+    "tailwindcss": "^3.3.0",
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
-    "unplugin-icons": "^0.16.0",
+    "unplugin-icons": "^0.16.1",
     "vite": "^4.2.1",
     "zod": "^3.21.4"
   }

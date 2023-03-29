@@ -8,9 +8,9 @@
 
   import i18nJson from "$lib/i18n.json";
 
-  import HeroiconsFolder20Solid from "~icons/heroicons/folder-20-solid";
-  import HeroiconsPlay20Solid from "~icons/heroicons/play-20-solid";
-  import HeroiconsStop20Solid from "~icons/heroicons/stop-20-solid";
+  import TablerFolder from "~icons/tabler/folder";
+  import TablerPlayerPlay from "~icons/tabler/player-play";
+  import TablerPlayerStop from "~icons/tabler/player-stop";
 
   export let checkAllServers: Function;
 
@@ -93,7 +93,14 @@
     <div class="p-2">
       <div class="w-full flex space-x-2">
         <div class="w-full">
-          <input type="text" name="foundryDir" id="foundryDir" bind:value={$foundryDir} disabled />
+          <input
+            type="text"
+            name="foundryDir"
+            id="foundryDir"
+            bind:value={$foundryDir}
+            class="block w-full rounded text-slate-950 dark:text-slate-100 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-950"
+            disabled
+          />
         </div>
 
         <button
@@ -101,7 +108,7 @@
           class="button bg-slate-600 hover:bg-slate-500 rounded "
           on:click={() => selectDir()}
         >
-          <HeroiconsFolder20Solid />
+          <TablerFolder />
         </button>
 
         {#if !launched}
@@ -110,7 +117,7 @@
             class="button bg-blue-600 hover:bg-blue-500 rounded "
             on:click={() => startServer()}
           >
-            <HeroiconsPlay20Solid />
+            <TablerPlayerPlay />
           </button>
         {:else}
           <button
@@ -120,7 +127,7 @@
               stopServer();
             }}
           >
-            <HeroiconsStop20Solid />
+            <TablerPlayerStop />
           </button>
         {/if}
       </div>
@@ -128,7 +135,7 @@
         {i18n.foundryDirTip[$lang]}
       </div>
       {#if serverError.length > 1}
-        <div class="mt-4 p-2 bg-slate-900 rounded-md">
+        <div class="mt-4 p-2 bg-slate-950 rounded-md">
           <p class="text-red-500 text-sm font-mono">{serverError}</p>
         </div>
       {/if}

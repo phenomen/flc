@@ -13,7 +13,3 @@ button svg {
 .button {
   @apply border border-transparent py-2 px-3 text-sm font-medium text-white h-full;
 }
-
-input[type="text"] {
-  @apply block w-full rounded text-slate-900 dark:text-slate-200 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-800;
-}

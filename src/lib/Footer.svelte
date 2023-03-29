@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import { localstore } from "svu/store";
 
-  import HeroiconsSun20Solid from "~icons/heroicons/sun-20-solid";
-  import HeroiconsMoon20Solid from "~icons/heroicons/moon-20-solid";
+  import TablerMoon from "~icons/tabler/moon";
+  import TablerSun from "~icons/tabler/sun";
 
   const theme = localstore("theme", "light");
   const lang = localstore("lang", "en");
@@ -42,9 +42,9 @@
 <footer class="pb-6 text-slate-500 dark:text-slate-200 items-center text-center">
   <button on:click={() => switchTheme()}>
     {#if $theme === "dark"}
-      <HeroiconsMoon20Solid />
+      <TablerMoon />
     {:else}
-      <HeroiconsSun20Solid />
+      <TablerSun />
     {/if}
   </button>
   <button on:click={() => switchLang()} class="uppercase font-medium">

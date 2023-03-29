@@ -56,8 +56,8 @@
     "ru": "Запуск в полноэкранном режиме"
   },
   "tipFullscreen": {
-    "en": "Use Ctrl/Cmd + F11 to toggle fullscreen mode",
-    "ru": "Ctrl/Cmd + F11 для переключения полноэкранного режима"
+    "en": "to toggle fullscreen mode",
+    "ru": "для переключения полноэкранного режима"
   },
   "foundryServerLauncher": {
     "en": "Foundry VTT Node.js Server Launcher",
