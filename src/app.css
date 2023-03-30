@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-button {
-  @apply inline-flex items-center;
-}
-
-button svg {
-  @apply mx-1 h-5 w-5;
-}
-
 .button {
-  @apply border border-transparent py-2 px-3 text-sm font-medium text-white h-full;
+  @apply inline-flex items-center border border-transparent py-2 px-4 text-white h-full;
+}
+
+*::-webkit-scrollbar {
+  @apply w-2 bg-transparent;
+}
+
+*::-webkit-scrollbar-track {
+  @apply w-2 bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-orange-600;
 }

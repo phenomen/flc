@@ -6,7 +6,7 @@
 
   import { localstore } from "svu/store";
 
-  import i18nJson from "$lib/i18n.json";
+  import i18nJson from "$lib/data/i18n.json";
 
   import TablerFolder from "~icons/tabler/folder";
   import TablerPlayerPlay from "~icons/tabler/player-play";
@@ -83,7 +83,7 @@
   }
 </script>
 
-<section class="my-4 ">
+<section class="my-6">
   <div
     class="bg-slate-200 dark:bg-slate-800 p-2 rounded mx-auto text-center justify-center shadow-inner"
   >
