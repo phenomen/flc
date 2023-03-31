@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { I18n } from "$lib/types";
 
+  import { join } from "@tauri-apps/api/path";
   import { open } from "@tauri-apps/api/dialog";
-  import { invoke } from "@tauri-apps/api/tauri";
+  import { Command } from "@tauri-apps/api/shell";
 
   import { localstore } from "svu/store";
 
   import i18nJson from "$lib/data/i18n.json";
-
   import TablerFolder from "~icons/tabler/folder";
   import TablerPlayerPlay from "~icons/tabler/player-play";
   import TablerPlayerStop from "~icons/tabler/player-stop";
@@ -18,57 +18,9 @@
   const lang = localstore("lang", "en");
   const foundryDir = localstore("foundrydir", "");
 
+  let server: any;
   let launched: boolean = false;
   let serverError: string = "";
-
-  async function startServer() {
-    if ($foundryDir === "" || $foundryDir === undefined) {
-      launched = false;
-      serverError = "------------ SELECT FOUNDRY VTT INSTALLATION DIRECTORY -----------";
-      return;
-    }
-
-    launched = true;
-    await invoke("start_server", { params: $foundryDir })
-      .then((message) => {
-        console.log(message);
-        serverError = "";
-      })
-      .catch((error) => {
-        console.error(error);
-        launched = false;
-
-        if (error.includes("Foundry VTT cannot start in this directory which is already locked")) {
-          serverError =
-            "-------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------- See error details in Console (F12)";
-        } else if (error.includes("Cannot find module")) {
-          serverError =
-            "------------ INCORRECT FOUNDRY VTT INSTALLATION FOLDER ----------- See error details in Console (F12)";
-        } else if (
-          error.includes("is not recognized as an internal or external command") ||
-          error.includes("program not found")
-        ) {
-          serverError =
-            "--------------------- NODEJS IS NOT INSTALLED -------------------- See error details in Console (F12)";
-        } else {
-          serverError = error;
-        }
-      });
-
-    checkAllServers();
-  }
-
-  async function stopServer() {
-    try {
-      await invoke("stop_server");
-    } catch (error) {
-      serverError = JSON.stringify(error) || "";
-      console.error(error);
-    }
-
-    launched = false;
-    checkAllServers();
-  }
 
   async function selectDir() {
     const selected = await open({
@@ -80,6 +32,77 @@
     } else {
       $foundryDir = selected;
     }
+  }
+
+  async function startServer() {
+    if ($foundryDir === "" || $foundryDir === undefined) {
+      serverError = "----------- SELECT FOUNDRY VTT INSTALLATION DIRECTORY ----------";
+      return;
+    }
+
+    const path = await join($foundryDir, "resources", "app", "main.js");
+    const command = new Command("node", [path]);
+
+    let stdoutData = "";
+    let stderrData = "";
+
+    command.on("close", (data) => {
+      console.log(`Node process finished with code ${data.code} and signal ${data.signal}`);
+    });
+
+    command.on("error", (error) => {
+      console.error(`command error: "${error}"`);
+    });
+
+    command.stdout.on("data", (line) => {
+      console.log(line);
+      stdoutData += line;
+      if (
+        stdoutData.includes(
+          "Foundry VTT cannot start in this directory which is already locked by another process"
+        )
+      ) {
+        serverError = "------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------";
+        launched = false;
+      } else if (stdoutData.includes("Foundry Virtual Tabletop")) {
+        serverError = "---------------- FOUNDRY VTT SERVER IS RUNNING -----------------";
+        launched = true;
+      }
+    });
+
+    command.stderr.on("data", (line) => {
+      stderrData += line;
+
+      if (stderrData.includes("Cannot find module")) {
+        serverError = "----------- INCORRECT FOUNDRY VTT INSTALLATION FOLDER ----------";
+        launched = false;
+      } else if (
+        stderrData.includes("is not recognized as an internal or external command") ||
+        stderrData.includes("program not found")
+      ) {
+        serverError = "-------------------- NODEJS IS NOT INSTALLED -------------------";
+        launched = false;
+      } else if (
+        stderrData.includes("Foundry VTT cannot start in this directory which is already locked")
+      ) {
+        serverError = "------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------";
+        launched = false;
+      } else {
+        serverError = stderrData;
+      }
+    });
+
+    server = await command.spawn();
+    console.log("pid:", server.pid);
+
+    checkAllServers();
+  }
+
+  async function stopServer() {
+    await server.kill();
+    launched = false;
+    serverError = "";
+    checkAllServers();
   }
 </script>
 

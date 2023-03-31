@@ -48,11 +48,11 @@
     "ru": "Система"
   },
   "toggleCheck": {
-    "en": "Toggle server status check",
-    "ru": "Переключение проверки серверов"
+    "en": "Toggle server check bypass",
+    "ru": "Переключение пропуска проверки сервера"
   },
   "toggleTheme": {
-    "en": "Toggle theme",
+    "en": "Switch theme",
     "ru": "Переключение темы"
   },
   "switchLanguage": {
