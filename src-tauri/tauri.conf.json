@@ -39,7 +39,7 @@
       "http": {
         "all": false,
         "request": true,
-        "scope": ["http://*/*", "https://*/*"]
+        "scope": ["https://*/*", "http://*/*"]
       }
     },
     "bundle": {
