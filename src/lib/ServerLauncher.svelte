@@ -104,6 +104,10 @@
     serverError = "";
     checkAllServers();
   }
+
+  window.addEventListener("tauri.exit", async () => {
+    await stopServer();
+  });
 </script>
 
 <section class="my-6">
@@ -159,7 +163,13 @@
       </div>
       {#if serverError.length > 1}
         <div class="mt-4 p-2 bg-slate-950 rounded-md">
-          <p class="text-red-500 text-sm font-mono">{serverError}</p>
+          <p
+            class="text-sm font-mono"
+            class:text-red-400={!launched}
+            class:text-emerald-400={launched}
+          >
+            {serverError}
+          </p>
         </div>
       {/if}
     </div>

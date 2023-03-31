@@ -1,10 +1,14 @@
 # CHANGELOG
 
+## v2.6.0
+
+- Webkit / Webview2 update.
+- Tauri switched to alpha version.
+
 ## v2.5.0
 
-- Better UX with form submit, subtle animations, loading states. 
+- Better UX with form submit, subtle animations, loading states.
 - Many layout and style improvements thanks to TailwindCSS 3.3 update.
-
 
 ## v2.4.0
 
