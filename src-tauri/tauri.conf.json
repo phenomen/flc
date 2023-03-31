@@ -18,6 +18,20 @@
         "setFullscreen": true,
         "maximize": true
       },
+      "path": {
+        "all": true
+      },
+      "shell": {
+        "all": false,
+        "execute": true,
+        "scope": [
+          {
+            "name": "node",
+            "cmd": "node",
+            "args": true
+          }
+        ]
+      },
       "dialog": {
         "all": false,
         "open": true

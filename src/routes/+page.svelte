@@ -1,17 +1,16 @@
 <script lang="ts">
   import type { I18n, Server, ServerUpdate } from "$lib/types";
-  import { ValidURL, PartnerHosting } from "$lib/types";
+  import { ValidURLScheme, PartnerHostingScheme } from "$lib/types";
 
   import { fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
 
   import { slide } from "svelte/transition";
   import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
   import { localstore } from "svu/store";
 
   import ServerLauncher from "$lib/ServerLauncher.svelte";
-  import i18nJson from "$lib/i18n.json";
+  import i18nJson from "$lib/data/i18n.json";
 
   import TablerPlus from "~icons/tabler/plus";
   import TablerX from "~icons/tabler/x";
@@ -20,6 +19,7 @@
 
   const defaultStorage: Server[] = [];
   const i18n: I18n = i18nJson;
+
   const lang = localstore("lang", "en");
   const storage = localstore("storage", defaultStorage);
   const skipCheck = localstore("skipcheck", false);
@@ -32,7 +32,6 @@
 
   function isWindows() {
     const userPlatform = window.navigator.platform;
-
     return /win32/i.test(userPlatform);
   }
 
@@ -42,7 +41,7 @@
   }
 
   function isValid(url: string): boolean {
-    if (ValidURL.safeParse(url).success) {
+    if (ValidURLScheme.safeParse(url).success) {
       host = new URL(url).origin;
       validationMessage = "";
       return true;
@@ -99,7 +98,7 @@
       status: "Offline",
     };
 
-    const hostingMatch = PartnerHosting.options.some((hosting) => {
+    const hostingMatch = PartnerHostingScheme.options.some((hosting) => {
       return server.host.includes(hosting);
     });
 
@@ -164,9 +163,7 @@
     checkAllServers();
   }
 
-  onMount(async () => {
-    checkAllServers();
-  });
+  checkAllServers();
 </script>
 
 <section class="my-4">
@@ -233,6 +230,7 @@
           class:!border-blue-500={loading}
           class:border-emerald-500={server.status == "Hosting" ||
             server.status == "Online" ||
+            server.status == "Active" ||
             server.status === "Inactive" ||
             server.status == "Skipped"}
           class:border-red-600={server.status === "Offline"}
@@ -293,23 +291,6 @@
     class="p-2  rounded text-center justify-center text-sm text-slate-800  dark:text-slate-400 my-4 mx-auto border border-dashed border-slate-400 dark:border-slate-600"
   >
     {(isWindows() ? "Ctrl" : "Cmd") + " + F11 " + i18n.tipFullscreen[$lang]}
-  </div>
-
-  <div class="flex justify-center space-x-6">
-    <div class="flex">
-      <div class="flex h-6 items-center">
-        <input
-          id="skipCheck"
-          name="skipCheck"
-          type="checkbox"
-          class="h-5 w-5 rounded border-slate-300 text-orange-500 focus:ring-orange-500 dark:bg-slate-950 dark:border-slate-600"
-          bind:checked={$skipCheck}
-        />
-      </div>
-      <div class="ml-2 text-sm font-medium leading-6 text-slate-900 dark:text-slate-50">
-        <label for="skipCheck">{i18n.skipCheck[$lang]}</label>
-      </div>
-    </div>
   </div>
 </section>
 

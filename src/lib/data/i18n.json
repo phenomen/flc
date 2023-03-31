@@ -47,13 +47,17 @@
     "en": "System",
     "ru": "Система"
   },
-  "skipCheck": {
-    "en": "Bypass server check",
-    "ru": "Пропуск проверки серверов"
+  "toggleCheck": {
+    "en": "Toggle server check bypass",
+    "ru": "Переключение пропуска проверки сервера"
   },
-  "startFullscreen": {
-    "en": "Open in fullscreen mode",
-    "ru": "Запуск в полноэкранном режиме"
+  "toggleTheme": {
+    "en": "Switch theme",
+    "ru": "Переключение темы"
+  },
+  "switchLanguage": {
+    "en": "Switch language",
+    "ru": "Переключение языка"
   },
   "tipFullscreen": {
     "en": "to toggle fullscreen mode",
