@@ -2,7 +2,7 @@
   import type { I18n, Server, ServerUpdate } from "$lib/types";
   import { ValidURLScheme, PartnerHostingScheme } from "$lib/types";
 
-  import { fetch } from "@tauri-apps/api/http";
+  import { fetch as tauri_fetch } from "@tauri-apps/api/http";
   import { appWindow } from "@tauri-apps/api/window";
 
   import { slide } from "svelte/transition";
@@ -40,9 +40,21 @@
     return uuid;
   }
 
+  function cleanUp() {
+    url = "";
+    host = "";
+    label = "";
+  }
+
   function isValid(url: string): boolean {
     if (ValidURLScheme.safeParse(url).success) {
-      host = new URL(url).origin;
+      let urlObject = new URL(url).href;
+
+      if (!urlObject.startsWith("http://") && !urlObject.startsWith("https://")) {
+        urlObject = "http://" + urlObject;
+      }
+
+      host = urlObject.replace(/\/$/, "");
       validationMessage = "";
       return true;
     } else {
@@ -74,12 +86,6 @@
       cleanUp();
       checkServer(uuid);
     }
-  }
-
-  function cleanUp() {
-    url = "";
-    host = "";
-    label = "";
   }
 
   async function removeServer(id: string) {
@@ -116,7 +122,7 @@
       let api: any = {};
 
       try {
-        api = await fetch(server.host + "/api/status", {
+        api = await tauri_fetch(server.host + "/api/status", {
           method: "GET",
           timeout: 5,
           headers: {
@@ -295,5 +301,5 @@
 </section>
 
 <section class="my-4">
-  <ServerLauncher {checkAllServers} />
+  <ServerLauncher {checkAllServers} {loading} />
 </section>
