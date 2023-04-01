@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "FLC",
-    "version": "2.6.0"
+    "version": "2.7.0"
   },
   "tauri": {
     "allowlist": {
@@ -39,7 +39,7 @@
       "http": {
         "all": false,
         "request": true,
-        "scope": ["http://*/*", "https://*/*"]
+        "scope": ["https://*/*", "http://*/*"]
       }
     },
     "bundle": {

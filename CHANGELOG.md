@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v2.7.0
+
+- Hotfixed an issue with a broken TLS library preventing connection to HTTPS servers. Replaced it with rustls-tls.
+- Allow reverse-proxy servers on URL subpaths (i.e. https://example.com/foundry).
+- Add a http:// protocol to URL if none is provided.
+
 ## v2.6.0
 
 - Webkit / Webview2 update.

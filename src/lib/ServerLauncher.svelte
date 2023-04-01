@@ -14,6 +14,8 @@
 
   export let checkAllServers: Function;
 
+  export let loading: boolean;
+
   const i18n: I18n = i18nJson;
   const lang = localstore("lang", "en");
   const foundryDir = localstore("foundrydir", "");
@@ -35,10 +37,16 @@
   }
 
   async function startServer() {
+    if (loading) {
+      return;
+    }
+
     if ($foundryDir === "" || $foundryDir === undefined) {
       serverError = "----------- SELECT FOUNDRY VTT INSTALLATION DIRECTORY ----------";
       return;
     }
+
+    loading = true;
 
     const path = await join($foundryDir, "resources", "app", "main.js");
     const command = new Command("node", [path]);
@@ -132,7 +140,7 @@
 
         <button
           type="button"
-          class="button bg-slate-600 hover:bg-slate-500 rounded "
+          class="button bg-slate-600 hover:bg-slate-500 rounded"
           on:click={() => selectDir()}
         >
           <TablerFolder />
@@ -141,7 +149,8 @@
         {#if !launched}
           <button
             type="button"
-            class="button bg-blue-600 hover:bg-blue-500 rounded "
+            class="button bg-blue-600 hover:bg-blue-500 rounded disabled:cursor-wait"
+            disabled={loading}
             on:click={() => startServer()}
           >
             <TablerPlayerPlay />
