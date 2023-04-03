@@ -12,8 +12,8 @@
     "ru": "URL"
   },
   "urlPlaceholder": {
-    "en": "http://192.168.0.1:30000 or server.com",
-    "ru": "http://192.168.0.1:30000 или server.com"
+    "en": "https://server.com or http://192.168.0.1:30000",
+    "ru": "https://server.com или http://192.168.0.1:30000"
   },
   "messageNotURL": {
     "en": "Please enter a valid IP or URL",
@@ -31,9 +31,9 @@
     "en": "Server is online but game World is not loaded.",
     "ru": "Сервер включён, но игровой мир не загружен."
   },
-  "statusOnline": {
-    "en": "Server is online",
-    "ru": "Сервер включён"
+  "statusActive": {
+    "en": "Server is online.",
+    "ru": "Сервер включён."
   },
   "statusSkipped": {
     "en": "Server check is skipped",
@@ -82,5 +82,9 @@
   "foundryServerError": {
     "en": "Something went wrong. See console (F12).",
     "ru": "Что-то пошло не так. Смотрите консоль (F12)."
+  },
+  "emptyListTip": {
+    "en": "The server list is empty. Start by adding a new server.",
+    "ru": "В списке нет серверов. Начните с добавления нового сервера."
   }
 }

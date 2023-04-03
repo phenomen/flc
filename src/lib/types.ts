@@ -11,7 +11,7 @@ export const ServerScheme = z.object({
   id: z.string().uuid(),
   host: z.union([z.string().url(), z.string().ip()]),
   label: z.string().optional(),
-  status: z.enum(["Active", "Inactive", "Hosting", "Skipped", "Offline"]),
+  status: z.enum(["Active", "Inactive", "Hosting", "Skipped", "Online", "Offline"]),
   active: z.boolean(),
   users: z.number().optional(),
   system: z.string().optional(),
