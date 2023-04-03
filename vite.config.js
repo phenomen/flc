@@ -11,15 +11,6 @@ export default defineConfig({
       scale: 1.2,
     }),
   ],
-
-  //svu
-  optimizeDeps: {
-    exclude: ["svu", "svu/*"],
-  },
-  ssr: {
-    noExternal: ["svu", "svu/*"],
-  },
-
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   // prevent vite from obscuring rust errors
   clearScreen: false,

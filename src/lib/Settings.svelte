@@ -1,18 +1,21 @@
 <script lang="ts">
-  import { localstore } from "svu/store";
-
   import type { I18n } from "$lib/types";
+
+  import { writable } from "svelte/store";
+  import { localstore } from "$lib/util";
+
   import i18nJson from "$lib/data/i18n.json";
 
-  import TablerMoon from "~icons/tabler/moon";
-  import TablerSun from "~icons/tabler/sun";
-  import TablerShieldCheck from "~icons/tabler/shield-check";
-  import TablerShieldX from "~icons/tabler/shield-x";
+  import IconMoon from "~icons/heroicons/moon-20-solid";
+  import IconSun from "~icons/heroicons/sun-20-solid";
+  import IconShieldCheck from "~icons/heroicons/shield-check-20-solid";
+  import IconShieldX from "~icons/heroicons/shield-exclamation-20-solid";
 
   const i18n: I18n = i18nJson;
-  const theme = localstore("theme", "light");
-  const lang = localstore("lang", "en");
-  const skipCheck = localstore("skipcheck", false);
+
+  const theme = localstore(writable("light"), "theme");
+  const lang = localstore(writable("en"), "lang");
+  const skipCheck = localstore(writable(false), "skipcheck");
 
   function setTheme() {
     if ($theme === "dark") {
@@ -52,29 +55,31 @@
   <button
     on:click={() => switchCheck()}
     title={i18n.toggleCheck[$lang]}
-    class="p-1 hover:text-orange-600"
+    class="p-1 hover:text-orange-500"
+    class:text-red-600={$skipCheck}
+    class:text-emerald-500={!$skipCheck}
   >
     {#if $skipCheck}
-      <TablerShieldX />
+      <IconShieldX />
     {:else}
-      <TablerShieldCheck />
+      <IconShieldCheck />
     {/if}
   </button>
   <button
     on:click={() => switchTheme()}
     title={i18n.toggleTheme[$lang]}
-    class="p-1 hover:text-orange-600"
+    class="p-1 hover:text-orange-500"
   >
     {#if $theme === "dark"}
-      <TablerMoon />
+      <IconMoon />
     {:else}
-      <TablerSun />
+      <IconSun />
     {/if}
   </button>
   <button
     on:click={() => switchLanguage()}
     title={i18n.switchLanguage[$lang]}
-    class="uppercase font-medium p-1 hover:text-orange-600"
+    class="uppercase font-medium p-1 hover:text-orange-500"
   >
     <span>{$lang}</span>
   </button>

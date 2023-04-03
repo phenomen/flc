@@ -5,20 +5,21 @@
   import { open } from "@tauri-apps/api/dialog";
   import { Command } from "@tauri-apps/api/shell";
 
-  import { localstore } from "svu/store";
+  import { writable } from "svelte/store";
+  import { localstore } from "$lib/util";
 
   import i18nJson from "$lib/data/i18n.json";
-  import TablerFolder from "~icons/tabler/folder";
-  import TablerPlayerPlay from "~icons/tabler/player-play";
-  import TablerPlayerStop from "~icons/tabler/player-stop";
+
+  import IconFolder from "~icons/heroicons/folder-20-solid";
+  import IconPlay from "~icons/heroicons/play-20-solid";
+  import IconStop from "~icons/heroicons/stop-20-solid";
 
   export let checkAllServers: Function;
-
   export let loading: boolean;
 
   const i18n: I18n = i18nJson;
-  const lang = localstore("lang", "en");
-  const foundryDir = localstore("foundrydir", "");
+  const lang = localstore(writable("en"), "lang");
+  const foundryDir = localstore(writable(""), "foundrydir");
 
   let server: any;
   let launched: boolean = false;
@@ -27,12 +28,13 @@
   async function selectDir() {
     const selected = await open({
       directory: true,
+      multiple: false,
     });
 
     if (selected === null) {
       return;
     } else {
-      $foundryDir = selected;
+      $foundryDir = selected as string;
     }
   }
 
@@ -54,15 +56,15 @@
     let stdoutData = "";
     let stderrData = "";
 
-    command.on("close", (data) => {
+    command.on("close", (data: any) => {
       console.log(`Node process finished with code ${data.code} and signal ${data.signal}`);
     });
 
-    command.on("error", (error) => {
+    command.on("error", (error: string) => {
       console.error(`command error: "${error}"`);
     });
 
-    command.stdout.on("data", (line) => {
+    command.stdout.on("data", (line: string) => {
       console.log(line);
       stdoutData += line;
       if (
@@ -78,7 +80,7 @@
       }
     });
 
-    command.stderr.on("data", (line) => {
+    command.stderr.on("data", (line: string) => {
       stderrData += line;
 
       if (stderrData.includes("Cannot find module")) {
@@ -143,7 +145,7 @@
           class="button bg-slate-600 hover:bg-slate-500 rounded"
           on:click={() => selectDir()}
         >
-          <TablerFolder />
+          <IconFolder />
         </button>
 
         {#if !launched}
@@ -153,7 +155,7 @@
             disabled={loading}
             on:click={() => startServer()}
           >
-            <TablerPlayerPlay />
+            <IconPlay />
           </button>
         {:else}
           <button
@@ -163,7 +165,7 @@
               stopServer();
             }}
           >
-            <TablerPlayerStop />
+            <IconStop />
           </button>
         {/if}
       </div>

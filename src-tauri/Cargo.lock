@@ -335,9 +335,9 @@ dependencies = [
 
 [[package]]
 name = "core-foundation-sys"
-version = "0.8.3"
+version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5827cebf4670468b8772dd191856768aedcb1b0278a04f989f7766351917b9dc"
+checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
 [[package]]
 name = "core-graphics"
@@ -639,7 +639,7 @@ dependencies = [
 
 [[package]]
 name = "flc"
-version = "2.7.0"
+version = "2.8.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -742,7 +742,7 @@ checksum = "89ca545a94061b6365f2c7355b4b32bd20df3ff95f02da9329b34ccc3bd6ee72"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.12",
+ "syn 2.0.13",
 ]
 
 [[package]]
@@ -2003,9 +2003,9 @@ checksum = "dc375e1527247fe1a97d8b7156678dfe7c1af2fc075c9a4db3690ecd2a148068"
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.54"
+version = "1.0.56"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e472a104799c74b514a57226160104aa483546de37e839ec50e3c2e41dd87534"
+checksum = "2b63bdb0cd06f1f4dedf69b254734f9b45af66e4a031e42a7480257d9898b435"
 dependencies = [
  "unicode-ident",
 ]
@@ -2390,7 +2390,7 @@ checksum = "4c614d17805b093df4b147b51339e7e44bf05ef59fba1e45d83500bcfb4d8585"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.12",
+ "syn 2.0.13",
 ]
 
 [[package]]
@@ -2412,7 +2412,7 @@ checksum = "bcec881020c684085e55a25f7fd888954d56609ef363479dc5a1305eb0d40cab"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.12",
+ "syn 2.0.13",
 ]
 
 [[package]]
@@ -2656,9 +2656,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.12"
+version = "2.0.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "79d9531f94112cfc3e4c8f5f02cb2b58f72c97b7efd85f70203cc6d8efda5927"
+checksum = "4c9da457c5285ac1f936ebd076af6dac17a61cfe7826f2076b4d015cf47bc8ec"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2749,8 +2749,8 @@ dependencies = [
 
 [[package]]
 name = "tauri"
-version = "2.0.0-alpha.4"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "2.0.0-alpha.5"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "anyhow",
  "base64 0.21.0",
@@ -2808,8 +2808,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-build"
-version = "2.0.0-alpha.2"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "2.0.0-alpha.3"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "anyhow",
  "cargo_toml",
@@ -2827,8 +2827,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-codegen"
-version = "2.0.0-alpha.2"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "2.0.0-alpha.3"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "base64 0.21.0",
  "brotli",
@@ -2853,8 +2853,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-macros"
-version = "2.0.0-alpha.2"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "2.0.0-alpha.3"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "heck",
  "proc-macro2",
@@ -2866,8 +2866,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-runtime"
-version = "0.13.0-alpha.2"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "0.13.0-alpha.3"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "gtk",
  "http",
@@ -2887,8 +2887,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-runtime-wry"
-version = "0.13.0-alpha.2"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "0.13.0-alpha.3"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "cocoa",
  "gtk",
@@ -2907,8 +2907,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-utils"
-version = "2.0.0-alpha.2"
-source = "git+https://github.com/tauri-apps/tauri?branch=next#4c3b9ecfdcd1a4489b1e466727f11045ef34d67a"
+version = "2.0.0-alpha.3"
+source = "git+https://github.com/tauri-apps/tauri?branch=next#09d5dd520f96483c7b29c3d4ca1062e2b3d81cb6"
 dependencies = [
  "brotli",
  "ctor",
@@ -2989,7 +2989,7 @@ checksum = "f9456a42c5b0d803c8cd86e73dd7cc9edd429499f37a3550d286d5e86720569f"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.12",
+ "syn 2.0.13",
 ]
 
 [[package]]
