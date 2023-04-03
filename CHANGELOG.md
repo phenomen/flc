@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v2.8.0
+
+- Replaced localstorage library with a custom light implementation.
+- Replaced Tabler with Heroicons.
+- Empty state for a server list.
+- Loading is now rotating along the arrows :D
+
 ## v2.7.0
 
 - Hotfixed an issue with a broken TLS library preventing connection to HTTPS servers. Replaced it with rustls-tls.
