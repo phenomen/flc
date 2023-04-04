@@ -5,86 +5,107 @@
   },
   "labelPlaceholder": {
     "en": "optional",
-    "ru": "не обязательно"
+    "ru": "не обязательно",
+    "ptbr": "Opcional"
   },
   "url": {
     "en": "URL",
-    "ru": "URL"
+    "ru": "URL",
+    "ptbr": "Link"
   },
   "urlPlaceholder": {
     "en": "https://server.com or http://192.168.0.1:30000",
-    "ru": "https://server.com или http://192.168.0.1:30000"
+    "ru": "https://server.com или http://192.168.0.1:30000",
+    "ptbr": "https://server.com ou http://192.168.0.1:30000"
   },
   "messageNotURL": {
     "en": "Please enter a valid IP or URL",
-    "ru": "Пожалуйста введите корректный IP или URL"
+    "ru": "Пожалуйста введите корректный IP или URL",
+    "ptbr": "Entre um IP ou Link válido."
   },
   "statusHosting": {
     "en": "Server is hosted on an official hosting partner.",
-    "ru": "Сервер расположен на официальном хостинге."
+    "ru": "Сервер расположен на официальном хостинге.",
+    "ptbr": "Servidor está hospedado em um parceiro de hospedagem oficial."
   },
   "statusOffline": {
     "en": "Server is offline or unreachable.",
-    "ru": "Сервер отключён или недоступен."
+    "ru": "Сервер отключён или недоступен.",
+    "ptbr": "Servidor está fora do ar ou não pode ser acessado."
   },
   "statusInactive": {
     "en": "Server is online but game World is not loaded.",
-    "ru": "Сервер включён, но игровой мир не загружен."
+    "ru": "Сервер включён, но игровой мир не загружен.",
+    "ptbr": "Servidor está online, mas o Mundo não está carregado."
   },
   "statusActive": {
     "en": "Server is online.",
-    "ru": "Сервер включён."
+    "ru": "Сервер включён.",
+    "ptbr": "Servidor está online."
   },
   "statusSkipped": {
     "en": "Server check is skipped",
-    "ru": "Проверка сервера пропущена"
+    "ru": "Проверка сервера пропущена",
+    "ptbr": "Verificação de servidor foi pulada."
   },
   "users": {
     "en": "Users",
-    "ru": "Участники"
+    "ru": "Участники",
+    "ptbr": "Usuários"
   },
   "system": {
     "en": "System",
-    "ru": "Система"
+    "ru": "Система",
+    "ptbr": "Sistema"
   },
   "toggleCheck": {
     "en": "Toggle server check bypass",
-    "ru": "Переключение пропуска проверки сервера"
+    "ru": "Переключение пропуска проверки сервера",
+    "ptbr": "Ativar vericação de servidor"
   },
   "toggleTheme": {
     "en": "Switch theme",
-    "ru": "Переключение темы"
+    "ru": "Переключение темы",
+    "ptbr": "Trocar tema"
   },
   "switchLanguage": {
     "en": "Switch language",
-    "ru": "Переключение языка"
+    "ru": "Переключение языка",
+    "ptbr": "Trocar idioma."
   },
   "tipFullscreen": {
     "en": "to toggle fullscreen mode",
-    "ru": "для переключения полноэкранного режима"
+    "ru": "для переключения полноэкранного режима",
+    "ptbr": "Mudar para tela cheia."
   },
   "foundryServerLauncher": {
     "en": "Foundry VTT Node.js Server Launcher",
-    "ru": "Запуск Node.js сервера Foundry VTT"
+    "ru": "Запуск Node.js сервера Foundry VTT",
+    "ptbr": "Iniciar Servidor NODE.js para o Foundry VTT."
   },
   "foundryDir": {
     "en": "Foundry VTT Directory",
-    "ru": "Папка Foundry VTT"
+    "ru": "Папка Foundry VTT",
+    "ptbr": "Diretório do Foundry VTT"
   },
   "foundryDirTip": {
     "en": "Foundry VTT app installation directory (not User Data). Headless server requires Node.js.",
-    "ru": "Папка, в которую установлен Foundry VTT (не User Data). Для запуска требуется Node.js."
+    "ru": "Папка, в которую установлен Foundry VTT (не User Data). Для запуска требуется Node.js.",
+    "ptbr": "Diretório de instalação da aplicação Foundry VTT (não é o diretório Data). Precisa do Node.js para rodar."
   },
   "foundryServerSuccess": {
     "en": "Server is up",
-    "ru": "Сервер запущен"
+    "ru": "Сервер запущен",
+    "ptbr": "Servidor está no ar."
   },
   "foundryServerError": {
     "en": "Something went wrong. See console (F12).",
-    "ru": "Что-то пошло не так. Смотрите консоль (F12)."
+    "ru": "Что-то пошло не так. Смотрите консоль (F12).",
+    "ptbr": "Algo deu errado. Verifique o console com (F12)."
   },
   "emptyListTip": {
     "en": "The server list is empty. Start by adding a new server.",
-    "ru": "В списке нет серверов. Начните с добавления нового сервера."
+    "ru": "В списке нет серверов. Начните с добавления нового сервера.",
+    "ptbr": "Lista de servidores vazia. Começe adicionando um novo servidor."
   }
 }
