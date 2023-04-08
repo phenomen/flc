@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v2.9.0
+
+- Brazilian Portuguese translation by @brunocalado
+- Vertically centered layout for large screens
+- Forced href assignment for macOS Webkit
+
 ## v2.8.0
 
 - Replaced localstorage library with a custom light implementation.
