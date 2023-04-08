@@ -41,10 +41,13 @@
 
   function switchLanguage() {
     if ($lang === "en") {
+      $lang = "pt";
+    } else if ($lang === "pt") {
       $lang = "ru";
-    } else {
+    } else if ($lang === "ru") {
       $lang = "en";
     }
+
     location.reload();
   }
 

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v2.9.0
+
+- Brazilian Portuguese translation by @brunocalado
+- Vertically centered layout for large screens
+- Forced href assignment for macOS Webkit
+
+## v2.8.0
+
+- Replaced localstorage library with a custom light implementation.
+- Replaced Tabler with Heroicons.
+- Empty state for a server list.
+- Loading is now rotating along the arrows :D
+
 ## v2.7.0
 
 - Hotfixed an issue with a broken TLS library preventing connection to HTTPS servers. Replaced it with rustls-tls.

@@ -6,7 +6,7 @@
   import { appWindow } from "@tauri-apps/api/window";
 
   import { slide } from "svelte/transition";
-  import { goto } from "$app/navigation";
+  //import { goto } from "$app/navigation";
   import { writable } from "svelte/store";
   import { localstore, isWindows, generateUUID } from "$lib/util";
 
@@ -154,7 +154,7 @@
   function joinServer(host: string) {
     appWindow.maximize();
 
-    goto(host);
+    window.location.assign(host);
   }
 
   $: {
@@ -214,7 +214,7 @@
   </div>
 </section>
 
-<section class="flex-1">
+<section>
   <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
     {#if $storage.length > 0}
       {#each $storage.slice().reverse() as server (server.id)}
@@ -293,7 +293,7 @@
   </ul>
 
   <div
-    class="p-2  rounded text-center justify-center text-sm text-slate-800  dark:text-slate-400 my-4 mx-auto border border-dashed border-slate-400 dark:border-slate-600"
+    class="p-2 rounded text-center justify-center text-sm text-slate-800 dark:text-slate-400 my-4 mx-auto border border-dashed border-slate-400 dark:border-slate-600"
   >
     {(isWindows() ? "Ctrl" : "Cmd") + " + F11 " + i18n.tipFullscreen[$lang]}
   </div>
