@@ -2,7 +2,7 @@ import { derived, get, writable, type Updater, type Writable } from "svelte/stor
 
 const isClient = typeof window !== "undefined";
 
-export function isWindows() {
+export function isWindows(): boolean {
   const userPlatform = window.navigator.platform;
   return /win32/i.test(userPlatform);
 }
