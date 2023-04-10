@@ -151,8 +151,10 @@
     $storage.forEach((item: Server) => checkServer(item.id));
   }
 
-  function joinServer(host: string) {
-    appWindow.maximize();
+  async function joinServer(host: string) {
+    if (isWindows()) {
+      await appWindow.maximize();
+    }
 
     window.location.assign(host);
   }

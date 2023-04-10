@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.9.5
+
+- Language selector is now a select list
+- Workaround for macOS struggle with `maximize()`
+
 ## v2.9.0
 
 - Brazilian Portuguese translation by @brunocalado

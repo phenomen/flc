@@ -39,18 +39,6 @@
     location.reload();
   }
 
-  function switchLanguage() {
-    if ($lang === "en") {
-      $lang = "pt";
-    } else if ($lang === "pt") {
-      $lang = "ru";
-    } else if ($lang === "ru") {
-      $lang = "en";
-    }
-
-    location.reload();
-  }
-
   setTheme();
 </script>
 
@@ -79,11 +67,18 @@
       <IconSun />
     {/if}
   </button>
-  <button
-    on:click={() => switchLanguage()}
-    title={i18n.switchLanguage[$lang]}
-    class="uppercase font-medium p-1 hover:text-orange-500"
-  >
-    <span>{$lang}</span>
-  </button>
+
+  <div>
+    <select
+      id="lang"
+      name="lang"
+      bind:value={$lang}
+      on:change={() => location.reload()}
+      class="block rounded border-0 text-slate-900 dark:text-slate-300 dark:ring-slate-900 dark:bg-slate-800 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-orange-600 sm:text-sm border-none"
+    >
+      <option value="en">EN</option>
+      <option value="pt">PT-BR</option>
+      <option value="ru">RU</option>
+    </select>
+  </div>
 </div>
