@@ -79,6 +79,7 @@
       <option value="en">EN</option>
       <option value="pt">PT-BR</option>
       <option value="ru">RU</option>
+      <option value="es">ES-ES</option>
     </select>
   </div>
 </div>
