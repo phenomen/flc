@@ -20,6 +20,7 @@
   const i18n: I18n = i18nJson;
   const lang = localstore(writable("en"), "lang");
   const foundryDir = localstore(writable(""), "foundrydir");
+  const foundryArgs = localstore(writable(""), "foundryargs");
 
   let server: any;
   let launched: boolean = false;
@@ -44,20 +45,24 @@
     }
 
     if ($foundryDir === "" || $foundryDir === undefined) {
-      serverError = "----------- SELECT FOUNDRY VTT INSTALLATION DIRECTORY ----------";
+      serverError =
+        "----------- SELECT FOUNDRY VTT INSTALLATION DIRECTORY ----------";
       return;
     }
 
     loading = true;
 
     const path = await join($foundryDir, "resources", "app", "main.js");
-    const command = new Command("node", [path]);
+
+    const command = new Command("node", [path, $foundryArgs]);
 
     let stdoutData = "";
     let stderrData = "";
 
     command.on("close", (data: any) => {
-      console.log(`Node process finished with code ${data.code} and signal ${data.signal}`);
+      console.log(
+        `Node process finished with code ${data.code} and signal ${data.signal}`
+      );
     });
 
     command.on("error", (error: string) => {
@@ -72,10 +77,12 @@
           "Foundry VTT cannot start in this directory which is already locked by another process"
         )
       ) {
-        serverError = "------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------";
+        serverError =
+          "------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------";
         launched = false;
       } else if (stdoutData.includes("Foundry Virtual Tabletop")) {
-        serverError = "---------------- FOUNDRY VTT SERVER IS RUNNING -----------------";
+        serverError =
+          "---------------- FOUNDRY VTT SERVER IS RUNNING -----------------";
         launched = true;
       }
     });
@@ -84,18 +91,25 @@
       stderrData += line;
 
       if (stderrData.includes("Cannot find module")) {
-        serverError = "----------- INCORRECT FOUNDRY VTT INSTALLATION FOLDER ----------";
+        serverError =
+          "----------- INCORRECT FOUNDRY VTT INSTALLATION FOLDER ----------";
         launched = false;
       } else if (
-        stderrData.includes("is not recognized as an internal or external command") ||
+        stderrData.includes(
+          "is not recognized as an internal or external command"
+        ) ||
         stderrData.includes("program not found")
       ) {
-        serverError = "-------------------- NODEJS IS NOT INSTALLED -------------------";
+        serverError =
+          "-------------------- NODEJS IS NOT INSTALLED -------------------";
         launched = false;
       } else if (
-        stderrData.includes("Foundry VTT cannot start in this directory which is already locked")
+        stderrData.includes(
+          "Foundry VTT cannot start in this directory which is already locked"
+        )
       ) {
-        serverError = "------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------";
+        serverError =
+          "------------- FOUNDRY VTT SERVER IS ALREADY RUNNING ------------";
         launched = false;
       } else {
         serverError = stderrData;
@@ -135,7 +149,7 @@
             name="foundryDir"
             id="foundryDir"
             bind:value={$foundryDir}
-            class="block w-full rounded text-slate-950 dark:text-slate-100 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-950"
+            class="block w-full rounded text-slate-950 dark:text-slate-100 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-100 dark:bg-slate-950"
             disabled
           />
         </div>
@@ -169,6 +183,18 @@
           </button>
         {/if}
       </div>
+
+      <div class="w-full mt-2">
+        <input
+          type="text"
+          name="foundryArgs"
+          id="foundryArgs"
+          bind:value={$foundryArgs}
+          placeholder="Optional launch parameters i.e --dataPath=C:/FoundryData"
+          class="block w-full rounded text-slate-950 dark:text-slate-100 border-slate-300 dark:border-slate-600 focus:border-orange-500 focus:ring-orange-500 text-sm bg-slate-50 dark:bg-slate-950"
+        />
+      </div>
+
       <div class="text-xs text-slate-500 dark:text-slate-400 mt-2">
         {i18n.foundryDirTip[$lang]}
       </div>

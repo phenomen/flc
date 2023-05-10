@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v3.0.0
+
+- Spanish language
+- Optional Node server launch parameters
+- Updated Tauri
+
 ## v2.9.5
 
 - Language selector is now a select list

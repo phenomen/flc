@@ -1,6 +1,6 @@
 [package]
 name = "flc"
-version = "2.9.5"
+version = "3.0.0"
 description = "Foundry Lightweight Client"
 authors = ["phenomen#1337"]
 license = "MIT"
@@ -18,7 +18,7 @@ tauri-build = { version = "2.0.0-alpha.4", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "2.0.0-alpha.7", features = ["devtools", "dialog-open", "global-shortcut", "http-request", "path-all", "rustls-tls", "shell-execute", "updater", "window-maximize", "window-set-fullscreen"] }
+tauri = { version = "2.0.0-alpha.8", features = ["devtools", "dialog-open", "global-shortcut", "http-request", "path-all", "rustls-tls", "shell-execute", "updater", "window-maximize", "window-set-fullscreen"] }
 
 [features]
 # by default Tauri runs in production mode
