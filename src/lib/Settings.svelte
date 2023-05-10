@@ -42,7 +42,9 @@
   setTheme();
 </script>
 
-<div class="text-lg text-slate-500 dark:text-slate-200 items-center space-x-2 flex">
+<div
+  class="text-lg text-slate-500 dark:text-slate-200 items-center space-x-2 flex"
+>
   <button
     on:click={() => switchCheck()}
     title={i18n.toggleCheck[$lang]}
@@ -76,9 +78,9 @@
       on:change={() => location.reload()}
       class="block rounded border-0 text-slate-900 dark:text-slate-300 dark:ring-slate-900 dark:bg-slate-800 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-orange-600 sm:text-sm border-none"
     >
-      <option value="en">EN</option>
+      <option value="en">EN-US</option>
       <option value="pt">PT-BR</option>
-      <option value="ru">RU</option>
+      <option value="ru">RU-RU</option>
       <option value="es">ES-ES</option>
     </select>
   </div>
