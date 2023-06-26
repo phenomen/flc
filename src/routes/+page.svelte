@@ -9,9 +9,9 @@
   //import { goto } from "$app/navigation";
   import { writable } from "svelte/store";
   import { localstore, isWindows, generateUUID } from "$lib/util";
+  import i18nJson from "$lib/data/i18n.json";
 
   import ServerLauncher from "$lib/ServerLauncher.svelte";
-  import i18nJson from "$lib/data/i18n.json";
 
   import IconPlus from "~icons/heroicons/plus-20-solid";
   import IconX from "~icons/heroicons/x-mark-20-solid";
@@ -41,7 +41,10 @@
     if (ValidURLScheme.safeParse(url).success) {
       let urlObject = new URL(url).href;
 
-      if (!urlObject.startsWith("http://") && !urlObject.startsWith("https://")) {
+      if (
+        !urlObject.startsWith("http://") &&
+        !urlObject.startsWith("https://")
+      ) {
         urlObject = "http://" + urlObject;
       }
 
@@ -170,7 +173,9 @@
 <section class="my-4">
   <form class="flex space-x-2" on:submit={addServer}>
     <div>
-      <label for="label" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
+      <label
+        for="label"
+        class="block text-sm font-medium text-slate-500 dark:text-slate-100"
         >{i18n.label[$lang]}</label
       >
       <div class="mt-1">
@@ -186,7 +191,9 @@
     </div>
 
     <div class="flex-1">
-      <label for="url" class="block text-sm font-medium text-slate-500 dark:text-slate-100"
+      <label
+        for="url"
+        class="block text-sm font-medium text-slate-500 dark:text-slate-100"
         >{i18n.url[$lang]}</label
       >
       <div class="mt-1">
@@ -217,11 +224,13 @@
 </section>
 
 <section>
-  <ul class="mt-2 mb-4 grid grid-cols-1 gap-4">
+  <ul class="mt-2 mb-4 grid grid-cols-1 gap-2">
     {#if $storage.length > 0}
       {#each $storage.slice().reverse() as server (server.id)}
         <li class="items-center flex" transition:slide|local>
-          <div class="text-slate-400 hover:text-red-600 items-center absolute -ml-8">
+          <div
+            class="text-slate-400 hover:text-red-600 items-center absolute -ml-8"
+          >
             <button type="button" on:click={() => removeServer(server.id)}>
               <IconX />
             </button>
@@ -237,11 +246,14 @@
             class:border-red-600={server.status === "Offline"}
           >
             <div class="flex-1 truncate px-4 py-2 items-center">
-              <span class="text-sm font-medium text-slate-900 dark:text-slate-50"
+              <span
+                class="text-sm font-medium text-slate-900 dark:text-slate-50"
                 >{server.label || ""}</span
               >
               <span class="text-sm text-slate-400">{server.host}</span>
-              <div class="text-sm text-slate-500 dark:text-slate-300 truncate flex items-center">
+              <div
+                class="text-sm text-slate-500 dark:text-slate-300 truncate flex items-center"
+              >
                 {#if server.status == "Hosting"}
                   {i18n.statusHosting[$lang]}
                 {:else if server.status === "Offline"}
@@ -293,14 +305,16 @@
       </div>
     {/if}
   </ul>
+</section>
 
+<section>
   <div
-    class="p-2 rounded text-center justify-center text-sm text-slate-800 dark:text-slate-400 my-4 mx-auto border border-dashed border-slate-400 dark:border-slate-600"
+    class="p-2 rounded text-center justify-center text-sm text-slate-800 dark:text-slate-400 mx-auto border border-dashed border-slate-400 dark:border-slate-600 w-full"
   >
     {(isWindows() ? "Ctrl" : "Cmd") + " + F11 " + i18n.tipFullscreen[$lang]}
   </div>
 </section>
 
-<section class="my-4">
+<section>
   <ServerLauncher {checkAllServers} {loading} />
 </section>
