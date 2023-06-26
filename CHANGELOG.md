@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v3.1.0
+
+- Added WebGL2 and GPU checker
+  
 ## v3.0.0
 
 - Spanish language @lozanoje
