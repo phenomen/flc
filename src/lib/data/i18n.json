@@ -130,5 +130,23 @@
     "ru": "В списке нет серверов. Начните с добавления нового сервера.",
     "pt": "Lista de servidores vazia. Começe adicionando um novo servidor.",
     "es": "Lista de servidores vacía. Añada un nuevo servidor"
+  },
+  "isAvailable": {
+    "en": "is available",
+    "ru": "доступен",
+    "pt": "está disponível",
+    "es": "está disponible"
+  },
+  "isNotAvailable": {
+    "en": "is not available",
+    "ru": "не доступен",
+    "pt": "não está disponível",
+    "es": "no está disponible"
+  },
+  "highPerformance": {
+    "en": "High-performance GPU",
+    "ru": "Производительный GPU",
+    "pt": "GPU de alto desempenho",
+    "es": "GPU de alto rendimiento"
   }
 }

@@ -2,7 +2,7 @@
 
 ## v3.0.0
 
-- Spanish language
+- Spanish language @lozanoje
 - Optional Node server launch parameters
 - Updated Tauri
 
