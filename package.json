@@ -3,8 +3,11 @@
 	"version": "4.0.0",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"tauri": "tauri",
+		"dev": "tauri dev",
+		"build": "tauri build",
+		"dev:web": "vite dev",
+		"build:web": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
