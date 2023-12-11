@@ -23,7 +23,7 @@ jobs:
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
       - name: install app dependencies and build it
-        run: pnpm install
+        run: npm install
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
