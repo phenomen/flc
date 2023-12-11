@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v4.0.0
+
+- Complete project rewrite. Some features may be temporary missing.
+- Updated Tauri to 1.5
+
 ## v3.0.0
 
 - Spanish language @lozanoje
