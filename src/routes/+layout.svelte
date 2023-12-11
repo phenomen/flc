@@ -1,13 +1,22 @@
 <script lang="ts">
-  import "../app.css";
-  import Header from "$lib/Header.svelte";
-  import WebGl from "$lib/WebGL.svelte";
+	import '../app.pcss';
+	import '@fontsource-variable/inter';
+	import '@fontsource-variable/jetbrains-mono';
+
+	import { ModeWatcher } from 'mode-watcher';
+
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
-<main
-  class="max-w-xl py-6 px-2 m-auto w-full h-full flex flex-col align-middle justify-center"
->
-  <Header />
-  <WebGl />
-  <slot />
-</main>
+<ModeWatcher />
+
+<div class="container mx-auto py-4 max-w-4xl flex flex-col h-full">
+	<Header />
+
+	<div class="flex-1">
+		<slot />
+	</div>
+
+	<Footer />
+</div>
