@@ -1,6 +1,6 @@
 {
 	"name": "flc",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"private": true,
 	"scripts": {
 		"tauri": "tauri",
@@ -20,9 +20,9 @@
 		"@fontsource-variable/jetbrains-mono": "^5.0.19",
 		"@sveltejs/adapter-auto": "^2.1.1",
 		"@sveltejs/adapter-static": "^2.0.3",
-		"@sveltejs/kit": "^1.28.0",
+		"@sveltejs/kit": "^1.29.1",
+		"@tauri-apps/api": "^1.5.2",
 		"@tauri-apps/cli": "^1.5.7",
-		"@tauri-apps/api": "^1.5.1",
 		"@typescript-eslint/eslint-plugin": "^6.14.0",
 		"@typescript-eslint/parser": "^6.14.0",
 		"autoprefixer": "^10.4.16",
