@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ValidURLScheme, PartnerHostingScheme } from '$lib/types';
+	import { ValidURLScheme } from '$lib/types';
 
 	import { lc } from '$lib/utils';
 	import { nanoid } from 'nanoid';
@@ -52,7 +52,7 @@
 	}
 </script>
 
-<form class="px-2 py-4 rounded-md border-muted border mt-6">
+<form class="px-2 py-4 rounded-lg border bg-card text-card-foreground shadow-sm mt-6">
 	<div class="flex items-center gap-2">
 		<div class="flex flex-col w-[300px] gap-1.5">
 			<Label for="label">{lc.s('label')}</Label>
@@ -60,7 +60,7 @@
 				type="text"
 				id="label"
 				autocomplete="off"
-				placeholder={lc.s('labelPlaceholder')}
+				placeholder={lc.s('optionalPlaceholder')}
 				bind:value={label}
 			/>
 		</div>
@@ -74,9 +74,10 @@
 				bind:value={url}
 			/>
 		</div>
-		<div class="flex flex-col gap-1.5">
+
+		<div class="flex flex-col gap-1.5 items-end">
 			<Label for="btn">&nbsp;</Label>
-			<Button type="submit" on:click={addServer} size="icon"><BookmarkPlusIcon /></Button>
+			<Button type="submit" on:click={addServer} class="w-full">{lc.s('addServer')}</Button>
 		</div>
 	</div>
 	<div class="text-center justify-center mt-1 text-red-500 font-mono text-sm">

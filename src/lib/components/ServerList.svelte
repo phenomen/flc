@@ -49,7 +49,7 @@
 			<Alert.Description class="text-center">{lc.s('emptyListMessage')}</Alert.Description>
 		</Alert.Root>
 	{:else}
-		<div class="grid grid-cols-2 gap-2">
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
 			{#each $servers.toReversed() as server (server.id)}
 				<ServerItem
 					{server}

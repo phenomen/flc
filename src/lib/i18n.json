@@ -2,10 +2,10 @@
 	"label": {
 		"en": "Label",
 		"ru": "Название",
-		"pt": "Rótulo",
-		"es": "Etiqueta"
+		"pt": "Nome",
+		"es": "Nombre"
 	},
-	"labelPlaceholder": {
+	"optionalPlaceholder": {
 		"en": "optional",
 		"ru": "не обязательно",
 		"pt": "opcional",
@@ -28,6 +28,12 @@
 		"ru": "Пожалуйста введите корректный IP или URL",
 		"pt": "Entre um IP ou URL válido.",
 		"es": "Introduzca una IP o una URL válida"
+	},
+	"addServer": {
+		"en": "Add Server",
+		"ru": "Добавить сервер",
+		"pt": "Adicionar servidor",
+		"es": "Añadir servidor"
 	},
 	"statusHosting": {
 		"en": "Server is hosted on an official hosting partner.",
@@ -72,34 +78,34 @@
 		"es": "Sistema"
 	},
 	"toggleCheck": {
-		"en": "Toggle server check bypass",
-		"ru": "Переключение пропуска проверки сервера",
-		"pt": "Ativar vericação de servidor",
+		"en": "Server check bypass",
+		"ru": "Пропуск проверки сервера",
+		"pt": "Ignorar a verificação do servidor",
 		"es": "Activar vericación del servidor"
 	},
 	"toggleTheme": {
-		"en": "Switch theme",
-		"ru": "Переключение темы",
+		"en": "Switch Theme",
+		"ru": "Переключить тему",
 		"pt": "Trocar tema",
 		"es": "Cambiar tema"
 	},
 	"switchLanguage": {
-		"en": "Switch language",
-		"ru": "Переключение языка",
+		"en": "Switch Language",
+		"ru": "Переключить язык",
 		"pt": "Trocar idioma",
 		"es": "Cambiar idioma"
 	},
 	"toggleFullscreen": {
-		"en": "Toggle fullscreen mode",
-		"ru": "Переключить полноэкранный режим",
-		"pt": "Alternar o modo de tela cheia",
-		"es": "Activar el modo de pantalla completa"
+		"en": "Fullscreen Mode",
+		"ru": "Полноэкранный режим",
+		"pt": "Modo de tela cheia",
+		"es": "Modo de pantalla completa"
 	},
 	"toggleStreamMode": {
-		"en": "Toggle streamer mode",
-		"ru": "Переключить режим трансляции",
-		"pt": "Alternar o modo de streamer",
-		"es": "Alternar el modo streamer"
+		"en": "Streaming Mode",
+		"ru": "Режим трансляции",
+		"pt": "Modo de streaming",
+		"es": "Modo streaming"
 	},
 	"serverNotes": {
 		"en": "Server Notes",
@@ -120,17 +126,47 @@
 		"pt": "Iniciar Servidor Node.js para o Foundry VTT",
 		"es": "Iniciar servidor Node.js para Foundry VTT"
 	},
-	"foundryDir": {
+	"foundryPath": {
 		"en": "Foundry VTT Directory",
-		"ru": "Папка Foundry VTT",
+		"ru": "Директория Foundry VTT",
 		"pt": "Diretório do Foundry VTT",
 		"es": "Directorio de Foundry VTT"
 	},
-	"foundryDirTip": {
-		"en": "Foundry VTT app installation directory (not User Data). Headless server requires Node.js.",
-		"ru": "Папка, в которую установлен Foundry VTT (не User Data). Для запуска требуется Node.js.",
-		"pt": "Diretório de instalação da aplicação Foundry VTT. Precisa do Node.js para rodar.",
-		"es": "Directorio de instalación de la aplicación Foundry VTT. Se necesita tener instalado Node.js"
+	"userDataPath": {
+		"en": "User Data Directory",
+		"ru": "Директория User Data",
+		"pt": "Diretório do User Data",
+		"es": "Directorio de User Data"
+	},
+	"portNumber": {
+		"en": "Port",
+		"ru": "Порт",
+		"pt": "Porta",
+		"es": "Puerto"
+	},
+	"defaultWorld": {
+		"en": "Default World ID",
+		"ru": "ID мира по умолчанию",
+		"pt": "Mundo padrão ID",
+		"es": "Mundo por defecto ID"
+	},
+	"extraArguments": {
+		"en": "Extra Arguments",
+		"ru": "Дополнительные аргументы",
+		"pt": "Argumentos adicionais",
+		"es": "Argumentos adicionales"
+	},
+	"foundryServerNodeRequirement": {
+		"en": "Headless server requires Node.js 18+",
+		"ru": "Для запуска требуется Node.js 18+",
+		"pt": "Precisa do Node.js para rodar 18+",
+		"es": "Se necesita tener instalado Node.js 18+"
+	},
+	"foundryServerNodeDownload": {
+		"en": "Download from the official website",
+		"ru": "Скачать с официального сайта",
+		"pt": "Faça o download no site oficial",
+		"es": "Descárgalo de la web oficial"
 	},
 	"foundryServerSuccess": {
 		"en": "Server is up",
@@ -167,5 +203,17 @@
 		"ru": "Производительный GPU",
 		"pt": "GPU de alto desempenho",
 		"es": "GPU de alto rendimiento"
+	},
+	"joinServer": {
+		"en": "Join Server",
+		"ru": "Присоединиться к серверу",
+		"pt": "Aderir ao servidor",
+		"es": "Unirse al servidor"
+	},
+	"launchServer": {
+		"en": "Launch Server",
+		"ru": "Запустить сервер",
+		"pt": "Iniciar servidor",
+		"es": "Iniciar servidor"
 	}
 }
