@@ -29,8 +29,10 @@
 	<Card.Footer class="flex items-center gap-1 w-full p-2.5">
 		<Button
 			on:click={() => dispatch('removeServerEvent', server.id)}
-			variant="destructive"
-			size="icon"><BookmarkXIcon /></Button
+			variant="outline"
+			size="icon"
+			class="text-destructive hover:text-destructive hover:border-destructive"
+			><BookmarkXIcon /></Button
 		>
 		<Button
 			on:click={() => dispatch('displayServerNotesEvent', server.id)}
@@ -38,6 +40,6 @@
 			size="icon"><InfoIcon /></Button
 		>
 		<div class="flex-1" />
-		<Button on:click={joinServer} size="icon"><LogInIcon /></Button>
+		<Button on:click={joinServer} variant="outline"><LogInIcon /></Button>
 	</Card.Footer>
 </Card.Root>

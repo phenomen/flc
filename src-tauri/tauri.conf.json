@@ -7,8 +7,8 @@
 		"distDir": "../build"
 	},
 	"package": {
-		"productName": "flc",
-		"version": "4.0.0"
+		"productName": "FLC",
+		"version": "4.1.0"
 	},
 	"tauri": {
 		"allowlist": {
@@ -49,7 +49,7 @@
 			},
 			"resources": [],
 			"shortDescription": "Foundry Lightweight Client",
-			"targets": "all",
+			"targets": ["msi", "dmg", "updater"],
 			"windows": {
 				"certificateThumbprint": null,
 				"digestAlgorithm": "sha256",
@@ -69,9 +69,11 @@
 				"title": "FLC",
 				"userAgent": "FLC",
 				"fullscreen": false,
-				"resizable": true,
+				"resizable": true,	
+				"center": true,
+				"fileDropEnabled": false,
 				"height": 600,
-				"width": 700
+				"width": 800
 			}
 		]
 	}

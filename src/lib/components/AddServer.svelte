@@ -52,8 +52,8 @@
 	}
 </script>
 
-<form>
-	<div class="flex items-center gap-2 mt-12">
+<form class="px-2 py-4 rounded-md border-muted border mt-6">
+	<div class="flex items-center gap-2">
 		<div class="flex flex-col w-[300px] gap-1.5">
 			<Label for="label">{lc.s('label')}</Label>
 			<Input
