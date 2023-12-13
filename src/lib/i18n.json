@@ -7,7 +7,7 @@
 	},
 	"optionalPlaceholder": {
 		"en": "optional",
-		"ru": "не обязательно",
+		"ru": "опционально",
 		"pt": "opcional",
 		"es": "opcional"
 	},
@@ -145,10 +145,10 @@
 		"es": "Puerto"
 	},
 	"defaultWorld": {
-		"en": "Default World ID",
-		"ru": "ID мира по умолчанию",
-		"pt": "Mundo padrão ID",
-		"es": "Mundo por defecto ID"
+		"en": "World ID",
+		"ru": "ID мира",
+		"pt": "Mundo ID",
+		"es": "Mundo ID"
 	},
 	"extraArguments": {
 		"en": "Extra Arguments",
