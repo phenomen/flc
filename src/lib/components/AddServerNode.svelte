@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { join } from '@tauri-apps/api/path';
 	import { open } from '@tauri-apps/api/dialog';
 	import { open as openURL } from '@tauri-apps/api/shell';
 
@@ -46,15 +45,36 @@
 			dataPath = selected as string;
 		}
 	}
+
+	function addServerNode() {
+		if (foundryPath === '' || label === '') {
+			validationMessage = lc.s('foundryServerMissingFields');
+		} else {
+			nodeservers.update((s) => [
+				...s,
+				{
+					id: nanoid(),
+					label: label,
+					foundryPath: foundryPath,
+					dataPath: dataPath,
+					port: Number(port),
+					world: world,
+					args: args
+				}
+			]);
+
+			validationMessage = '';
+		}
+	}
 </script>
 
 <form class="px-2 pt-4 rounded-lg border bg-card text-card-foreground shadow-sm mt-6 grid gap-2">
-	<div class="grid grid-cols-9 items-center gap-2">
-		<div class="flex flex-col gap-1.5 col-span-2">
+	<div class="flex items-center gap-2">
+		<div class="flex flex-col gap-1.5 w-full">
 			<Label for="label">{lc.s('label')}</Label>
 			<Input type="text" id="label" autocomplete="off" bind:value={label} />
 		</div>
-		<div class="flex flex-col gap-1.5 col-span-4">
+		<div class="flex flex-col gap-1.5 w-full">
 			<Label for="foundryPath">{lc.s('foundryPath')}</Label>
 			<Input
 				type="text"
@@ -64,7 +84,7 @@
 				on:click={selectFoundryPath}
 			/>
 		</div>
-		<div class="flex flex-col gap-1.5 col-span-3">
+		<div class="flex flex-col gap-1.5 w-full">
 			<Label for="dataPath">{lc.s('userDataPath')}</Label>
 			<Input
 				type="text"
@@ -77,8 +97,8 @@
 		</div>
 	</div>
 
-	<div class="grid grid-cols-9 items-center gap-2">
-		<div class="flex flex-col gap-1.5 col-span-2">
+	<div class="flex items-center gap-2">
+		<div class="flex flex-col gap-1.5">
 			<Label for="port">{lc.s('portNumber')}</Label>
 			<Input
 				type="number"
@@ -88,7 +108,7 @@
 				bind:value={port}
 			/>
 		</div>
-		<div class="flex flex-col gap-1.5 col-span-2">
+		<div class="flex flex-col gap-1.5">
 			<Label for="world">{lc.s('defaultWorld')}</Label>
 			<Input
 				type="text"
@@ -98,7 +118,7 @@
 				bind:value={world}
 			/>
 		</div>
-		<div class="flex flex-col gap-1.5 col-span-3">
+		<div class="flex flex-col gap-1.5 w-full">
 			<Label for="args">{lc.s('extraArguments')}</Label>
 			<Input
 				type="text"
@@ -110,7 +130,7 @@
 		</div>
 		<div class="flex flex-col gap-1.5 items-end col-span-2">
 			<Label for="btn">&nbsp;</Label>
-			<Button type="submit" class="w-full">{lc.s('addServer')}</Button>
+			<Button type="submit" on:click={addServerNode} size="icon"><BookmarkPlusIcon /></Button>
 		</div>
 	</div>
 
@@ -124,7 +144,7 @@
 		</span>
 	</div>
 
-	<div class="text-center justify-center mt-1 text-red-500 font-mono text-sm">
+	<div class="text-center justify-center my-1 text-red-500 font-mono text-sm">
 		{#if validationMessage}
 			<p>{validationMessage}</p>
 		{/if}

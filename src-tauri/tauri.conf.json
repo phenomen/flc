@@ -36,6 +36,11 @@
 						"args": true
 					}
 				]
+			},
+			"http": {
+				"all": false,
+				"request": true,
+				"scope": ["https://*", "http://*"]
 			}
 		},
 		"bundle": {
@@ -87,7 +92,7 @@
 				"resizable": true,
 				"center": true,
 				"fileDropEnabled": false,
-				"height": 600,
+				"height": 650,
 				"width": 900
 			}
 		]

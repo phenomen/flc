@@ -168,6 +168,12 @@
 		"pt": "Faça o download no site oficial",
 		"es": "Descárgalo de la web oficial"
 	},
+	"foundryServerMissingFields": {
+		"en": "Server name and Foundry VTT directory are required",
+		"ru": "Требуется ввести название сервера и выбрать директорию Foundry VTT",
+		"pt": "O nome do servidor e o diretório Foundry VTT são obrigatórios",
+		"es": "Se requieren el nombre del servidor y el directorio Foundry VTT"
+	},
 	"foundryServerSuccess": {
 		"en": "Server is up",
 		"ru": "Сервер запущен",
