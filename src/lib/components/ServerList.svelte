@@ -9,7 +9,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Alert from '$lib/components/ui/alert';
 	import * as Dialog from '$lib/components/ui/dialog';
-	import { Textarea } from '$lib/components/ui/textarea';
+	import { Input } from '$lib/components/ui/input';
 
 	import { SaveIcon } from 'lucide-svelte';
 
@@ -68,8 +68,10 @@
 			<Dialog.Description>{lc.s('serverNotesDescription')}</Dialog.Description>
 		</Dialog.Header>
 
-		<Textarea bind:value={notes} class={`${$preferences.streamMode ? 'blur-sm' : ''}`} />
+		<form class="flex w-full items-center space-x-2" on:submit={() => saveNotes(notesId)}>
+			<Input bind:value={notes} class={`${$preferences.streamMode ? 'blur-sm' : ''}`} />
 
-		<Button type="submit" on:click={() => saveNotes(notesId)} size="icon"><SaveIcon /></Button>
+			<Button type="submit"><SaveIcon /></Button>
+		</form>
 	</Dialog.Content>
 </Dialog.Root>

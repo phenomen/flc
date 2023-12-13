@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { lc } from '$lib/utils';
 	import { onMount } from 'svelte';
-	import * as Alert from '$lib/components/ui/alert';
 
 	let glEnabled = false;
 	let highPerf = false;
@@ -26,26 +25,24 @@
 	});
 </script>
 
-<Alert.Root
-	class={!glEnabled || !highPerf
-		? 'border-red-500 text-red-500'
-		: 'border-emerald-500 text-emerald-500'}
+<div
+	class={`${
+		!glEnabled || !highPerf ? 'border-red-500 text-red-500' : 'border-emerald-500 text-emerald-500'
+	} text-center text-xs font-mono`}
 >
-	<Alert.Description class="text-center">
-		<span>
-			{#if glEnabled}
-				WebGL2 {lc.s('isAvailable')}
-			{:else}
-				WebGL2 {lc.s('isNotAvailable')}
-			{/if}
-		</span>
-		<span> | </span>
-		<span>
-			{#if highPerf}
-				{lc.s('highPerformance')} {lc.s('isAvailable')}
-			{:else}
-				{lc.s('highPerformance')} {lc.s('isNotAvailable')}
-			{/if}
-		</span></Alert.Description
-	>
-</Alert.Root>
+	<span>
+		{#if glEnabled}
+			WebGL2 {lc.s('isAvailable')}
+		{:else}
+			WebGL2 {lc.s('isNotAvailable')}
+		{/if}
+	</span>
+	<span> | </span>
+	<span>
+		{#if highPerf}
+			{lc.s('highPerformance')} {lc.s('isAvailable')}
+		{:else}
+			{lc.s('highPerformance')} {lc.s('isNotAvailable')}
+		{/if}
+	</span>
+</div>

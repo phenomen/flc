@@ -11,20 +11,12 @@
 
 	import { BookmarkPlusIcon } from 'lucide-svelte';
 
-	let url = '';
 	let host = '';
 	let label = '';
 	let validationMessage = '';
 
 	function isValid(url: string): boolean {
 		if (ValidURLScheme.safeParse(url).success) {
-			let urlObject = new URL(url).href;
-
-			if (!urlObject.startsWith('http://') && !urlObject.startsWith('https://')) {
-				urlObject = 'http://' + urlObject;
-			}
-
-			host = urlObject.replace(/\/$/, '');
 			return true;
 		} else {
 			validationMessage = lc.s('messageNotURL');
@@ -33,19 +25,18 @@
 	}
 
 	function addServer() {
-		if (isValid(url)) {
+		if (isValid(host)) {
 			servers.update((s) => [
 				...s,
 				{
 					id: nanoid(),
 					label: label,
-					host: url,
-					notes: undefined
+					host: host,
+					notes: ''
 				}
 			]);
 
 			label = '';
-			url = '';
 			host = '';
 			validationMessage = '';
 		}
@@ -65,19 +56,19 @@
 			/>
 		</div>
 		<div class="flex flex-col w-full gap-1.5">
-			<Label for="url">{lc.s('url')}</Label>
+			<Label for="host">{lc.s('url')}</Label>
 			<Input
 				type="text"
-				id="url"
+				id="host"
 				autocomplete="off"
 				placeholder={lc.s('urlPlaceholder')}
-				bind:value={url}
+				bind:value={host}
 			/>
 		</div>
 
 		<div class="flex flex-col gap-1.5 items-end">
 			<Label for="btn">&nbsp;</Label>
-			<Button type="submit" on:click={addServer} class="w-full">{lc.s('addServer')}</Button>
+			<Button type="submit" on:click={addServer} size="icon"><BookmarkPlusIcon /></Button>
 		</div>
 	</div>
 	<div class="text-center justify-center mt-1 text-red-500 font-mono text-sm">
