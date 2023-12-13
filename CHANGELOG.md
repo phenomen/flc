@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## v4.3.0
+
+- Server status check
+- Node server launcher
+
+## v4.2.0
+
+- UI improvements
+
+## v4.1.0
+
+- Fixed Foundry's drag-and-drop on Windows
+
 ## v4.0.0
 
 - Complete project rewrite. Some features may be temporary missing.
