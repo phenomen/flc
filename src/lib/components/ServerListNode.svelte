@@ -2,7 +2,7 @@
 	import type { NodeServer } from '$lib/types';
 
 	import { join } from '@tauri-apps/api/path';
-	import { Command } from '@tauri-apps/api/shell';
+	import { Command } from '@tauri-apps/plugin-shell';
 
 	import { lc } from '$lib/utils';
 	import { nodeservers } from '$lib/stores';

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { open } from '@tauri-apps/api/dialog';
-	import { open as openURL } from '@tauri-apps/api/shell';
+	import { open } from '@tauri-apps/plugin-dialog';
+	import { open as openURL } from '@tauri-apps/plugin-shell';
 
 	import { lc } from '$lib/utils';
 	import { nanoid } from 'nanoid';
@@ -138,7 +138,7 @@
 		<span class="text-muted-foreground text-sm"
 			>{lc.s('foundryServerNodeRequirement')} |
 
-			<button class="underline" on:click={() => openURL('https://nodejs.org/en/download/current')}
+			<button class="underline" on:click={() => openURL('https://nodejs.org/en/download')}
 				>{lc.s('foundryServerNodeDownload')}</button
 			>
 		</span>

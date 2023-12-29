@@ -157,10 +157,10 @@
 		"es": "Argumentos adicionales"
 	},
 	"foundryServerNodeRequirement": {
-		"en": "Headless server requires Node.js 18+",
-		"ru": "Для запуска требуется Node.js 18+",
-		"pt": "Precisa do Node.js para rodar 18+",
-		"es": "Se necesita tener instalado Node.js 18+"
+		"en": "Headless server requires Node.js 20+",
+		"ru": "Для запуска требуется Node.js 20+",
+		"pt": "Precisa do Node.js para rodar 20+",
+		"es": "Se necesita tener instalado Node.js 20+"
 	},
 	"foundryServerNodeDownload": {
 		"en": "Download from the official website",

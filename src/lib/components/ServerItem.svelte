@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Server } from '$lib/types';
-	import { fetch } from '@tauri-apps/api/http';
+	import { fetch as tauriFetch } from '@tauri-apps/plugin-http';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { preferences } from '$lib/stores';
 
@@ -16,28 +16,25 @@
 
 	async function checkAPI(url: string, timeout: number): Promise<boolean> {
 		loading = true;
-		let api;
 
 		try {
-			api = await fetch(url, {
+			const api = await tauriFetch(url, {
 				method: 'HEAD',
-				timeout: timeout,
+				connectTimeout: timeout,
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 					'User-Agent': 'FLC'
 				}
 			});
-		} catch (error) {
-			return false;
-		} finally {
+
 			loading = false;
 
-			if (api?.ok) {
-				return true;
-			} else {
-				return false;
-			}
+			return api?.ok || false;
+		} catch (error) {
+			loading = false;
+			console.error('Error during API request:', error);
+			return false;
 		}
 	}
 
