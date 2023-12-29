@@ -1,13 +1,11 @@
 [package]
 name = "flc"
-version = "4.3.1"
+version = "4.5.0"
 description = "Foundry Lightweight Client"
 authors = ["phenomen"]
 license = "MIT"
 repository = "@phenomen/flc"
-default-run = "flc"
 edition = "2021"
-rust-version = "1.60"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -15,15 +13,17 @@ rust-version = "1.60"
 strip = true
 
 [build-dependencies]
-tauri-build = { version = "1.5.0", features = [] }
+tauri-build = { version = "2.0.0-alpha", features = [] }
 
 [dependencies]
+tauri = { version = "2.0.0-alpha", features = [ "devtools" ] }
+tauri-plugin-shell = "2.0.0-alpha"
+tauri-plugin-http = "2.0.0-alpha"
+tauri-plugin-dialog = "2.0.0-alpha"
+tauri-plugin-global-shortcut = "2.0.0-alpha"
 serde_json = "1.0"
-serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.5.3", features = [ "http-request", "shell-open", "path-all", "shell-execute", "devtools", "global-shortcut", "updater", "window-maximize", "window-set-fullscreen", "dialog-open"] }
 
 [features]
-# this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
-# If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.
+# this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!
-custom-protocol = [ "tauri/custom-protocol" ]
+custom-protocol = ["tauri/custom-protocol"]

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { toggleMode } from 'mode-watcher';
-	import { appWindow } from '@tauri-apps/api/window';
+	import { getCurrent } from '@tauri-apps/api/window';
 	import { preferences } from '$lib/stores';
 	import { lc } from '$lib/utils';
 
@@ -30,8 +30,9 @@
 	}
 
 	async function toggleFullscreen() {
-		isFullscreen = await appWindow.isFullscreen();
-		appWindow.setFullscreen(!isFullscreen);
+		isFullscreen = await getCurrent().isFullscreen();
+		console.log(isFullscreen);
+		getCurrent().setFullscreen(!isFullscreen);
 	}
 </script>
 
@@ -54,7 +55,7 @@
 		on:click={toggleFullscreen}
 		variant="outline"
 		size="icon"
-		title={lc.s('toggleFullscreen') + ' (Ctrl+F11)'}
+		title={lc.s('toggleFullscreen')}
 	>
 		{#if isFullscreen}
 			<MaximizeIcon />

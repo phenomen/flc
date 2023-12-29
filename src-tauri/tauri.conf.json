@@ -8,41 +8,28 @@
 	},
 	"package": {
 		"productName": "FLC",
-		"version": "4.3.1"
+		"version": "4.5.0"
+	},
+	"plugins": {
+		"http": {
+			"scope": ["https://*", "http://*"]
+		},
+		"shell": {
+			"open": true,
+			"scope": [
+				{
+					"args": true,
+					"cmd": "node",
+					"name": "node",
+					"sidecar": false
+				}
+			]
+		},
+		"updater": {
+			"endpoints": ["https://flc.ruleplaying.com/flc.json"]
+		}
 	},
 	"tauri": {
-		"allowlist": {
-			"all": false,
-			"window": {
-				"all": false,
-				"setFullscreen": true,
-				"maximize": true
-			},
-			"dialog": {
-				"all": false,
-				"open": true
-			},
-			"path": {
-				"all": true
-			},
-			"shell": {
-				"all": false,
-				"execute": true,
-				"open": true,
-				"scope": [
-					{
-						"name": "node",
-						"cmd": "node",
-						"args": true
-					}
-				]
-			},
-			"http": {
-				"all": false,
-				"request": true,
-				"scope": ["https://*", "http://*"]
-			}
-		},
 		"bundle": {
 			"active": true,
 			"category": "RolePlayingGame",
@@ -70,6 +57,10 @@
 			"resources": [],
 			"shortDescription": "Foundry Lightweight Client",
 			"targets": ["msi", "dmg", "updater"],
+			"updater": {
+				"active": true,
+				"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK"
+			},
 			"windows": {
 				"certificateThumbprint": null,
 				"digestAlgorithm": "sha256",
@@ -79,20 +70,15 @@
 		"security": {
 			"csp": null
 		},
-		"updater": {
-			"active": true,
-			"endpoints": ["https://flc.ruleplaying.com/flc.json"],
-			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK"
-		},
 		"windows": [
 			{
-				"title": "FLC",
-				"userAgent": "FLC",
-				"fullscreen": false,
-				"resizable": true,
 				"center": true,
 				"fileDropEnabled": false,
+				"fullscreen": false,
 				"height": 650,
+				"resizable": true,
+				"title": "FLC",
+				"userAgent": "FLC",
 				"width": 900
 			}
 		]
