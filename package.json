@@ -45,7 +45,7 @@
 		"svelte-check": "^3.6.2",
 		"svelte-persisted-store": "^0.8.0",
 		"tailwind-merge": "^2.2.0",
-		"tailwind-variants": "^0.1.19",
+		"tailwind-variants": "^0.1.20",
 		"tailwindcss": "^3.4.0",
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",
