@@ -35,7 +35,7 @@
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
-		"lucide-svelte": "^0.303.0",
+		"lucide-svelte": "^0.304.0",
 		"mode-watcher": "^0.1.2",
 		"nanoid": "^5.0.4",
 		"postcss": "^8.4.32",
