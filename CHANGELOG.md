@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v4.5.0
+
+- Tauri v2 Update
+
+## v4.3.1
+
+- Sveltekit 2.0 Migration
+
 ## v4.3.0
 
 - Server status check
