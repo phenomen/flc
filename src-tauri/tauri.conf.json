@@ -75,11 +75,11 @@
 				"center": true,
 				"fileDropEnabled": false,
 				"fullscreen": false,
-				"height": 650,
+				"height": 700,
 				"resizable": true,
 				"title": "FLC",
 				"userAgent": "FLC",
-				"width": 900
+				"width": 1024
 			}
 		]
 	}
