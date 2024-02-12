@@ -19,7 +19,7 @@
 		"@fontsource-variable/inter": "^5.0.16",
 		"@fontsource-variable/jetbrains-mono": "^5.0.19",
 		"@sveltejs/adapter-static": "^3.0.1",
-		"@sveltejs/kit": "^2.0.6",
+		"@sveltejs/kit": "^2.4.3",
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
 		"@tauri-apps/api": "^2.0.0-alpha.13",
 		"@tauri-apps/cli": "^2.0.0-alpha.20",
