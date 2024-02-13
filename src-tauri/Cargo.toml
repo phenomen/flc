@@ -1,6 +1,6 @@
 [package]
 name = "flc"
-version = "4.5.0"
+version = "5.0.0"
 description = "Foundry Lightweight Client"
 authors = ["phenomen"]
 license = "MIT"
@@ -13,17 +13,19 @@ edition = "2021"
 strip = true
 
 [build-dependencies]
-tauri-build = { version = "2.0.0-alpha", features = [] }
+tauri-build = { version = "2.0.0-beta", features = [] }
 
 [dependencies]
-tauri = { version = "2.0.0-alpha", features = [ "devtools" ] }
-tauri-plugin-shell = "2.0.0-alpha"
-tauri-plugin-http = "2.0.0-alpha"
-tauri-plugin-dialog = "2.0.0-alpha"
-tauri-plugin-global-shortcut = "2.0.0-alpha"
+tauri = { version = "2.0.0-beta", features = [ "devtools" ] }
 serde_json = "1.0"
+tauri-plugin-http = "2.0.0-beta.0"
+tauri-plugin-dialog = "2.0.0-beta.0"
+tauri-plugin-shell = "2.0.0-beta.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!
 custom-protocol = ["tauri/custom-protocol"]
+
+[target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
+tauri-plugin-global-shortcut = "2.0.0-beta.0"

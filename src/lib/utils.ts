@@ -1,16 +1,9 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { type ClassNameValue, twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
 
-/* i18n */
-import { get } from 'svelte/store';
-import { preferences } from '$lib/stores';
-import type { I18n } from '$lib/types';
-import i18nJson from '$lib/i18n.json';
-
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
+export function cn(...inputs: ClassNameValue[]) {
+	return twMerge(inputs);
 }
 
 type FlyAndScaleParams = {
@@ -60,18 +53,3 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
-
-class Localization {
-	private i18n: I18n;
-
-	constructor() {
-		this.i18n = i18nJson;
-	}
-
-	s(key: string): string {
-		const lang = get(preferences).language.value;
-		return this.i18n[key][lang];
-	}
-}
-
-export const lc = new Localization();
