@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 
 	import * as Tabs from '$lib/components/ui/tabs';
 

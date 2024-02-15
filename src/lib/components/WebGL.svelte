@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 	import { onMount } from 'svelte';
 
 	let glEnabled = false;

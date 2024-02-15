@@ -1,88 +1,65 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
-  "productName": "FLC",
-  "version": "5.0.0",
-  "app": {
-    "security": {
-      "csp": null
-    },
-    "windows": [
-      {
-        "center": true,
-        "fileDropEnabled": false,
-        "fullscreen": false,
-        "height": 650,
-        "resizable": true,
-        "title": "FLC",
-        "userAgent": "FLC",
-        "width": 900
-      }
-    ]
-  },
-  "build": {
-    "beforeBuildCommand": "npm run build:web",
-    "beforeDevCommand": "npm run dev:web",
-    "devUrl": "http://localhost:5173",
-    "frontendDist": "../build"
-  },
-  "bundle": {
-    "active": true,
-    "category": "RolePlayingGame",
-    "copyright": "phenomen",
-    "externalBin": [],
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "longDescription": "Foundry Lightweight Client",
-    "macOS": {
-      "entitlements": null,
-      "exceptionDomain": "",
-      "frameworks": [],
-      "providerShortName": null,
-      "signingIdentity": null
-    },
-    "resources": [],
-    "shortDescription": "Foundry Lightweight Client",
-    "targets": [
-      "msi",
-      "dmg",
-      "updater"
-    ],
-    "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": ""
-    }
-  },
-  "identifier": "com.phenomen.flc",
-  "plugins": {
-    "http": {
-      "scope": [
-        "https://*",
-        "http://*"
-      ]
-    },
-    "shell": {
-      "open": true,
-      "scope": [
-        {
-          "args": true,
-          "cmd": "node",
-          "name": "node",
-          "sidecar": false
-        }
-      ]
-    },
-    "updater": {
-      "active": true,
-      "endpoints": [
-        "https://flc.ruleplaying.com/flc.json"
-      ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK"
-    }
-  }
+	"$schema": "../node_modules/@tauri-apps/cli/schema.json",
+	"productName": "FLC",
+	"version": "5.0.0",
+	"app": {
+		"security": {
+			"csp": null
+		},
+		"windows": [
+			{
+				"center": true,
+				"fileDropEnabled": false,
+				"fullscreen": false,
+				"height": 650,
+				"resizable": true,
+				"title": "FLC",
+				"userAgent": "FLC",
+				"width": 900
+			}
+		]
+	},
+	"build": {
+		"beforeBuildCommand": "npm run build:web",
+		"beforeDevCommand": "npm run dev:web",
+		"devUrl": "http://localhost:5173",
+		"frontendDist": "../build"
+	},
+	"bundle": {
+		"active": true,
+		"category": "RolePlayingGame",
+		"copyright": "phenomen",
+		"externalBin": [],
+		"icon": [
+			"icons/32x32.png",
+			"icons/128x128.png",
+			"icons/128x128@2x.png",
+			"icons/icon.icns",
+			"icons/icon.ico"
+		],
+		"longDescription": "Foundry Lightweight Client",
+		"macOS": {
+			"entitlements": null,
+			"exceptionDomain": "",
+			"frameworks": [],
+			"providerShortName": null,
+			"signingIdentity": null
+		},
+		"resources": [],
+		"shortDescription": "Foundry Lightweight Client",
+		"targets": ["msi", "dmg", "updater"],
+		"windows": {
+			"certificateThumbprint": null,
+			"digestAlgorithm": "sha256",
+			"timestampUrl": ""
+		}
+	},
+	"identifier": "com.phenomen.flc",
+	"plugins": {
+		"updater": {
+			"active": true,
+			"endpoints": ["https://flc.ruleplaying.com/flc.json"],
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK"
+		}
+	}
 }

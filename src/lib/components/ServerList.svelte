@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Server } from '$lib/types';
 
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 	import { servers, preferences } from '$lib/stores';
 
 	import ServerItem from '$lib/components/ServerItem.svelte';

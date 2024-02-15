@@ -2,7 +2,7 @@
 	import { open } from '@tauri-apps/plugin-dialog';
 	import { open as openURL } from '@tauri-apps/plugin-shell';
 
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 	import { nanoid } from 'nanoid';
 	import { nodeservers } from '$lib/stores';
 

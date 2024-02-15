@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { ValidURLScheme } from '$lib/types';
 
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 	import { nanoid } from 'nanoid';
 	import { servers } from '$lib/stores';
 

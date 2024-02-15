@@ -1,24 +1,36 @@
 {
-  "identifier": "migrated",
-  "description": "permissions that were migrated from v1",
-  "context": "local",
-  "windows": [
-    "main"
-  ],
-  "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "app:default",
-    "resources:default",
-    "menu:default",
-    "tray:default"
-  ],
-  "platforms": [
-    "linux",
-    "macOS",
-    "windows",
-    "android",
-    "iOS"
-  ]
+	"identifier": "migrated",
+	"description": "permissions that were migrated from v1",
+	"context": "local",
+	"windows": ["main"],
+	"permissions": [
+		"path:default",
+		"event:default",
+		"window:default",
+		"window:allow-maximize",
+		"window:allow-set-fullscreen",
+		"app:default",
+		"resources:default",
+		"menu:default",
+		"tray:default",
+		"dialog:allow-open",
+		"shell:allow-open",
+		"global-shortcut:allow-register",
+		{
+			"identifier": "shell:allow-execute",
+			"allow": [
+				{
+					"args": true,
+					"cmd": "node",
+					"name": "node",
+					"sidecar": false
+				}
+			]
+		},
+		{
+			"identifier": "http:default",
+			"allow": [{ "url": "http://*" }, { "url": "https://*" }]
+		}
+	],
+	"platforms": ["linux", "macOS", "windows", "android", "iOS"]
 }

@@ -4,7 +4,7 @@
 	import { join } from '@tauri-apps/api/path';
 	import { Command } from '@tauri-apps/plugin-shell';
 
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 	import { nodeservers } from '$lib/stores';
 	import * as Alert from '$lib/components/ui/alert';
 	import ServerItemNode from './ServerItemNode.svelte';

@@ -2,7 +2,7 @@
 	import { toggleMode } from 'mode-watcher';
 	import { getCurrent } from '@tauri-apps/api/window';
 	import { preferences } from '$lib/stores';
-	import { lc } from '$lib/utils';
+	import { lc } from '$lib/tools';
 
 	import { Button } from '$lib/components/ui/button';
 	import * as Select from '$lib/components/ui/select';
