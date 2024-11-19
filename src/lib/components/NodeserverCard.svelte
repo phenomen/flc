@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { fetch } from "@tauri-apps/plugin-http";
+	import { open as tauriOpen } from "@tauri-apps/plugin-dialog";
 
 	import * as Card from "$ui/card/index.js";
 	import { Input } from "$ui/input/index.js";
@@ -12,31 +11,36 @@
 
 	import Settings from "lucide-svelte/icons/settings";
 	import X from "lucide-svelte/icons/x";
-	import LogIn from "lucide-svelte/icons/log-in";
+	import ArrowUpToLine from "lucide-svelte/icons/arrow-up-to-line";
 	import Dot from "lucide-svelte/icons/dot";
 
-	import { deleteServer, updateServer } from "$scripts/servers.svelte.js";
-	import { openWebview } from "$scripts/webview.svelte.js";
+	import { deleteServer, updateServer } from "$scripts/nodeservers.svelte.js";
+	import { nodelauncher } from "$scripts/nodelauncher.svelte.js";
 
 	let { server } = $props();
 
 	if (!server) {
-		throw new Error("Server not found");
+		throw new Error("Node Server not found");
 	}
 
 	let open = $state<boolean>(false);
 	let error = $state<string>("");
 
 	let label = $state<string>(server.label);
-	let url = $state<string>(server.url);
 	let notes = $state<string>(server.notes);
-	let online = $state<boolean>(false);
+	let foundryPath = $state<string>(server.foundryPath);
+	let dataPath = $state<string>(server.dataPath);
+	let port = $state<number>(server.port);
+	let args = $state<string>(server.args);
 
 	function handleUpdateServer() {
 		const result = updateServer({
 			id: server.id,
 			label,
-			url,
+			foundryPath,
+			dataPath,
+			port,
+			args,
 			notes
 		});
 
@@ -56,21 +60,31 @@
 		}
 	}
 
-	async function checkOnline() {
-		online = false;
-
-		const response = await fetch(url, {
-			method: "GET"
+	async function selectFoundryPath() {
+		const path = await tauriOpen({
+			directory: true,
+			multiple: false
 		});
 
-		if (response.statusText === "OK" || response.status === 200) {
-			online = true;
+		if (path) {
+			foundryPath = path;
 		}
 	}
 
-	onMount(async () => {
-		await checkOnline();
-	});
+	async function selectDataPath() {
+		const path = await tauriOpen({
+			directory: true,
+			multiple: false
+		});
+
+		if (path) {
+			dataPath = path;
+		}
+	}
+
+	async function handleNodelauncher() {
+		nodelauncher.value = server;
+	}
 </script>
 
 <Card.Root class="w-full border flex items-center h-full rounded-md overflow-hidden group">
@@ -99,20 +113,52 @@
 						placeholder="Server name"
 					/>
 				</div>
+
 				<div class="grid items-center gap-2">
-					<Label for="url">URL</Label>
+					<Label for="foundryPath">Foundry Installation</Label>
 					<Input
-						id="url"
-						bind:value={url}
-						placeholder="URL or IP"
+						id="foundryPath"
+						bind:value={foundryPath}
+						placeholder="Installation directory"
+						onclick={selectFoundryPath}
 					/>
 				</div>
+
+				<div class="grid items-center gap-2">
+					<Label for="foundryPath">Foundry User Data</Label>
+					<Input
+						id="foundryPath"
+						bind:value={dataPath}
+						placeholder="User data directory"
+						onclick={selectDataPath}
+					/>
+				</div>
+
+				<div class="grid items-center gap-2">
+					<Label for="port">Port</Label>
+					<Input
+						id="port"
+						type="number"
+						bind:value={port}
+						placeholder="Foundry port"
+					/>
+				</div>
+
+				<div class="grid items-center gap-2">
+					<Label for="args">Arguments</Label>
+					<Input
+						id="args"
+						bind:value={args}
+						placeholder="Additional arguments"
+					/>
+				</div>
+
 				<div class="grid items-center gap-2">
 					<Label for="notes">Notes</Label>
 					<Textarea
 						id="notes"
 						bind:value={notes}
-						class="h-8"
+						rows={2}
 						placeholder="Notes, passwords, etc."
 					/>
 				</div>
@@ -132,20 +178,14 @@
 	</Popover.Root>
 
 	<div class="flex w-full px-2 py-4 items-center">
-		<span
-			class:text-green-500={online}
-			class:text-red-500={!online}
-		>
-			<Dot class="size-8" />
-		</span>
 		<h1 class="text-ellipsis text-nowrap font-semibold overflow-hidden">{server.label}</h1>
 	</div>
 
 	<button
-		onclick={() => openWebview(server.url, label)}
+		onclick={handleNodelauncher}
 		class="w-full h-full bg-primary text-primary-foreground overflow-hidden max-w-16 hover:bg-primary/90 border-primary border"
-		title="Join Server"
+		title="Load Server Settings"
 	>
-		<LogIn class="size-5 w-full" />
+		<ArrowUpToLine class="size-5 w-full" />
 	</button>
 </Card.Root>

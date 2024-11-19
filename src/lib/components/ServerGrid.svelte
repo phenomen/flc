@@ -2,11 +2,10 @@
 	import { slide } from "svelte/transition";
 
 	import ServerCard from "$components/ServerCard.svelte";
-
 	import { servers } from "$scripts/servers.svelte.js";
 </script>
 
-<div class="grid gap-2 relative my-4 flex-1">
+<div class="grid gap-2 relative flex-1">
 	{#if servers.current.length}
 		{#each servers.current as server (server.id)}
 			<div transition:slide>
@@ -14,8 +13,10 @@
 			</div>
 		{/each}
 	{:else}
-		<div class="flex text-center mx-auto font-medium">
-			The server list is empty. Start by adding a new Server.
+		<div
+			class="font-medium p-2 border border-dashed border-muted-foreground rounded-md w-full text-center"
+		>
+			<p>There are no servers yet. Start by adding a new server.</p>
 		</div>
 	{/if}
 </div>

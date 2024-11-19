@@ -48,11 +48,12 @@
       "identifier": "shell:allow-execute",
       "allow": [
         {
-          "name": "node",
+          "name": "exec-node",
           "cmd": "node",
           "args": true
         }
-      ]
+      ],
+      "sidecar": false
     }
   ]
 }

@@ -38,11 +38,7 @@
 <Sheet.Root bind:open>
 	<Sheet.Trigger class={buttonVariants({ variant: "default" })}>Add Server</Sheet.Trigger>
 	<Sheet.Content side="right">
-		<Sheet.Header>
-			<Sheet.Title>Add a new server</Sheet.Title>
-		</Sheet.Header>
-
-		<form class="grid gap-4 py-4">
+		<form class="grid gap-2 py-2">
 			<div class="grid items-center gap-2">
 				<Label for="label">Label</Label>
 				<Input
@@ -64,14 +60,14 @@
 				<Textarea
 					id="notes"
 					bind:value={notes}
-					class="h-8"
+					rows={2}
 					placeholder="Notes, passwords, etc."
 				/>
 			</div>
 			<Button
 				type="submit"
 				onclick={handleAddServer}
-				class="w-full">Save</Button
+				class="w-full">Add Server</Button
 			>
 
 			{#if error}

@@ -4,7 +4,8 @@
 	import { Button } from "$ui/button/index.js";
 
 	import LightSwitch from "$components/LightSwitch.svelte";
-	import AddServer from "$components/AddServer.svelte";
+	import ServerAdd from "$components/ServerAdd.svelte";
+	import NodeserverAdd from "$components/NodeserverAdd.svelte";
 	import WebGl from "$components/WebGL.svelte";
 	import FoundryControls from "$components/FoundryControls.svelte";
 </script>
@@ -40,7 +41,11 @@
 			<FoundryControls />
 			<LightSwitch />
 			<WebGl />
-			<AddServer />
+			{#if $page.url.pathname === "/"}
+				<ServerAdd />
+			{:else}
+				<NodeserverAdd />
+			{/if}
 		</div>
 	</div>
 </header>
