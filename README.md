@@ -1,6 +1,8 @@
-# Tauri + SvelteKit + TypeScript
+# Foundry Lightweight Client (FLC)
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+Minimalistic app allowing users to manage and join Foundry VTT servers.
+
+More at https://flc.ruleplaying.com/
 
 ## Recommended IDE Setup
 

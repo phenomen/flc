@@ -3,20 +3,21 @@
 ## v6.0.0
 
 - Complete app rewrite from scratch
-- Tauri V2
-- Svelte V5
+- Tauri 2.0
+- Svelte 5
 - New UI
-- Zoom in/out
+- Browser zoom in/out
 - Improved fullscreen
 - Performance improvements
+- Simplified server management
 
 ## v4.5.0
 
-- Tauri V2 Alpha Update
+- Tauri 2.0 Alpha update
 
 ## v4.3.1
 
-- Sveltekit 2.0 Migration
+- SvelteKit 2.0 migration
 
 ## v4.3.0
 
