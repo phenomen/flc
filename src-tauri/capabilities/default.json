@@ -1,0 +1,58 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": [
+    "main",
+    "foundry"
+  ],
+  "platforms": [
+    "macOS",
+    "windows",
+    "linux"
+  ],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:webview:default",
+    "dialog:default",
+    "http:default",
+    "os:default",
+    "shell:allow-open",
+    "shell:default",
+    "updater:default",
+    "core:app:allow-default-window-icon",
+    "core:app:allow-set-app-theme",
+    "core:webview:allow-create-webview-window",
+    "core:webview:allow-create-webview",
+    "core:webview:allow-set-webview-focus",
+    "core:webview:allow-set-webview-size",
+    "core:webview:allow-set-webview-zoom",
+    "core:window:allow-close",
+    "core:window:allow-create",
+    "core:window:allow-is-fullscreen",
+    "core:window:allow-set-focus",
+    "core:window:allow-set-fullscreen",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://*:*"
+        },
+        {
+          "url": "http://*:*"
+        }
+      ]
+    },
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "node",
+          "cmd": "node",
+          "args": true
+        }
+      ]
+    }
+  ]
+}

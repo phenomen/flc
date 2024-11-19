@@ -1,22 +1,21 @@
 <script lang="ts">
-	import '../app.pcss';
-	import '@fontsource-variable/inter';
-	import '@fontsource-variable/jetbrains-mono';
+	import "../app.css";
+	import "@fontsource-variable/inter";
 
-	import { ModeWatcher } from 'mode-watcher';
+	import { ModeWatcher } from "mode-watcher";
 
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import { Toaster } from "$ui/sonner/index.js";
+
+	import Header from "$components/Header.svelte";
+	import { registerTray } from "$scripts/tray.svelte.js";
+
+	let { children } = $props();
+
+	registerTray();
 </script>
 
 <ModeWatcher />
+<Toaster />
+<Header />
 
-<div class="container mx-auto py-4 max-w-4xl flex flex-col h-full">
-	<Header />
-
-	<div class="flex-1">
-		<slot />
-	</div>
-
-	<Footer />
-</div>
+{@render children?.()}

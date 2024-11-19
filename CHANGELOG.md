@@ -1,8 +1,18 @@
 # CHANGELOG
 
+## v6.0.0
+
+- Complete app rewrite from scratch
+- Tauri V2
+- Svelte V5
+- New UI
+- Zoom in/out
+- Improved fullscreen
+- Performance improvements
+
 ## v4.5.0
 
-- Tauri v2 Update
+- Tauri V2 Alpha Update
 
 ## v4.3.1
 
