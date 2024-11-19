@@ -4,9 +4,9 @@
 	"version": "6.0.0",
 	"identifier": "com.phenomen.flc",
 	"build": {
-		"beforeDevCommand": "bun run dev",
+		"beforeDevCommand": "npm run dev",
 		"devUrl": "http://localhost:1420",
-		"beforeBuildCommand": "bun run build",
+		"beforeBuildCommand": "npm run build",
 		"frontendDist": "../build"
 	},
 	"app": {
