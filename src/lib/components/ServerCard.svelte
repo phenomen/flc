@@ -17,7 +17,6 @@
 
 	import { deleteServer, updateServer } from "$scripts/servers.svelte.js";
 	import { openWebview } from "$scripts/webview.svelte.js";
-	import CardFooter from "./ui/card/card-footer.svelte";
 
 	let { server } = $props();
 
@@ -34,30 +33,27 @@
 	let online = $state<boolean>(false);
 
 	function handleUpdateServer() {
-		if (!label) {
-			error = "Server label is required.";
-			return;
-		}
-
-		if (!url) {
-			error = "URL is required.";
-			return;
-		}
-
-		if (!url.startsWith("http://") && !url.startsWith("https://")) {
-			error = "URL must start with http:// or https://";
-			return;
-		}
-
-		updateServer({
+		const result = updateServer({
 			id: server.id,
 			label,
 			url,
 			notes
 		});
 
-		error = "";
-		open = false;
+		if (result.success) {
+			error = "";
+			open = false;
+		} else {
+			error = result.issues[0].message;
+		}
+	}
+
+	function handleDeleteServer() {
+		const result = deleteServer(server.id);
+
+		if (!result.success) {
+			console.error(result.issues);
+		}
 	}
 
 	async function checkOnline() {
@@ -79,7 +75,7 @@
 
 <Card.Root class="w-full border flex items-center h-full rounded-md overflow-hidden group">
 	<button
-		onclick={() => deleteServer(server)}
+		onclick={handleDeleteServer}
 		class="w-full h-full bg-destructive text-destructive-foreground overflow-hidden max-w-8 hover:bg-destructive/90 border-destructive border"
 		title="Delete Server"><X class="size-4 w-full" /></button
 	>
@@ -101,7 +97,6 @@
 						id="label"
 						bind:value={label}
 						placeholder="Server name"
-						required
 					/>
 				</div>
 				<div class="grid items-center gap-2">
@@ -110,7 +105,6 @@
 						id="url"
 						bind:value={url}
 						placeholder="URL or IP"
-						required
 					/>
 				</div>
 				<div class="grid items-center gap-2">

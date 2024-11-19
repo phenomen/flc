@@ -11,8 +11,8 @@ export async function openWebview(url: string, title?: string) {
 		height: 720,
 		focus: true,
 		center: true,
-		userAgent: "FLC",
 		devtools: true,
+		dragDropEnabled: false,
 		zoomHotkeysEnabled: true
 	});
 
