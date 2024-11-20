@@ -3,21 +3,24 @@
 ## v6.0.0
 
 - Complete app rewrite from scratch
+- Linux support (Debian/Ubuntu)
+- MacOS ARM support (M1+)
 - Tauri 2.0
 - Svelte 5
 - New UI
-- Browser zoom in/out
-- Improved fullscreen
-- Performance improvements
+- Browser zoom in / zoom out
+- Improved fllscreen
+- Tray controls
 - Simplified server management
+- Performance improvements
 
 ## v4.5.0
 
-- Tauri 2.0 Alpha update
+- Tauri 2.0 Alpha
 
-## v4.3.1
+## v4.4.0
 
-- SvelteKit 2.0 migration
+- SvelteKit 2.0
 
 ## v4.3.0
 
