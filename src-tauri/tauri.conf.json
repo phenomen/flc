@@ -34,7 +34,7 @@
 		"category": "RolePlayingGame",
 		"copyright": "phenomen",
 		"targets": ["msi", "app", "dmg", "appimage"],
-		"createUpdaterArtifacts": "v1Compatible",
+		"createUpdaterArtifacts": true,
 		"icon": [
 			"icons/32x32.png",
 			"icons/128x128.png",
@@ -46,7 +46,7 @@
 	"plugins": {
 		"updater": {
 			"active": true,
-			"endpoints": ["https://flc.ruleplaying.com/flc.json"],
+			"endpoints": ["https://flc.ruleplaying.com/flc2.json"],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK",
 			"windows": {
 				"installMode": "basicUi"
