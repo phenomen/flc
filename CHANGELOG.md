@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v6.1.0
+
+- Added detailed status of server, if available: version, system, users.
+- Linux version is now distributed with `.AppImage` instead of `.deb` for better compatibility.
+
 ## v6.0.0
 
 > [!CAUTION]  
