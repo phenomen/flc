@@ -6,6 +6,7 @@
 	"build": {
 		"beforeDevCommand": "npm run dev",
 		"devUrl": "http://localhost:1420",
+		"beforeBuildCommand": "npm run build",
 		"frontendDist": "../build"
 	},
 	"app": {
@@ -32,7 +33,7 @@
 		"longDescription": "Foundry Lightweight Client",
 		"category": "RolePlayingGame",
 		"copyright": "phenomen",
-		"targets": ["msi", "dmg", "deb"],
+		"targets": ["msi", "app", "dmg", "deb"],
 	    "createUpdaterArtifacts": "v1Compatible",
 		"icon": [
 			"icons/32x32.png",
