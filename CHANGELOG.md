@@ -2,6 +2,9 @@
 
 ## v6.0.0
 
+> [!CAUTION]  
+> Data from the old version is not compatible with 6.0. Make sure you save what you need before the update.
+
 - Complete app rewrite from scratch
 - Linux support (Debian/Ubuntu)
 - MacOS ARM support (M1+)
@@ -9,7 +12,6 @@
 - Svelte 5
 - New UI
 - Browser zoom in / zoom out
-- Improved fllscreen
 - Tray controls
 - Simplified server management
 - Performance improvements
