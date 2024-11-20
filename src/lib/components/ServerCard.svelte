@@ -14,7 +14,11 @@
 	import Settings from "lucide-svelte/icons/settings";
 	import X from "lucide-svelte/icons/x";
 	import LogIn from "lucide-svelte/icons/log-in";
-	import Dot from "lucide-svelte/icons/dot";
+	import Smile from "lucide-svelte/icons/smile";
+	import Zap from "lucide-svelte/icons/zap";
+	import Dices from "lucide-svelte/icons/dices";
+	import Hexagon from "lucide-svelte/icons/hexagon";
+	import Globe from "lucide-svelte/icons/globe";
 
 	import { deleteServer, updateServer } from "$scripts/servers.svelte.js";
 	import { openWebview } from "$scripts/webview.svelte.js";
@@ -67,19 +71,6 @@
 		}
 	}
 
-	async function checkOnline() {
-		online = false;
-
-		const response = await fetch(url, {
-			method: "GET"
-		});
-
-		if (response.statusText === "OK" || response.status === 200) {
-			online = true;
-			await checkStatus();
-		}
-	}
-
 	async function checkStatus() {
 		const response = await fetch(`${url}${url.endsWith("/") ? "" : "/"}api/status`, {
 			method: "GET",
@@ -94,7 +85,7 @@
 	}
 
 	onMount(async () => {
-		await checkOnline();
+		await checkStatus();
 	});
 </script>
 
@@ -102,13 +93,21 @@
 	<button
 		onclick={handleDeleteServer}
 		class="w-full h-full bg-destructive text-destructive-foreground overflow-hidden max-w-8 hover:bg-destructive/90 border-destructive border"
-		title="Delete Server"><X class="size-4 w-full" /></button
+		title="Delete Server"
+		><X
+			size={18}
+			class="mx-auto"
+		/></button
 	>
 
 	<Popover.Root bind:open>
 		<Popover.Trigger
 			class="w-full h-full bg-secondary dark:bg-secondary/50 overflow-hidden max-w-12"
-			title="Edit Server"><Settings class="size-4 w-full" /></Popover.Trigger
+			title="Edit Server"
+			><Settings
+				size={18}
+				class="mx-auto"
+			/></Popover.Trigger
 		>
 		<Popover.Content
 			class="w-80"
@@ -158,23 +157,41 @@
 		</Popover.Content>
 	</Popover.Root>
 
-	<div class="flex w-full px-2 py-4 items-center">
-		<span
-			class:text-green-500={online && status}
-			class:text-orange-500={online && !status}
-			class:text-red-500={!online && !status}
-		>
-			<Dot class="size-8" />
-		</span>
-		<div class="grid gap-1">
+	<div class="w-full px-2 py-3">
+		<div class="grid gap-1.5">
 			<h1 class="text-ellipsis text-nowrap font-semibold overflow-hidden">{server.label}</h1>
-			<div class="text-muted-foreground text-xs">
-				{#if status}<Badge>Online</Badge>
-					<Badge variant="secondary">V{status.version}</Badge>
-					{#if status.users}<Badge variant="secondary">{status.users} users</Badge>{/if}
-					{#if status.system}<Badge variant="secondary">{status.system.toUpperCase()}</Badge>{/if}
+			<div class="text-muted-foreground text-xs items-center flex gap-1">
+				{#if status}<Badge>
+						<Zap
+							size={16}
+							class="mr-1 text-orange-500"
+						/>Online</Badge
+					>
+					<Badge variant="secondary"
+						><Hexagon
+							size={16}
+							class="mr-1"
+						/>{status.version}</Badge
+					>
+					{#if status.system}<Badge variant="secondary"
+							><Dices
+								size={16}
+								class="mr-1"
+							/>{status.system.toUpperCase()}</Badge
+						>{/if}
+					{#if status.users !== undefined}<Badge variant="secondary"
+							><Smile
+								size={16}
+								class="mr-1"
+							/>{status.users}</Badge
+						>{/if}
 				{:else}
-					<Badge variant="outline">Offline</Badge>{/if}
+					<Badge variant="outline">
+						<Zap
+							size={16}
+							class="mr-1"
+						/>Offline</Badge
+					>{/if}
 			</div>
 		</div>
 	</div>
@@ -184,6 +201,9 @@
 		class="w-full h-full bg-primary text-primary-foreground overflow-hidden max-w-16 hover:bg-primary/90 border-primary border"
 		title="Join Server"
 	>
-		<LogIn class="size-5 w-full" />
+		<LogIn
+			size={20}
+			class="mx-auto"
+		/>
 	</button>
 </Card.Root>
