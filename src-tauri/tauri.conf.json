@@ -33,7 +33,7 @@
 		"longDescription": "Foundry Lightweight Client",
 		"category": "RolePlayingGame",
 		"copyright": "phenomen",
-		"targets": ["msi", "app", "appimage"],
+		"targets": ["msi", "dmg", "appimage"],
 		"createUpdaterArtifacts": "v1Compatible",
 		"icon": [
 			"icons/32x32.png",
