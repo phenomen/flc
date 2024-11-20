@@ -30,7 +30,7 @@
 	{#if launched}
 		<Button
 			onclick={async () => await stopNodeserver()}
-			variant="destructive">{`Stop Server: ${nodeLauncher?.value?.label}`}</Button
+			variant="destructive">Stop Server</Button
 		>
 	{:else}
 		<Button
