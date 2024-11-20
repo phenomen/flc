@@ -2,18 +2,14 @@ import { LocalStorage } from "$scripts/storage.svelte.js";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
 
-const URLSchema = v.union(
-	[
-		v.pipe(v.string(), v.trim(), v.url(), v.startsWith("http://")),
-		v.pipe(v.string(), v.trim(), v.url(), v.startsWith("https://"))
-	],
-	"Please enter a correct URL starting with either http:// or https://"
-);
-
 const ServerSchema = v.object({
 	id: v.string(),
 	label: v.pipe(v.string(), v.trim(), v.minLength(1, "Please enter a server name")),
-	url: URLSchema,
+	url: v.pipe(
+		v.string(),
+		v.trim(),
+		v.regex(/^https?:\/\//, "Please enter a correct URL starting with either http:// or https://")
+	),
 	notes: v.optional(v.string())
 });
 
