@@ -6,7 +6,7 @@
 	import { Textarea } from "$ui/textarea/index.js";
 	import { Label } from "$ui/label/index.js";
 	import * as Sheet from "$ui/sheet/index.js";
-	import * as Alert from "$lib/components/ui/alert/index.js";
+	import * as Alert from "$ui/alert/index.js";
 	import { buttonVariants } from "$ui/button/index.js";
 
 	import { addServer } from "$scripts/nodeservers.svelte.js";

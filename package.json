@@ -1,6 +1,6 @@
 {
 	"name": "flc",
-	"version": "6.0.0",
+	"version": "6.1.0",
 	"description": "Foundry Lightweight Client",
 	"type": "module",
 	"scripts": {
@@ -29,7 +29,7 @@
 		"@tauri-apps/plugin-updater": "~2.0.0",
 		"@types/eslint": "^9.6.1",
 		"autoprefixer": "^10.4.20",
-		"bits-ui": "^1.0.0-next.60",
+		"bits-ui": "^1.0.0-next.63",
 		"clsx": "^2.1.1",
 		"eslint": "^9.15.0",
 		"eslint-config-prettier": "^9.1.0",
@@ -39,7 +39,7 @@
 		"mode-watcher": "^0.5.0",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.8",
-		"svelte": "^5.2.4",
+		"svelte": "^5.2.5",
 		"svelte-check": "^4.0.9",
 		"svelte-sonner": "^0.3.28",
 		"tailwind-merge": "^2.5.4",

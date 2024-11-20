@@ -8,7 +8,8 @@
 	import { Button } from "$ui/button/index.js";
 	import * as Popover from "$ui/popover/index.js";
 	import { Textarea } from "$ui/textarea/index.js";
-	import * as Alert from "$lib/components/ui/alert/index.js";
+	import * as Alert from "$ui/alert/index.js";
+	import { Badge } from "$ui/badge/index.js";
 
 	import Settings from "lucide-svelte/icons/settings";
 	import X from "lucide-svelte/icons/x";
@@ -24,13 +25,23 @@
 		throw new Error("Server not found");
 	}
 
+	type Status = {
+		active?: boolean;
+		version?: string;
+		world?: string;
+		system?: string;
+		users?: number;
+	};
+
 	let open = $state<boolean>(false);
 	let error = $state<string>("");
 
 	let label = $state<string>(server.label);
 	let url = $state<string>(server.url);
 	let notes = $state<string>(server.notes);
+
 	let online = $state<boolean>(false);
+	let status = $state<Status>();
 
 	function handleUpdateServer() {
 		const result = updateServer({
@@ -65,6 +76,20 @@
 
 		if (response.statusText === "OK" || response.status === 200) {
 			online = true;
+			await checkStatus();
+		}
+	}
+
+	async function checkStatus() {
+		const response = await fetch(`${url}${url.endsWith("/") ? "" : "/"}api/status`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		if (response.statusText === "OK" || response.status === 200) {
+			status = await response.json();
 		}
 	}
 
@@ -135,12 +160,23 @@
 
 	<div class="flex w-full px-2 py-4 items-center">
 		<span
-			class:text-green-500={online}
-			class:text-red-500={!online}
+			class:text-green-500={online && status}
+			class:text-orange-500={online && !status}
+			class:text-red-500={!online && !status}
 		>
 			<Dot class="size-8" />
 		</span>
-		<h1 class="text-ellipsis text-nowrap font-semibold overflow-hidden">{server.label}</h1>
+		<div class="grid gap-1">
+			<h1 class="text-ellipsis text-nowrap font-semibold overflow-hidden">{server.label}</h1>
+			<div class="text-muted-foreground text-xs">
+				{#if status}<Badge>Online</Badge>
+					<Badge variant="secondary">V{status.version}</Badge>
+					{#if status.users}<Badge variant="secondary">{status.users} users</Badge>{/if}
+					{#if status.system}<Badge variant="secondary">{status.system.toUpperCase()}</Badge>{/if}
+				{:else}
+					<Badge variant="outline">Offline</Badge>{/if}
+			</div>
+		</div>
 	</div>
 
 	<button

@@ -7,12 +7,11 @@
 	import { Button } from "$ui/button/index.js";
 	import * as Popover from "$ui/popover/index.js";
 	import { Textarea } from "$ui/textarea/index.js";
-	import * as Alert from "$lib/components/ui/alert/index.js";
+	import * as Alert from "$ui/alert/index.js";
 
 	import Settings from "lucide-svelte/icons/settings";
 	import X from "lucide-svelte/icons/x";
 	import ArrowUpToLine from "lucide-svelte/icons/arrow-up-to-line";
-	import Dot from "lucide-svelte/icons/dot";
 
 	import { deleteServer, updateServer } from "$scripts/nodeservers.svelte.js";
 	import { nodeLauncher } from "$scripts/nodelauncher.svelte.js";
