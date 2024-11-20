@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v6.0.0
+
+- Complete app rewrite from scratch
+- Tauri 2.0
+- Svelte 5
+- New UI
+- Browser zoom in/out
+- Improved fullscreen
+- Performance improvements
+- Simplified server management
+
+## v4.5.0
+
+- Tauri 2.0 Alpha update
+
+## v4.3.1
+
+- SvelteKit 2.0 migration
+
 ## v4.3.0
 
 - Server status check
