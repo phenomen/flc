@@ -1,43 +1,18 @@
 <script lang="ts">
-	import type { Nodeserver } from "$scripts/nodeservers.svelte.js";
-
-	import { join } from "@tauri-apps/api/path";
-	import { Command, spawn } from "@tauri-apps/plugin-shell";
-
 	import { Button } from "$ui/button/index.js";
 	import * as Alert from "$ui/alert/index.js";
+	import { ScrollArea } from "$ui/scroll-area/index.js";
 
 	import Info from "lucide-svelte/icons/info";
 
-	import { nodelauncher } from "$scripts/nodelauncher.svelte.js";
+	import {
+		nodeLauncher,
+		nodeStatus,
+		stopNodeserver,
+		launchNodeserver
+	} from "$scripts/nodelauncher.svelte.js";
 
-	let error = $state<string>("");
-	let launched = $state<boolean>(false);
-
-	let launcherData = $state(nodelauncher);
-	let value = $derived(launcherData.value);
-
-	let { id, label, foundryPath, dataPath, port, args, notes } = $derived<Nodeserver>(value);
-
-	async function launchNodeserver() {
-		const normalizedFoundryPath = await join(foundryPath, "resources", "app", "main.js");
-		const normalizedDataPath = await join(dataPath);
-
-		const arg = `"${normalizedFoundryPath}" --dataPath ${normalizedDataPath} --port ${port} ${args}`;
-
-		let command = Command.create("exec-node", [arg]);
-
-		const child = await command.spawn();
-
-		console.log("pid:", child.pid);
-
-		launched = true;
-	}
-
-	async function stopNodeserver() {
-		console.log("Stopping Foundry VTT Server");
-		launched = false;
-	}
+	let { launched, status, stdoutData, stderrData } = $derived(nodeStatus?.value);
 </script>
 
 <div class="flex flex-col space-y-2 p-2 border dark:border-primary/10 rounded-md bg-accent">
@@ -55,12 +30,34 @@
 	{#if launched}
 		<Button
 			onclick={async () => await stopNodeserver()}
-			variant="destructive">Stop Server: {label}</Button
+			variant="destructive">{`Stop Server: ${nodeLauncher?.value?.label}`}</Button
 		>
 	{:else}
 		<Button
 			onclick={async () => await launchNodeserver()}
-			disabled={!id}>{!id ? "No Server Settings Loaded" : `Launch Server: ${label}`}</Button
+			disabled={!nodeLauncher?.value?.id}
+			>{!nodeLauncher?.value?.id
+				? "No Server Settings Loaded"
+				: `Launch Server: ${nodeLauncher?.value?.label}`}</Button
 		>
+	{/if}
+
+	{#if status}
+		<div class="font-mono text-sm bg-black text-lime-500 p-2 rounded-md">
+			<pre>{status}</pre>
+		</div>
+	{/if}
+
+	{#if launched}
+		{#if stdoutData}
+			<ScrollArea class="font-mono text-sm bg-black text-white p-2 rounded-md max-h-48 h-48">
+				<pre>{stdoutData}</pre>
+			</ScrollArea>
+		{/if}
+	{/if}
+	{#if stderrData}
+		<ScrollArea class="font-mono text-sm bg-black text-red-500 p-2 rounded-md max-h-48 h-48">
+			<pre>{stderrData}</pre>
+		</ScrollArea>
 	{/if}
 </div>

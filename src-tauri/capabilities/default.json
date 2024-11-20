@@ -3,8 +3,7 @@
   "identifier": "default",
   "description": "Capability for the main window",
   "windows": [
-    "main",
-    "foundry"
+    "main"
   ],
   "platforms": [
     "macOS",
@@ -18,9 +17,11 @@
     "dialog:default",
     "http:default",
     "os:default",
-    "shell:allow-open",
     "shell:default",
-    "updater:default",
+    "shell:allow-open",
+    "shell:allow-spawn",
+    "shell:allow-kill",
+    "updater:default",    
     "core:app:allow-default-window-icon",
     "core:app:allow-set-app-theme",
     "core:webview:allow-create-webview-window",
@@ -45,10 +46,10 @@
       ]
     },
     {
-      "identifier": "shell:allow-execute",
+      "identifier": "shell:allow-spawn",
       "allow": [
         {
-          "name": "exec-node",
+          "name": "node",
           "cmd": "node",
           "args": true
         }

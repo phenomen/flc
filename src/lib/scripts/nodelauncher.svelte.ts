@@ -1,4 +1,8 @@
 import type { Nodeserver } from "$scripts/nodeservers.svelte.js";
+import type { Child } from "@tauri-apps/plugin-shell";
+
+import { join } from "@tauri-apps/api/path";
+import { Command } from "@tauri-apps/plugin-shell";
 
 class NodeLauncher {
 	value = $state<Nodeserver>({
@@ -10,6 +14,89 @@ class NodeLauncher {
 		port: 30000,
 		args: ""
 	});
+
+	reset() {
+		this.value = {
+			id: "",
+			label: "",
+			notes: "",
+			foundryPath: "",
+			dataPath: "",
+			port: 30000,
+			args: ""
+		};
+	}
 }
 
-export const nodelauncher = new NodeLauncher();
+class NodeStatus {
+	value = $state({
+		launched: false,
+		status: "",
+		stdoutData: "",
+		stderrData: ""
+	});
+
+	reset() {
+		this.value = {
+			launched: false,
+			status: "",
+			stdoutData: "",
+			stderrData: ""
+		};
+	}
+}
+
+export const nodeLauncher = new NodeLauncher();
+export const nodeStatus = new NodeStatus();
+
+let child: Child;
+
+export async function launchNodeserver() {
+	nodeStatus.reset();
+
+	const server = nodeLauncher.value;
+	const normalizedFoundryPath = await join(server.foundryPath, "resources", "app", "main.js");
+	const normalizedDataPath = server.dataPath ? await join(server.dataPath) : undefined;
+
+	const command = Command.create("node", [
+		`${normalizedFoundryPath}`,
+		normalizedDataPath ? `--dataPath=${normalizedDataPath}` : "",
+		`--port=${server.port}`,
+		`${server.args || ""}`
+	]);
+
+	command.on("close", (data: any) => {
+		nodeStatus.value.status = `Node process finished`;
+		nodeStatus.value.launched = false;
+	});
+
+	command.on("error", (error: string) => {
+		nodeStatus.value.status = `Command error: "${error}"`;
+		nodeStatus.value.launched = false;
+	});
+
+	command.stdout.on("data", (line: string) => {
+		nodeStatus.value.stdoutData += line;
+	});
+
+	command.stderr.on("data", (line: string) => {
+		nodeStatus.value.stderrData += line;
+	});
+
+	if (child) {
+		await child.kill();
+	}
+
+	child = await command.spawn();
+
+	nodeStatus.value.status = `FOUNDRY VTT SERVER "${server.label}" STARTED`;
+	nodeStatus.value.launched = true;
+}
+
+export async function stopNodeserver() {
+	if (child) {
+		await child.kill();
+	}
+
+	nodeStatus.reset();
+}

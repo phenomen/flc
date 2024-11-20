@@ -92,7 +92,9 @@
 			</div>
 
 			<div class="grid items-center gap-2">
-				<Label for="foundryPath">Foundry User Data</Label>
+				<Label for="foundryPath"
+					>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label
+				>
 				<Input
 					id="foundryPath"
 					bind:value={dataPath}
@@ -112,7 +114,9 @@
 			</div>
 
 			<div class="grid items-center gap-2">
-				<Label for="args">Arguments</Label>
+				<Label for="args"
+					>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label
+				>
 				<Input
 					id="args"
 					bind:value={args}
@@ -121,7 +125,9 @@
 			</div>
 
 			<div class="grid items-center gap-2">
-				<Label for="notes">Notes</Label>
+				<Label for="notes"
+					>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label
+				>
 				<Textarea
 					id="notes"
 					bind:value={notes}

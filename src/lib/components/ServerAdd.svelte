@@ -56,7 +56,9 @@
 				/>
 			</div>
 			<div class="grid items-center gap-2">
-				<Label for="notes">Notes</Label>
+				<Label for="notes"
+					>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label
+				>
 				<Textarea
 					id="notes"
 					bind:value={notes}

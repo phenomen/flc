@@ -11,11 +11,7 @@ const NodeserverSchema = v.object({
 		v.trim(),
 		v.minLength(1, "Please select a path to the Foundry VTT installation directory")
 	),
-	dataPath: v.pipe(
-		v.string(),
-		v.trim(),
-		v.minLength(1, "Please select a path to the Foundry VTT user data directory")
-	),
+	dataPath: v.optional(v.string()),
 	port: v.pipe(
 		v.number(),
 		v.minValue(1, "Please enter a valid port number"),
