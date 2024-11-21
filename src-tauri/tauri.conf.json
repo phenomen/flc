@@ -38,7 +38,7 @@
 		"category": "RolePlayingGame",
 		"copyright": "ruleplaying.com",
 		"targets": ["msi", "app", "dmg", "appimage"],
-		"createUpdaterArtifacts": true,
+		"createUpdaterArtifacts": "v1Compatible",
 		"icon": [
 			"icons/32x32.png",
 			"icons/128x128.png",
