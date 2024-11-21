@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v6.3.0
+
+- Fixed issue with opening multiple windows of the same Foundry server.
+- Enabled SharedArrayBuffer (for Ripper93 Media Optimizer and similar modules).
+
 ## v6.2.0
 
 > [!WARNING]  
