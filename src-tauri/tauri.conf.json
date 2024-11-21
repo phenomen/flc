@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schema.tauri.app/config/2",
 	"productName": "FLC",
-	"version": "6.1.0",
+	"version": "6.2.0",
 	"identifier": "com.phenomen.flc",
 	"build": {
 		"beforeDevCommand": "npm run dev",
@@ -25,6 +25,10 @@
 			}
 		],
 		"security": {
+			"headers": {
+				"Cross-Origin-Opener-Policy": "same-origin",
+				"Cross-Origin-Embedder-Policy": "require-corp"
+			},
 			"csp": null
 		}
 	},
@@ -32,9 +36,9 @@
 		"active": true,
 		"longDescription": "Foundry Lightweight Client",
 		"category": "RolePlayingGame",
-		"copyright": "phenomen",
+		"copyright": "ruleplaying.com",
 		"targets": ["msi", "app", "dmg", "appimage"],
-		"createUpdaterArtifacts": "v1Compatible",
+		"createUpdaterArtifacts": true,
 		"icon": [
 			"icons/32x32.png",
 			"icons/128x128.png",

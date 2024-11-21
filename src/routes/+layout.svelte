@@ -4,18 +4,16 @@
 
 	import { ModeWatcher } from "mode-watcher";
 
-	import { Toaster } from "$ui/sonner/index.js";
-
 	import Header from "$components/Header.svelte";
-	import { registerTray } from "$scripts/tray.svelte.js";
+	import Updater from "$components/Updater.svelte";
+	import { registerShortcuts } from "$scripts/shortcuts.svelte.js";
 
 	let { children } = $props();
 
-	registerTray();
+	registerShortcuts();
 </script>
 
 <ModeWatcher />
-<Toaster />
 <Header />
-
 {@render children?.()}
+<Updater />

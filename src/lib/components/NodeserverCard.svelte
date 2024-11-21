@@ -90,13 +90,21 @@
 	<button
 		onclick={handleDeleteServer}
 		class="w-full h-full bg-destructive text-destructive-foreground overflow-hidden max-w-8 hover:bg-destructive/90 border-destructive border"
-		title="Delete Server"><X class="size-4 w-full" /></button
+		title="Delete Server"
+		><X
+			size={18}
+			class="mx-auto"
+		/></button
 	>
 
 	<Popover.Root bind:open>
 		<Popover.Trigger
 			class="w-full h-full bg-secondary dark:bg-secondary/50 overflow-hidden max-w-12"
-			title="Edit Server"><Settings class="size-4 w-full" /></Popover.Trigger
+			title="Edit Server"
+			><Settings
+				size={18}
+				class="mx-auto"
+			/></Popover.Trigger
 		>
 		<Popover.Content
 			class="w-80"
@@ -182,7 +190,7 @@
 		</Popover.Content>
 	</Popover.Root>
 
-	<div class="flex w-full px-2 py-4 items-center">
+	<div class="w-full px-2 py-6">
 		<h1 class="text-ellipsis text-nowrap font-semibold overflow-hidden">{server.label}</h1>
 	</div>
 
@@ -191,6 +199,9 @@
 		class="w-full h-full bg-primary text-primary-foreground overflow-hidden max-w-16 hover:bg-primary/90 border-primary border"
 		title="Load Server Settings"
 	>
-		<ArrowUpToLine class="size-5 w-full" />
+		<ArrowUpToLine
+			size={20}
+			class="mx-auto"
+		/>
 	</button>
 </Card.Root>

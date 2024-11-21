@@ -1,8 +1,8 @@
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { toast } from "svelte-sonner";
 
-export async function openWebview(url: string, title?: string) {
-	const webview = new WebviewWindow("foundry", {
+export async function openWebview(url: string, id: string, title: string) {
+	const webview = new WebviewWindow(`foundry-${id}`, {
 		title: `Foundry VTT - ${title}`,
 		url,
 		x: 0,
@@ -22,8 +22,5 @@ export async function openWebview(url: string, title?: string) {
 
 	webview.once("tauri://error", function (e) {
 		console.log(e);
-		if (e.payload === "a webview with label `foundry` already exists") {
-			toast("Foundry VTT window is already open.");
-		}
 	});
 }
