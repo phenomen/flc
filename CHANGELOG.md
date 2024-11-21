@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v6.2.0
+
+> [!WARNING]  
+> Prior to 6.2.0 auto-updater was not working. Now it's fixed but you need to download and install this version manually.
+
+- Fixed Auto-Updater and added a new update controls.
+- Replaced tray/buttons controls for Fullscreen and Zoom with Global Shortcuts (Ctrl + ...) and added Help button.
+- Added icons to server status details.
+
 ## v6.1.0
 
 - Added detailed status of server, if available: version, system, users.

@@ -21,7 +21,12 @@
     "shell:allow-open",
     "shell:allow-spawn",
     "shell:allow-kill",
-    "updater:default",    
+    "updater:default",
+    "updater:allow-check",
+    "updater:allow-download",
+    "updater:allow-install",
+    "updater:allow-download-and-install",
+    "global-shortcut:allow-register",
     "core:app:allow-default-window-icon",
     "core:app:allow-set-app-theme",
     "core:webview:allow-create-webview-window",
@@ -32,6 +37,7 @@
     "core:window:allow-close",
     "core:window:allow-create",
     "core:window:allow-is-fullscreen",
+    "core:window:allow-is-focused",
     "core:window:allow-set-focus",
     "core:window:allow-set-fullscreen",
     {
@@ -55,6 +61,7 @@
         }
       ],
       "sidecar": false
-    }
+    },
+    "global-shortcut:default"
   ]
 }

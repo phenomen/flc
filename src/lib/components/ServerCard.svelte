@@ -197,7 +197,7 @@
 	</div>
 
 	<button
-		onclick={() => openWebview(server.url, label)}
+		onclick={() => openWebview(url, server.id, label)}
 		class="w-full h-full bg-primary text-primary-foreground overflow-hidden max-w-16 hover:bg-primary/90 border-primary border"
 		title="Join Server"
 	>

@@ -5,7 +5,7 @@
 	import { servers } from "$scripts/servers.svelte.js";
 </script>
 
-<div class="grid gap-2 relative flex-1">
+<div class="grid gap-2 relative mb-8">
 	{#if servers.current.length}
 		{#each servers.current as server (server.id)}
 			<div transition:slide>

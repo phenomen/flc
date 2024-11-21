@@ -1,38 +1,45 @@
 <script lang="ts">
-	import { Button } from "$ui/button/index.js";
+	import * as Popover from "$ui/popover/index.js";
+	import { Separator } from "$ui/separator/index.js";
+	import { buttonVariants } from "$ui/button/index.js";
 
-	import Fullscreen from "lucide-svelte/icons/fullscreen";
-	import ZoomIn from "lucide-svelte/icons/zoom-in";
-	import ZoomOut from "lucide-svelte/icons/zoom-out";
-
-	import { toggleFullscreen, zoomIn, zoomOut } from "$scripts/tray.svelte";
+	import CircleHelp from "lucide-svelte/icons/circle-help";
 </script>
 
-<div class="flex items-center space-x-1 p-1 border rounded-md border-orange-500">
-	<Button
-		onclick={zoomOut}
-		variant="outline"
-		size="icon"
-		title="Zoom Out"
-	>
-		<ZoomOut class="size-5" />
-	</Button>
+<Popover.Root>
+	<Popover.Trigger>
+		<div
+			class={buttonVariants({ variant: "outline", size: "icon" })}
+			title="Hotkeys"
+		>
+			<CircleHelp size={24} />
+		</div>
+	</Popover.Trigger>
+	<Popover.Content>
+		<div class="grid gap-2 font-medium text-xs">
+			<div class="w-full justify-between flex space-x-2 items-center">
+				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">F11</kbd></span><span
+					>Toggle Fullscreen</span
+				>
+			</div>
+			<Separator />
+			<div class="w-full justify-between flex space-x-2 items-center">
+				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">+</kbd></span><span>Zoom In</span>
+			</div>
+			<Separator />
+			<div class="w-full justify-between flex space-x-2 items-center">
+				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">-</kbd></span><span>Zoom Out</span>
+			</div>
+			<Separator />
+			<div class="w-full justify-between flex space-x-2 items-center">
+				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">0</kbd></span><span>Reset Zoom</span>
+			</div>
+		</div>
+	</Popover.Content>
+</Popover.Root>
 
-	<Button
-		onclick={zoomIn}
-		variant="outline"
-		size="icon"
-		title="Zoom In"
-	>
-		<ZoomIn class="size-5" />
-	</Button>
-
-	<Button
-		onclick={toggleFullscreen}
-		variant="outline"
-		size="icon"
-		title="Toggle Fullscreen"
-	>
-		<Fullscreen class="size-5" />
-	</Button>
-</div>
+<style>
+	.kbd {
+		@apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono font-medium opacity-100;
+	}
+</style>
