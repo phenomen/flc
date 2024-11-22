@@ -12,7 +12,7 @@
 		update = await check();
 
 		if (update) {
-			message = `A new update ${update.version} is available!`;
+			message = `A new version ${update.version} is available!`;
 			install = true;
 		}
 	}

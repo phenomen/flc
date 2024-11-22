@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schema.tauri.app/config/2",
 	"productName": "FLC",
-	"version": "6.4.0",
+	"version": "6.5.0",
 	"identifier": "com.phenomen.flc",
 	"build": {
 		"beforeDevCommand": "npm run dev",
@@ -37,7 +37,7 @@
 		"longDescription": "Foundry Lightweight Client",
 		"category": "RolePlayingGame",
 		"copyright": "ruleplaying.com",
-		"targets": ["msi", "app", "dmg", "appimage"],
+		"targets": ["msi", "app", "dmg", "deb"],
 		"createUpdaterArtifacts": "v1Compatible",
 		"icon": [
 			"icons/32x32.png",
@@ -50,10 +50,10 @@
 	"plugins": {
 		"updater": {
 			"active": true,
-			"endpoints": ["https://flc.ruleplaying.com/flc.json"],
+			"endpoints": ["https://github.com/phenomen/flc/releases/latest/download/latest.json"],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK",
 			"windows": {
-				"installMode": "basicUi"
+				"installMode": "passive"
 			}
 		}
 	}

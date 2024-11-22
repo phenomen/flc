@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v6.5.0
+
+- Linux distributive is reverted back do `.deb` since using `.AppImage` was too confusing for many users not familiar with the format.
+- The update data is now fetched directly from Github repo instead of the website.
+- Updater now runs in a "passive" mode and do not require user interactions on Windows.
+
 ## v6.4.0
 
 - Fixed issue with fullscreen mode.

@@ -8,7 +8,7 @@ export async function openWebview(url: string, id: string, title: string) {
 		x: 0,
 		y: 0,
 		width: 1280,
-		height: 720,
+		height: 760,
 		focus: true,
 		center: true,
 		devtools: true,
