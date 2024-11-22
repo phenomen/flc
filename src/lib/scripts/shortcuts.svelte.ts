@@ -6,11 +6,8 @@ export async function toggleFullscreen() {
 	const foundryWindows = windows.filter((window) => window.label.includes("foundry"));
 
 	for (const window of foundryWindows) {
-		const focused = await window.isFocused();
-		if (focused) {
-			const fullscreen = await window.isFullscreen();
-			await window.setFullscreen(!fullscreen);
-		}
+		const fullscreen = await window.isFullscreen();
+		await window.setFullscreen(!fullscreen);
 	}
 }
 
