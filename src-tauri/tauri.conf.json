@@ -37,7 +37,7 @@
 		"longDescription": "Foundry Lightweight Client",
 		"category": "RolePlayingGame",
 		"copyright": "ruleplaying.com",
-		"targets": ["msi", "app", "dmg", "deb"],
+		"targets": ["msi", "app", "dmg", "appimage"],
 		"createUpdaterArtifacts": "v1Compatible",
 		"icon": [
 			"icons/32x32.png",
