@@ -44,8 +44,15 @@
 	let url = $state<string>(server.url);
 	let notes = $state<string>(server.notes);
 
-	let online = $state<boolean>(false);
+	let partner = $state<string>();
 	let status = $state<Status>();
+
+	const partners = [
+		{ url: "forge-vtt.com", name: "The Forge" },
+		{ url: "forgevtt.com", name: "The Forge" },
+		{ url: "moltenhosting.com", name: "Molten Hosting" },
+		{ url: "foundryserver.com", name: "Foundry Server" }
+	];
 
 	function handleUpdateServer() {
 		const result = updateServer({
@@ -71,8 +78,18 @@
 		}
 	}
 
-	async function checkStatus() {
-		const response = await fetch(`${url}${url.endsWith("/") ? "" : "/"}api/status`, {
+	async function checkStatus(url: string) {
+		partner = undefined;
+		status = undefined;
+
+		if (partners.some((p) => url.includes(p.url))) {
+			partner = partners.find((p) => url.includes(p.url))?.name;
+			return;
+		}
+
+		const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
+
+		const response = await fetch(`${cleanUrl}/api/status`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json"
@@ -85,7 +102,7 @@
 	}
 
 	onMount(async () => {
-		await checkStatus();
+		await checkStatus(url);
 	});
 </script>
 
@@ -185,13 +202,21 @@
 								class="mr-1"
 							/>{status.users}</Badge
 						>{/if}
+				{:else if partner}
+					<Badge>
+						<Zap
+							size={16}
+							class="mr-1 text-orange-500"
+						/>{partner}</Badge
+					>
 				{:else}
 					<Badge variant="outline">
 						<Zap
 							size={16}
 							class="mr-1"
 						/>Offline</Badge
-					>{/if}
+					>
+				{/if}
 			</div>
 		</div>
 	</div>
