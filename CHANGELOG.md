@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v6.6.0
+
+- Fixed server check edge cases (partner hostings, subpaths).
+
 # v6.5.0
 
 - Changed the default Foundry window size to fit the login screen UI.
