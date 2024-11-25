@@ -2,20 +2,22 @@ import { LocalStorage } from "$scripts/storage.svelte.js";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
 
+const ERROR_MESSAGES = {
+	serverName: "Please enter a server name",
+	foundryPath: "Please select a path to the Foundry VTT installation directory",
+	validPort: "Please enter a valid port number"
+};
+
 const NodeserverSchema = v.object({
 	id: v.string(),
-	label: v.pipe(v.string(), v.trim(), v.minLength(1, "Please enter a server name")),
+	label: v.pipe(v.string(), v.trim(), v.minLength(1, ERROR_MESSAGES.serverName)),
 	notes: v.optional(v.string()),
-	foundryPath: v.pipe(
-		v.string(),
-		v.trim(),
-		v.minLength(1, "Please select a path to the Foundry VTT installation directory")
-	),
+	foundryPath: v.pipe(v.string(), v.trim(), v.minLength(1, ERROR_MESSAGES.foundryPath)),
 	dataPath: v.optional(v.string()),
 	port: v.pipe(
 		v.number(),
-		v.minValue(1, "Please enter a valid port number"),
-		v.maxValue(65535, "Please enter a valid port number")
+		v.minValue(1, ERROR_MESSAGES.validPort),
+		v.maxValue(65535, ERROR_MESSAGES.validPort)
 	),
 	args: v.optional(v.string())
 });
@@ -35,12 +37,7 @@ export function addServer(data: NodeserverPartial) {
 	if (result.success) {
 		nodeservers.current.unshift({
 			id: nanoid(),
-			label: result.output.label,
-			notes: result.output.notes,
-			foundryPath: result.output.foundryPath,
-			dataPath: result.output.dataPath,
-			port: result.output.port,
-			args: result.output.args
+			...result.output
 		});
 	}
 
@@ -67,13 +64,7 @@ export function updateServer(data: Nodeserver) {
 			}
 
 			return {
-				id: result.output.id,
-				label: result.output.label,
-				notes: result.output.notes,
-				foundryPath: result.output.foundryPath,
-				dataPath: result.output.dataPath,
-				port: result.output.port,
-				args: result.output.args
+				...result.output
 			};
 		});
 	}

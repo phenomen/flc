@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { fetch } from "@tauri-apps/plugin-http";
 
 	import * as Card from "$ui/card/index.js";
 	import { Input } from "$ui/input/index.js";
@@ -18,9 +17,8 @@
 	import Zap from "lucide-svelte/icons/zap";
 	import Dices from "lucide-svelte/icons/dices";
 	import Hexagon from "lucide-svelte/icons/hexagon";
-	import Globe from "lucide-svelte/icons/globe";
 
-	import { deleteServer, updateServer } from "$scripts/servers.svelte.js";
+	import { deleteServer, updateServer, checkStatus } from "$scripts/servers.svelte.js";
 	import { openWebview } from "$scripts/webview.svelte.js";
 
 	let { server } = $props();
@@ -47,13 +45,6 @@
 	let partner = $state<string>();
 	let status = $state<Status>();
 
-	const partners = [
-		{ url: "forge-vtt.com", name: "The Forge" },
-		{ url: "forgevtt.com", name: "The Forge" },
-		{ url: "moltenhosting.com", name: "Molten Hosting" },
-		{ url: "foundryserver.com", name: "Foundry Server" }
-	];
-
 	function handleUpdateServer() {
 		const result = updateServer({
 			id: server.id,
@@ -78,31 +69,15 @@
 		}
 	}
 
-	async function checkStatus(url: string) {
+	async function handleCheckStatus() {
 		partner = undefined;
 		status = undefined;
 
-		if (partners.some((p) => url.includes(p.url))) {
-			partner = partners.find((p) => url.includes(p.url))?.name;
-			return;
-		}
-
-		const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
-
-		const response = await fetch(`${cleanUrl}/api/status`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-
-		if (response.statusText === "OK" || response.status === 200) {
-			status = await response.json();
-		}
+		({ status, partner } = await checkStatus(url));
 	}
 
 	onMount(async () => {
-		await checkStatus(url);
+		await handleCheckStatus();
 	});
 </script>
 

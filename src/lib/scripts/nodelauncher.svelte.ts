@@ -4,6 +4,8 @@ import type { Child } from "@tauri-apps/plugin-shell";
 import { join } from "@tauri-apps/api/path";
 import { Command } from "@tauri-apps/plugin-shell";
 
+const DEFAULT_PORT = 30000;
+
 class NodeLauncher {
 	value = $state<Nodeserver>({
 		id: "",
@@ -11,7 +13,7 @@ class NodeLauncher {
 		notes: "",
 		foundryPath: "",
 		dataPath: "",
-		port: 30000,
+		port: DEFAULT_PORT,
 		args: ""
 	});
 
@@ -22,7 +24,7 @@ class NodeLauncher {
 			notes: "",
 			foundryPath: "",
 			dataPath: "",
-			port: 30000,
+			port: DEFAULT_PORT,
 			args: ""
 		};
 	}
@@ -49,7 +51,7 @@ class NodeStatus {
 export const nodeLauncher = new NodeLauncher();
 export const nodeStatus = new NodeStatus();
 
-let child: Child;
+let child: Child | undefined;
 
 export async function launchNodeserver() {
 	nodeStatus.reset();
@@ -59,13 +61,13 @@ export async function launchNodeserver() {
 	const normalizedDataPath = server.dataPath ? await join(server.dataPath) : undefined;
 
 	const command = Command.create("node", [
-		`${normalizedFoundryPath}`,
+		normalizedFoundryPath,
 		normalizedDataPath ? `--dataPath=${normalizedDataPath}` : "",
 		`--port=${server.port}`,
-		`${server.args || ""}`
+		server.args || ""
 	]);
 
-	command.on("close", (data: any) => {
+	command.on("close", () => {
 		nodeStatus.value.status = `Node process finished`;
 		nodeStatus.value.launched = false;
 	});
