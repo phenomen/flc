@@ -3,6 +3,19 @@ import { LocalStorage } from "$scripts/storage.svelte.js";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
 
+export type ServerStatus = {
+	active?: boolean;
+	version?: string;
+	world?: string;
+	system?: string;
+	users?: number;
+};
+
+type StatusResponse = {
+	status: ServerStatus | undefined;
+	partner: string | undefined;
+};
+
 const ERROR_MESSAGES = {
 	serverName: "Please enter a server name",
 	validUrl: "Please enter a correct URL starting with either http:// or https://"
@@ -20,7 +33,7 @@ const ServerPartialSchema = v.omit(ServerSchema, ["id"]);
 export type Server = v.InferOutput<typeof ServerSchema>;
 export type ServerPartial = v.InferOutput<typeof ServerPartialSchema>;
 
-const partners = [
+const PARTNERS = [
 	{ url: "forge-vtt.com", name: "The Forge" },
 	{ url: "forgevtt.com", name: "The Forge" },
 	{ url: "moltenhosting.com", name: "Molten Hosting" },
@@ -33,12 +46,17 @@ export let servers = $state<LocalStorage<Server[]>>(storage);
 export function addServer(data: ServerPartial) {
 	const result = v.safeParse(ServerPartialSchema, data);
 
-	if (result.success) {
-		servers.current.unshift({
+	if (!result.success) {
+		return result;
+	}
+
+	servers.current = [
+		{
 			id: nanoid(),
 			...result.output
-		});
-	}
+		},
+		...servers.current
+	];
 
 	return result;
 }
@@ -56,28 +74,24 @@ export function deleteServer(id: string) {
 export function updateServer(data: Server) {
 	const result = v.safeParse(ServerSchema, data);
 
-	if (result.success) {
-		servers.current = servers.current.map((s: Server) => {
-			if (s.id !== result.output.id) {
-				return s;
-			}
-
-			return {
-				...result.output
-			};
-		});
+	if (!result.success) {
+		return result;
 	}
+
+	servers.current = servers.current.map((server) =>
+		server.id === result.output.id ? result.output : server
+	);
 
 	return result;
 }
 
-export async function checkStatus(url: string) {
-	const partner = partners.find((p) => url.includes(p.url))?.name;
-	if (partner) return { status: undefined, partner };
-
-	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
-
+export async function checkStatus(url: string): Promise<StatusResponse> {
 	try {
+		const partner = PARTNERS.find((p) => url.includes(p.url))?.name;
+		if (partner) return { status: undefined, partner };
+
+		const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
+
 		const response = await fetch(`${cleanUrl}/api/status`, {
 			method: "GET",
 			headers: {
@@ -85,12 +99,14 @@ export async function checkStatus(url: string) {
 			}
 		});
 
-		if (response.ok) {
-			return { status: await response.json(), partner };
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
 		}
-	} catch (error) {
-		console.error("Error fetching server status:", error);
-	}
 
-	return { status: undefined, partner };
+		const status = await response.json();
+		return { status, partner };
+	} catch (error) {
+		console.error("Error fetching server status:", error instanceof Error ? error.message : error);
+		return { status: undefined, partner: undefined };
+	}
 }

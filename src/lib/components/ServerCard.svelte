@@ -18,6 +18,7 @@
 	import Dices from "lucide-svelte/icons/dices";
 	import Hexagon from "lucide-svelte/icons/hexagon";
 
+	import type { ServerStatus } from "$scripts/servers.svelte.js";
 	import { deleteServer, updateServer, checkStatus } from "$scripts/servers.svelte.js";
 	import { openWebview } from "$scripts/webview.svelte.js";
 
@@ -27,14 +28,6 @@
 		throw new Error("Server not found");
 	}
 
-	type Status = {
-		active?: boolean;
-		version?: string;
-		world?: string;
-		system?: string;
-		users?: number;
-	};
-
 	let open = $state<boolean>(false);
 	let error = $state<string>("");
 
@@ -43,7 +36,7 @@
 	let notes = $state<string>(server.notes);
 
 	let partner = $state<string>();
-	let status = $state<Status>();
+	let status = $state<ServerStatus>();
 
 	function handleUpdateServer() {
 		const result = updateServer({

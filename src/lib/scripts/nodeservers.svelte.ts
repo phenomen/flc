@@ -34,12 +34,17 @@ export let nodeservers = $state<LocalStorage<Nodeserver[]>>(storage);
 export function addServer(data: NodeserverPartial) {
 	const result = v.safeParse(NodeserverPartialSchema, data);
 
-	if (result.success) {
-		nodeservers.current.unshift({
+	if (!result.success) {
+		return result;
+	}
+
+	nodeservers.current = [
+		{
 			id: nanoid(),
 			...result.output
-		});
-	}
+		},
+		...nodeservers.current
+	];
 
 	return result;
 }
@@ -47,9 +52,11 @@ export function addServer(data: NodeserverPartial) {
 export function deleteServer(id: string) {
 	const result = v.safeParse(v.string(), id);
 
-	if (result.success) {
-		nodeservers.current = nodeservers.current.filter((s: Nodeserver) => s.id !== result.output);
+	if (!result.success) {
+		return result;
 	}
+
+	nodeservers.current = nodeservers.current.filter((server) => server.id !== result.output);
 
 	return result;
 }
@@ -57,17 +64,13 @@ export function deleteServer(id: string) {
 export function updateServer(data: Nodeserver) {
 	const result = v.safeParse(NodeserverSchema, data);
 
-	if (result.success) {
-		nodeservers.current = nodeservers.current.map((s: Nodeserver) => {
-			if (s.id !== result.output.id) {
-				return s;
-			}
-
-			return {
-				...result.output
-			};
-		});
+	if (!result.success) {
+		return result;
 	}
+
+	nodeservers.current = nodeservers.current.map((server) =>
+		server.id === result.output.id ? result.output : server
+	);
 
 	return result;
 }
