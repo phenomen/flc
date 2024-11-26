@@ -5,7 +5,7 @@
 	import { nodeservers } from "$scripts/nodeservers.svelte.js";
 </script>
 
-<div class="grid gap-2 relative mb-8">
+<div class="relative mb-8 grid gap-2">
 	{#if nodeservers.current.length}
 		{#each nodeservers.current as server (server.id)}
 			<div transition:slide>
@@ -14,8 +14,7 @@
 		{/each}
 	{:else}
 		<div
-			class="font-medium p-2 border border-dashed border-muted-foreground rounded-md w-full text-center"
-		>
+			class="w-full rounded-md border border-dashed border-muted-foreground p-2 text-center font-medium">
 			<p>There are no Node servers yet. Start by adding a new server.</p>
 		</div>
 	{/if}

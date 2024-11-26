@@ -9,11 +9,11 @@ export type ServerStatus = {
 	world?: string;
 	system?: string;
 	users?: number;
+	partner?: string;
 };
 
 type StatusResponse = {
 	status: ServerStatus | undefined;
-	partner: string | undefined;
 };
 
 const ERROR_MESSAGES = {
@@ -86,27 +86,22 @@ export function updateServer(data: Server) {
 }
 
 export async function checkStatus(url: string): Promise<StatusResponse> {
-	try {
-		const partner = PARTNERS.find((p) => url.includes(p.url))?.name;
-		if (partner) return { status: undefined, partner };
+	const partner = PARTNERS.find((p) => url.includes(p.url))?.name;
+	if (partner) return { status: { partner } };
 
-		const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
+	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
 
-		const response = await fetch(`${cleanUrl}/api/status`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
+	const response = await fetch(`${cleanUrl}/api/status`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
 		}
+	});
 
-		const status = await response.json();
-		return { status, partner };
-	} catch (error) {
-		console.error("Error fetching server status:", error instanceof Error ? error.message : error);
-		return { status: undefined, partner: undefined };
+	if (!response.ok) {
+		return { status: undefined };
 	}
+
+	const status = await response.json();
+	return { status: { ...status, partner: undefined } };
 }

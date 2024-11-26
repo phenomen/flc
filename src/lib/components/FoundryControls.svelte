@@ -10,28 +10,26 @@
 	<Popover.Trigger>
 		<div
 			class={buttonVariants({ variant: "outline", size: "icon" })}
-			title="Hotkeys"
-		>
+			title="Hotkeys">
 			<CircleHelp size={24} />
 		</div>
 	</Popover.Trigger>
 	<Popover.Content>
-		<div class="grid gap-2 font-medium text-xs">
-			<div class="w-full justify-between flex space-x-2 items-center">
+		<div class="grid gap-2 text-xs font-medium">
+			<div class="flex w-full items-center justify-between space-x-2">
 				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">F11</kbd></span><span
-					>Toggle Fullscreen</span
-				>
+					>Toggle Fullscreen</span>
 			</div>
 			<Separator />
-			<div class="w-full justify-between flex space-x-2 items-center">
+			<div class="flex w-full items-center justify-between space-x-2">
 				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">+</kbd></span><span>Zoom In</span>
 			</div>
 			<Separator />
-			<div class="w-full justify-between flex space-x-2 items-center">
+			<div class="flex w-full items-center justify-between space-x-2">
 				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">-</kbd></span><span>Zoom Out</span>
 			</div>
 			<Separator />
-			<div class="w-full justify-between flex space-x-2 items-center">
+			<div class="flex w-full items-center justify-between space-x-2">
 				<span><kbd class="kbd">Ctrl/⌘</kbd> <kbd class="kbd">0</kbd></span><span>Reset Zoom</span>
 			</div>
 		</div>
@@ -40,6 +38,6 @@
 
 <style>
 	.kbd {
-		@apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono font-medium opacity-100;
+		@apply pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono font-medium text-muted-foreground opacity-100;
 	}
 </style>

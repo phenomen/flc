@@ -3,7 +3,7 @@
 	import NodeserverLauncher from "$components/NodeserverLauncher.svelte";
 </script>
 
-<main class="flex flex-col space-y-4 py-4 container">
+<main class="container flex flex-col space-y-4 py-4">
 	<NodeserverLauncher />
 	<NodeserverGrid />
 </main>

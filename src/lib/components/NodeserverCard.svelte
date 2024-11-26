@@ -86,39 +86,33 @@
 	}
 </script>
 
-<Card.Root class="w-full border flex items-center h-full rounded-md overflow-hidden group">
+<Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
 	<button
 		onclick={handleDeleteServer}
-		class="w-full h-full bg-destructive text-destructive-foreground overflow-hidden max-w-8 hover:bg-destructive/90 border-destructive border"
+		class="h-full w-full max-w-8 overflow-hidden border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
 		title="Delete Server"
 		><X
 			size={18}
-			class="mx-auto"
-		/></button
-	>
+			class="mx-auto" /></button>
 
 	<Popover.Root bind:open>
 		<Popover.Trigger
-			class="w-full h-full bg-secondary dark:bg-secondary/50 overflow-hidden max-w-12"
+			class="h-full w-full max-w-12 overflow-hidden bg-secondary dark:bg-secondary/50"
 			title="Edit Server"
 			><Settings
 				size={18}
-				class="mx-auto"
-			/></Popover.Trigger
-		>
+				class="mx-auto" /></Popover.Trigger>
 		<Popover.Content
 			class="w-80"
 			side="right"
-			sideOffset={8}
-		>
+			sideOffset={8}>
 			<form class="grid gap-2">
 				<div class="grid items-center gap-2">
 					<Label for="label">Label *</Label>
 					<Input
 						id="label"
 						bind:value={label}
-						placeholder="Server name"
-					/>
+						placeholder="Server name" />
 				</div>
 
 				<div class="grid items-center gap-2">
@@ -127,20 +121,17 @@
 						id="foundryPath"
 						bind:value={foundryPath}
 						placeholder="Installation directory"
-						onclick={selectFoundryPath}
-					/>
+						onclick={selectFoundryPath} />
 				</div>
 
 				<div class="grid items-center gap-2">
 					<Label for="foundryPath"
-						>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label
-					>
+						>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
 						id="foundryPath"
 						bind:value={dataPath}
 						placeholder="User data directory"
-						onclick={selectDataPath}
-					/>
+						onclick={selectDataPath} />
 				</div>
 
 				<div class="grid items-center gap-2">
@@ -149,37 +140,31 @@
 						id="port"
 						type="number"
 						bind:value={port}
-						placeholder="Foundry port"
-					/>
+						placeholder="Foundry port" />
 				</div>
 
 				<div class="grid items-center gap-2">
 					<Label for="args"
-						>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label
-					>
+						>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
 						id="args"
 						bind:value={args}
-						placeholder="Additional arguments"
-					/>
+						placeholder="Additional arguments" />
 				</div>
 
 				<div class="grid items-center gap-2">
 					<Label for="notes"
-						>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label
-					>
+						>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Textarea
 						id="notes"
 						bind:value={notes}
 						rows={2}
-						placeholder="Notes, passwords, etc."
-					/>
+						placeholder="Notes, passwords, etc." />
 				</div>
 				<Button
 					type="submit"
 					onclick={handleUpdateServer}
-					class="w-full">Save Settings</Button
-				>
+					class="w-full">Save Settings</Button>
 
 				{#if error}
 					<Alert.Root variant="destructive">
@@ -191,17 +176,15 @@
 	</Popover.Root>
 
 	<div class="w-full px-2 py-6">
-		<h1 class="text-ellipsis text-nowrap font-semibold overflow-hidden">{server.label}</h1>
+		<h1 class="overflow-hidden text-ellipsis text-nowrap font-semibold">{server.label}</h1>
 	</div>
 
 	<button
 		onclick={handleLoadSettings}
-		class="w-full h-full bg-primary text-primary-foreground overflow-hidden max-w-16 hover:bg-primary/90 border-primary border"
-		title="Load Server Settings"
-	>
+		class="h-full w-full max-w-16 overflow-hidden border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+		title="Load Server Settings">
 		<ArrowUpToLine
 			size={20}
-			class="mx-auto"
-		/>
+			class="mx-auto" />
 	</button>
 </Card.Root>

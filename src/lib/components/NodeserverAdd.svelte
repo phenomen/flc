@@ -77,8 +77,7 @@
 				<Input
 					id="label"
 					bind:value={label}
-					placeholder="Server name"
-				/>
+					placeholder="Server name" />
 			</div>
 
 			<div class="grid items-center gap-2">
@@ -87,20 +86,17 @@
 					id="foundryPath"
 					bind:value={foundryPath}
 					placeholder="Installation directory"
-					onclick={selectFoundryPath}
-				/>
+					onclick={selectFoundryPath} />
 			</div>
 
 			<div class="grid items-center gap-2">
 				<Label for="foundryPath"
-					>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label
-				>
+					>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Input
 					id="foundryPath"
 					bind:value={dataPath}
 					placeholder="User data directory"
-					onclick={selectDataPath}
-				/>
+					onclick={selectDataPath} />
 			</div>
 
 			<div class="grid items-center gap-2">
@@ -109,37 +105,31 @@
 					id="port"
 					type="number"
 					bind:value={port}
-					placeholder="Foundry port"
-				/>
+					placeholder="Foundry port" />
 			</div>
 
 			<div class="grid items-center gap-2">
 				<Label for="args"
-					>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label
-				>
+					>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Input
 					id="args"
 					bind:value={args}
-					placeholder="Additional arguments"
-				/>
+					placeholder="Additional arguments" />
 			</div>
 
 			<div class="grid items-center gap-2">
 				<Label for="notes"
-					>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label
-				>
+					>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Textarea
 					id="notes"
 					bind:value={notes}
 					rows={2}
-					placeholder="Notes, passwords, etc."
-				/>
+					placeholder="Notes, passwords, etc." />
 			</div>
 			<Button
 				type="submit"
 				onclick={handleAddServer}
-				class="w-full">Add Node Server</Button
-			>
+				class="w-full">Add Node Server</Button>
 
 			{#if error}
 				<Alert.Root variant="destructive">

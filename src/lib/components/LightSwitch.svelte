@@ -20,8 +20,7 @@
 	onclick={toggleMode}
 	variant="outline"
 	size="icon"
-	title="Toggle Theme"
->
-	<Sun class="size-5 block dark:hidden" />
-	<Moon class="size-5 hidden dark:block" />
+	title="Toggle Theme">
+	<Sun class="block size-5 dark:hidden" />
+	<Moon class="hidden size-5 dark:block" />
 </Button>
