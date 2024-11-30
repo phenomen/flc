@@ -15,7 +15,7 @@
 	let { launched, status, stdoutData, stderrData } = $derived(nodeStatus?.value);
 </script>
 
-<div class="flex flex-col space-y-2 p-2 border dark:border-primary/10 rounded-md bg-accent">
+<div class="flex flex-col space-y-2 rounded-md border bg-accent p-2 dark:border-primary/10">
 	<Alert.Root>
 		<Info class="size-5" />
 
@@ -23,40 +23,37 @@
 			><p class="font-medium">
 				<span class="font-semibold">Node.js 20+</span> is required to launch a Foundry VTT server.
 				Download it at <span class="text-blue-500">nodejs.org</span>
-			</p></Alert.Description
-		>
+			</p></Alert.Description>
 	</Alert.Root>
 
 	{#if launched}
 		<Button
 			onclick={async () => await stopNodeserver()}
-			variant="destructive">Stop Server</Button
-		>
+			variant="destructive">Stop Server</Button>
 	{:else}
 		<Button
 			onclick={async () => await launchNodeserver()}
 			disabled={!nodeLauncher?.value?.id}
 			>{!nodeLauncher?.value?.id
 				? "No Server Settings Loaded"
-				: `Launch Server: ${nodeLauncher?.value?.label}`}</Button
-		>
+				: `Launch Server: ${nodeLauncher?.value?.label}`}</Button>
 	{/if}
 
 	{#if status}
-		<div class="font-mono text-sm bg-black text-lime-500 p-2 rounded-md">
+		<div class="rounded-md bg-black p-2 font-mono text-sm text-lime-500">
 			<pre>{status}</pre>
 		</div>
 	{/if}
 
 	{#if launched}
 		{#if stdoutData}
-			<ScrollArea class="font-mono text-sm bg-black text-white p-2 rounded-md max-h-48 h-48">
+			<ScrollArea class="h-48 max-h-48 rounded-md bg-black p-2 font-mono text-sm text-white">
 				<pre>{stdoutData}</pre>
 			</ScrollArea>
 		{/if}
 	{/if}
 	{#if stderrData}
-		<ScrollArea class="font-mono text-sm bg-black text-red-500 p-2 rounded-md max-h-48 h-48">
+		<ScrollArea class="h-48 max-h-48 rounded-md bg-black p-2 font-mono text-sm text-red-500">
 			<pre>{stderrData}</pre>
 		</ScrollArea>
 	{/if}

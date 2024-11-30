@@ -44,33 +44,28 @@
 				<Input
 					id="label"
 					bind:value={label}
-					placeholder="Server name"
-				/>
+					placeholder="Server name" />
 			</div>
 			<div class="grid items-center gap-2">
 				<Label for="url">URL</Label>
 				<Input
 					id="url"
 					bind:value={url}
-					placeholder="URL or IP"
-				/>
+					placeholder="URL or IP" />
 			</div>
 			<div class="grid items-center gap-2">
 				<Label for="notes"
-					>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label
-				>
+					>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Textarea
 					id="notes"
 					bind:value={notes}
 					rows={2}
-					placeholder="Notes, passwords, etc."
-				/>
+					placeholder="Notes, passwords, etc." />
 			</div>
 			<Button
 				type="submit"
 				onclick={handleAddServer}
-				class="w-full">Add Server</Button
-			>
+				class="w-full">Add Server</Button>
 
 			{#if error}
 				<Alert.Root variant="destructive">

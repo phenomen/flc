@@ -10,17 +10,15 @@
 	import FoundryControls from "$components/FoundryControls.svelte";
 </script>
 
-<header class="sticky top-0 z-10 bg-background border-b w-full">
-	<div class="flex items-center justify-between w-full container py-2">
+<header class="sticky top-0 z-10 w-full border-b bg-background">
+	<div class="container flex w-full items-center justify-between py-2">
 		<button
-			class="items-center flex space-x-1"
-			onclick={() => open("https://flc.ruleplaying.com")}
-		>
+			class="flex items-center space-x-1"
+			onclick={() => open("https://flc.ruleplaying.com")}>
 			<img
 				src="/logo.svg"
 				alt="FLC"
-				class="h-8 w-8"
-			/>
+				class="h-8 w-8" />
 			<h1 class="text-xl font-bold">FLC</h1>
 		</button>
 
@@ -28,13 +26,11 @@
 			<Button
 				variant="ghost"
 				href="/"
-				class={$page.url.pathname === "/" ? "bg-secondary" : ""}>Join Server</Button
-			>
+				class={$page.url.pathname === "/" ? "bg-secondary" : ""}>Join Server</Button>
 			<Button
 				variant="ghost"
 				href="/node"
-				class={$page.url.pathname === "/node" ? "bg-secondary" : ""}>Launch Server</Button
-			>
+				class={$page.url.pathname === "/node" ? "bg-secondary" : ""}>Launch Server</Button>
 		</div>
 
 		<div class="flex items-center space-x-2">

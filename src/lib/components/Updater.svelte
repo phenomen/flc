@@ -22,7 +22,7 @@
 		let contentLength = 0;
 		install = false;
 
-		await update.downloadAndInstall((event) => {
+		await update?.downloadAndInstall((event) => {
 			switch (event.event) {
 				case "Started":
 					contentLength = event.data.contentLength || 0;
@@ -47,14 +47,13 @@
 </script>
 
 {#if update}
-	<footer class="fixed bottom-0 z-10 bg-yellow-400 text-black w-full">
-		<div class="px-4 py-1 flex space-x-4 items-center w-full justify-center text-sm">
+	<footer class="fixed bottom-0 z-10 w-full bg-yellow-400 text-black">
+		<div class="flex w-full items-center justify-center space-x-4 px-4 py-1 text-sm">
 			<div class="font-medium">{message}</div>
 			{#if install}
 				<button
-					class="bg-black text-white px-2 py-0.5 rounded-md font-medium"
-					onclick={installUpdate}>Update</button
-				>
+					class="rounded-md bg-black px-2 py-0.5 font-medium text-white"
+					onclick={installUpdate}>Update</button>
 			{/if}
 		</div>
 	</footer>

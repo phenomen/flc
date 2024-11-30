@@ -29,12 +29,11 @@
 		<div
 			class={cn(
 				buttonVariants({ variant: "outline", size: "icon" }),
-				"text-emerald-500 hover:text-emerald-500 border-emerald-500",
-				!glEnabled && !highPerf && "text-red-500 hover:text-red-500 border-red-500"
+				"border-emerald-500 text-emerald-500 hover:text-emerald-500",
+				!glEnabled && !highPerf && "border-red-500 text-red-500 hover:text-red-500"
 			)}
-			title="Performance Report"
-		>
-			<Cpu class="size-5 block" />
+			title="Performance Report">
+			<Cpu class="block size-5" />
 		</div>
 	</Popover.Trigger>
 	<Popover.Content>
