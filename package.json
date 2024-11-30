@@ -18,8 +18,8 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^3.0.6",
-		"@sveltejs/kit": "^2.8.4",
-		"@sveltejs/vite-plugin-svelte": "^4.0.2",
+		"@sveltejs/kit": "^2.9.0",
+		"@sveltejs/vite-plugin-svelte": "^5.0.1",
 		"@tauri-apps/api": "^2.1.1",
 		"@tauri-apps/cli": "^2.1.0",
 		"@tauri-apps/plugin-dialog": "^2.0.1",
@@ -31,16 +31,16 @@
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^1.0.0-next.64",
 		"clsx": "^2.1.1",
-		"eslint": "^9.15.0",
+		"eslint": "^9.16.0",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.46.0",
+		"eslint-plugin-svelte": "^2.46.1",
 		"globals": "^15.12.0",
-		"lucide-svelte": "^0.461.0",
+		"lucide-svelte": "^0.462.0",
 		"mode-watcher": "^0.5.0",
-		"prettier": "^3.3.3",
+		"prettier": "^3.4.1",
 		"prettier-plugin-svelte": "^3.3.2",
 		"prettier-plugin-tailwindcss": "^0.6.9",
-		"svelte": "^5.2.8",
+		"svelte": "^5.2.11",
 		"svelte-check": "^4.1.0",
 		"tailwind-merge": "^2.5.5",
 		"tailwind-variants": "^0.3.0",
@@ -49,8 +49,8 @@
 		"tslib": "^2.8.1",
 		"typescript": "^5.7.2",
 		"typescript-eslint": "^8.16.0",
-		"valibot": "^1.0.0-beta.8",
-		"vite": "^5.4.11"
+		"valibot": "^1.0.0-beta.9",
+		"vite": "^6.0.1"
 	},
 	"dependencies": {
 		"@fontsource-variable/inter": "^5.1.0"
