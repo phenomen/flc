@@ -1,65 +1,59 @@
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": [
-    "main"
-  ],
-  "platforms": [
-    "macOS",
-    "windows",
-    "linux"
-  ],
-  "permissions": [
-    "core:app:allow-set-app-theme",
-    "core:default",
-    "core:webview:allow-create-webview-window",
-    "core:webview:allow-create-webview",
-    "core:webview:allow-set-webview-focus",
-    "core:webview:allow-set-webview-size",
-    "core:webview:allow-set-webview-zoom",
-    "core:webview:default",
-    "core:window:allow-close",
-    "core:window:allow-create",
-    "core:window:allow-is-focused",
-    "core:window:allow-is-fullscreen",
-    "core:window:allow-set-focus",
-    "core:window:allow-set-fullscreen",
-    "core:window:default",
-    "dialog:default",
-    "global-shortcut:allow-register",
-    "global-shortcut:default",
-    "http:default",
-    "shell:allow-kill",
-    "shell:allow-open",
-    "shell:allow-spawn",
-    "shell:default",
-    "updater:allow-check",
-    "updater:allow-download-and-install",
-    "updater:allow-download",
-    "updater:allow-install",
-    "updater:default",
-    {
-      "identifier": "http:default",
-      "allow": [
-        {
-          "url": "https://*:*"
-        },
-        {
-          "url": "http://*:*"
-        }
-      ]
-    },
-    {
-      "identifier": "shell:allow-spawn",
-      "allow": [
-        {
-          "name": "node",
-          "cmd": "node",
-          "args": true
-        }
-      ],
-      "sidecar": false
-    }
-  ]
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "default",
+	"description": "Capability for the main window",
+	"windows": ["main"],
+	"platforms": ["macOS", "windows", "linux"],
+	"permissions": [
+		"core:app:allow-set-app-theme",
+		"core:default",
+		"core:webview:allow-create-webview-window",
+		"core:webview:allow-create-webview",
+		"core:webview:allow-set-webview-focus",
+		"core:webview:allow-set-webview-size",
+		"core:webview:allow-set-webview-zoom",
+		"core:webview:default",
+		"core:window:allow-close",
+		"core:window:allow-create",
+		"core:window:allow-is-focused",
+		"core:window:allow-is-fullscreen",
+		"core:window:allow-set-focus",
+		"core:window:allow-set-fullscreen",
+		"core:window:default",
+		"dialog:default",
+		"global-shortcut:allow-register",
+		"global-shortcut:default",
+		"http:default",
+		"shell:allow-kill",
+		"shell:allow-open",
+		"shell:allow-spawn",
+		"shell:default",
+		"updater:allow-check",
+		"updater:allow-download-and-install",
+		"updater:allow-download",
+		"updater:allow-install",
+		"updater:default",
+		{
+			"identifier": "http:default",
+			"allow": [
+				{
+					"url": "https://*:*"
+				},
+				{
+					"url": "http://*:*"
+				}
+			]
+		},
+		{
+			"identifier": "shell:allow-spawn",
+			"allow": [
+				{
+					"name": "node",
+					"cmd": "node",
+					"args": true
+				}
+			],
+			"sidecar": false
+		}
+	]
 }
