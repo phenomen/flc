@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from "$app/stores";
+	import { page } from "$app/state";
 
 	import { Button } from "$ui/button/index.js";
 
@@ -26,18 +26,18 @@
 			<Button
 				variant="ghost"
 				href="/"
-				class={$page.url.pathname === "/" ? "bg-secondary" : ""}>Join Server</Button>
+				class={page.url.pathname === "/" ? "bg-secondary" : ""}>Join Server</Button>
 			<Button
 				variant="ghost"
 				href="/node"
-				class={$page.url.pathname === "/node" ? "bg-secondary" : ""}>Launch Server</Button>
+				class={page.url.pathname === "/node" ? "bg-secondary" : ""}>Launch Server</Button>
 		</div>
 
 		<div class="flex items-center space-x-2">
 			<FoundryControls />
 			<LightSwitch />
 			<WebGl />
-			{#if $page.url.pathname === "/"}
+			{#if page.url.pathname === "/"}
 				<ServerAdd />
 			{:else}
 				<NodeserverAdd />

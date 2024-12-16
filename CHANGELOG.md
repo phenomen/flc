@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v6.7.5
+
+- Use `runed`/`PersistedState` as a new local storage solution.
+- Use `$app/state` instead of `$app/stores`.
+- Dark mode tweaks.
+
+# v6.7.0
+
+- Additional type-safety and data validation.
+
 # v6.6.0
 
 - Fixed server check edge cases (partner hostings, subpaths).

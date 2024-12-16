@@ -1,5 +1,5 @@
 import { fetch } from "@tauri-apps/plugin-http";
-import { LocalStorage } from "$scripts/storage.svelte.js";
+import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
 
@@ -40,8 +40,7 @@ const PARTNERS = [
 	{ url: "foundryserver.com", name: "Foundry Server" }
 ];
 
-const storage = new LocalStorage<Server[]>("servers", []);
-export let servers = $state<LocalStorage<Server[]>>(storage);
+export let servers = new PersistedState<Server[]>("servers", []);
 
 export function addServer(data: ServerPartial) {
 	const result = v.safeParse(ServerPartialSchema, data);
