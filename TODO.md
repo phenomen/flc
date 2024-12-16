@@ -1,2 +1,2 @@
 - Use `FiniteStateMachine` for Server and Node Server statuses.
-- Use `PersistedState` as a replacement for the current local storage solution.
+- ~~Use `PersistedState` as a replacement for the current local storage solution.~~ Done.

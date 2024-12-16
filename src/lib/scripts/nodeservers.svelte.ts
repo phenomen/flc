@@ -1,4 +1,4 @@
-import { LocalStorage } from "$scripts/storage.svelte.js";
+import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
 
@@ -27,9 +27,7 @@ const NodeserverPartialSchema = v.omit(NodeserverSchema, ["id"]);
 export type Nodeserver = v.InferOutput<typeof NodeserverSchema>;
 export type NodeserverPartial = v.InferOutput<typeof NodeserverPartialSchema>;
 
-const storage = new LocalStorage<Nodeserver[]>("nodeservers", []);
-
-export let nodeservers = $state<LocalStorage<Nodeserver[]>>(storage);
+export let nodeservers = new PersistedState<Nodeserver[]>("nodeservers", []);
 
 export function addServer(data: NodeserverPartial) {
 	const result = v.safeParse(NodeserverPartialSchema, data);
