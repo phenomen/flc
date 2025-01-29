@@ -1,5 +1,15 @@
 # CHANGELOG
 
+# v6.9.0
+
+- Fixed MacOS bundle. It should not throw a "damaged" error anymore but will ask users to verify opening an unsigned app.
+- Display FLC version in the header.
+
+# v6.8.0
+
+- Security fix in dependency
+- UI tweaks
+
 # v6.7.5
 
 - Use `runed`/`PersistedState` as a new local storage solution.

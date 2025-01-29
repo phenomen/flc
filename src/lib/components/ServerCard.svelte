@@ -10,13 +10,17 @@
 	import * as Alert from "$ui/alert/index.js";
 	import { Badge } from "$ui/badge/index.js";
 
-	import Settings from "lucide-svelte/icons/settings";
-	import X from "lucide-svelte/icons/x";
-	import LogIn from "lucide-svelte/icons/log-in";
-	import Smile from "lucide-svelte/icons/smile";
-	import Zap from "lucide-svelte/icons/zap";
-	import Dices from "lucide-svelte/icons/dices";
-	import Hexagon from "lucide-svelte/icons/hexagon";
+	import {
+		SettingsIcon,
+		XIcon,
+		LogInIcon,
+		SmileIcon,
+		ZapIcon,
+		DicesIcon,
+		HexagonIcon,
+		ArrowUpIcon,
+		ArrowDownIcon
+	} from "lucide-svelte";
 
 	import type { ServerStatus } from "$scripts/servers.svelte.js";
 	import { deleteServer, updateServer, checkStatus } from "$scripts/servers.svelte.js";
@@ -75,17 +79,17 @@
 <Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
 	<button
 		onclick={handleDeleteServer}
-		class="h-full w-full max-w-8 overflow-hidden border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
+		class="h-full w-8 border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
 		title="Delete Server"
-		><X
+		><XIcon
 			size={18}
 			class="mx-auto" /></button>
 
 	<Popover.Root bind:open>
 		<Popover.Trigger
-			class="h-full w-full max-w-12 overflow-hidden bg-secondary dark:bg-secondary/50"
+			class="h-full w-12  bg-secondary dark:bg-secondary/50"
 			title="Edit Server"
-			><Settings
+			><SettingsIcon
 				size={18}
 				class="mx-auto" /></Popover.Trigger>
 		<Popover.Content
@@ -136,31 +140,31 @@
 			<div class="flex items-center gap-1 text-xs text-muted-foreground">
 				{#if status?.partner}
 					<Badge>
-						<Zap
+						<ZapIcon
 							size={16}
 							class="mr-1 text-orange-500" />{status.partner}</Badge>
 				{:else if status?.version}
 					<Badge>
-						<Zap
+						<ZapIcon
 							size={16}
 							class="mr-1 text-orange-500" />Online</Badge>
 					<Badge variant="secondary"
-						><Hexagon
+						><HexagonIcon
 							size={16}
 							class="mr-1" />{status.version}</Badge>
 					{#if status.system}<Badge variant="secondary"
-							><Dices
+							><DicesIcon
 								size={16}
 								class="mr-1" />{status.system.toUpperCase()}</Badge>
 					{/if}
 					{#if status.users !== undefined}<Badge variant="secondary"
-							><Smile
+							><SmileIcon
 								size={16}
 								class="mr-1" />{status.users}</Badge
 						>{/if}
 				{:else}
 					<Badge variant="outline">
-						<Zap
+						<ZapIcon
 							size={16}
 							class="mr-1" />Offline</Badge>
 				{/if}
@@ -170,9 +174,9 @@
 
 	<button
 		onclick={() => openWebview(url, server.id, label)}
-		class="h-full w-full max-w-16 overflow-hidden border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+		class="h-full w-16 border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
 		title="Join Server">
-		<LogIn
+		<LogInIcon
 			size={20}
 			class="mx-auto" />
 	</button>

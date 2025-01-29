@@ -90,17 +90,23 @@ export async function checkStatus(url: string): Promise<StatusResponse> {
 
 	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
 
-	const response = await fetch(`${cleanUrl}/api/status`, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
-	});
+	try {
+		const response = await fetch(`${cleanUrl}/api/status`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
 
-	if (!response.ok) {
+		if (!response.ok) {
+			console.warn(`Server ${url} returned status ${response.status}`);
+			return { status: undefined };
+		}
+
+		const status = await response.json();
+		return { status: { ...status, partner: undefined } };
+	} catch (error) {
+		console.warn(`Server ${url} is not responding`);
 		return { status: undefined };
 	}
-
-	const status = await response.json();
-	return { status: { ...status, partner: undefined } };
 }

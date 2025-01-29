@@ -3,7 +3,7 @@
 	import { buttonVariants } from "$ui/button/index.js";
 	import { cn } from "$lib/utils.js";
 
-	import Cpu from "lucide-svelte/icons/cpu";
+	import { CpuIcon } from "lucide-svelte";
 
 	let glEnabled = $state(false);
 	let highPerf = $state(false);
@@ -33,7 +33,7 @@
 				!glEnabled && !highPerf && "border-red-500 text-red-500 hover:text-red-500"
 			)}
 			title="Performance Report">
-			<Cpu class="block size-5" />
+			<CpuIcon class="block size-5" />
 		</div>
 	</Popover.Trigger>
 	<Popover.Content>

@@ -3,7 +3,7 @@
 	import * as Alert from "$ui/alert/index.js";
 	import { ScrollArea } from "$ui/scroll-area/index.js";
 
-	import Info from "lucide-svelte/icons/info";
+	import { InfoIcon } from "lucide-svelte";
 
 	import {
 		nodeLauncher,
@@ -17,7 +17,7 @@
 
 <div class="flex flex-col space-y-2 rounded-md border bg-accent p-2 dark:border-primary/10">
 	<Alert.Root>
-		<Info class="size-5" />
+		<InfoIcon class="size-5" />
 
 		<Alert.Description
 			><p class="font-medium">
