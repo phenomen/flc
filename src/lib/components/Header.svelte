@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { getVersion } from "@tauri-apps/api/app";
+
 	import { page } from "$app/state";
 
 	import { Button } from "$ui/button/index.js";
+	import { Badge } from "$ui/badge/index.js";
 
 	import LightSwitch from "$components/LightSwitch.svelte";
 	import ServerAdd from "$components/ServerAdd.svelte";
@@ -20,6 +23,12 @@
 				alt="FLC"
 				class="h-8 w-8" />
 			<h1 class="text-xl font-bold">FLC</h1>
+
+			{#await getVersion() then version}
+				<Badge variant="outline">
+					{version}
+				</Badge>
+			{/await}
 		</button>
 
 		<div class="flex items-center space-x-2">

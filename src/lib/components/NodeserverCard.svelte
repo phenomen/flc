@@ -9,9 +9,7 @@
 	import { Textarea } from "$ui/textarea/index.js";
 	import * as Alert from "$ui/alert/index.js";
 
-	import Settings from "lucide-svelte/icons/settings";
-	import X from "lucide-svelte/icons/x";
-	import ArrowUpToLine from "lucide-svelte/icons/arrow-up-to-line";
+	import { SettingsIcon, XIcon, ArrowUpToLineIcon } from "lucide-svelte";
 
 	import { deleteServer, updateServer } from "$scripts/nodeservers.svelte.js";
 	import { nodeLauncher } from "$scripts/nodelauncher.svelte.js";
@@ -91,7 +89,7 @@
 		onclick={handleDeleteServer}
 		class="h-full w-full max-w-8 overflow-hidden border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
 		title="Delete Server"
-		><X
+		><XIcon
 			size={18}
 			class="mx-auto" /></button>
 
@@ -99,7 +97,7 @@
 		<Popover.Trigger
 			class="h-full w-full max-w-12 overflow-hidden bg-secondary dark:bg-secondary/50"
 			title="Edit Server"
-			><Settings
+			><SettingsIcon
 				size={18}
 				class="mx-auto" /></Popover.Trigger>
 		<Popover.Content
@@ -183,7 +181,7 @@
 		onclick={handleLoadSettings}
 		class="h-full w-full max-w-16 overflow-hidden border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
 		title="Load Server Settings">
-		<ArrowUpToLine
+		<ArrowUpToLineIcon
 			size={20}
 			class="mx-auto" />
 	</button>
