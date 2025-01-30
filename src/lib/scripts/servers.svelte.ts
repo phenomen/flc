@@ -1,4 +1,3 @@
-import { fetch } from "@tauri-apps/plugin-http";
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as v from "valibot";

@@ -23,7 +23,6 @@
 		"dialog:default",
 		"global-shortcut:allow-register",
 		"global-shortcut:default",
-		"http:default",
 		"shell:allow-kill",
 		"shell:allow-open",
 		"shell:allow-spawn",
@@ -33,17 +32,6 @@
 		"updater:allow-download",
 		"updater:allow-install",
 		"updater:default",
-		{
-			"identifier": "http:default",
-			"allow": [
-				{
-					"url": "https://*:*"
-				},
-				{
-					"url": "http://*:*"
-				}
-			]
-		},
 		{
 			"identifier": "shell:allow-spawn",
 			"allow": [

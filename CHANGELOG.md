@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v6.9.5
+
+- Switch from `tauri:http` to a default `fetch`.
+
 # v6.9.0
 
 - Fixed MacOS bundle. It should not throw a "damaged" error anymore but will ask users to verify opening an unsigned app.
