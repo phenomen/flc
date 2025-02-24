@@ -1,29 +1,27 @@
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
+import { betterFetch } from "@better-fetch/fetch";
 
-export type ServerStatus = {
-	active?: boolean;
-	version?: string;
-	world?: string;
-	system?: string;
-	users?: number;
-	partner?: string;
-};
+const statusSchema = v.object({
+	active: v.optional(v.boolean()),
+	version: v.optional(v.string()),
+	world: v.optional(v.string()),
+	system: v.optional(v.string()),
+	users: v.optional(v.number()),
+	partner: v.optional(v.string())
+});
 
-type StatusResponse = {
-	status: ServerStatus | undefined;
-};
-
-const ERROR_MESSAGES = {
-	serverName: "Please enter a server name",
-	validUrl: "Please enter a correct URL starting with either http:// or https://"
-};
+export type ServerStatus = v.InferOutput<typeof statusSchema>;
 
 const ServerSchema = v.object({
 	id: v.string(),
-	label: v.pipe(v.string(), v.trim(), v.minLength(1, ERROR_MESSAGES.serverName)),
-	url: v.pipe(v.string(), v.trim(), v.regex(/^https?:\/\//, ERROR_MESSAGES.validUrl)),
+	label: v.pipe(v.string(), v.trim(), v.minLength(1, "Please enter a server name")),
+	url: v.pipe(
+		v.string(),
+		v.trim(),
+		v.regex(/^https?:\/\//, "Please enter a correct URL starting with either http:// or https://")
+	),
 	notes: v.optional(v.string())
 });
 
@@ -83,29 +81,23 @@ export function updateServer(data: Server) {
 	return result;
 }
 
-export async function checkStatus(url: string): Promise<StatusResponse> {
+export async function checkStatus(url: string) {
 	const partner = PARTNERS.find((p) => url.includes(p.url))?.name;
 	if (partner) return { status: { partner } };
 
 	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
 
-	try {
-		const response = await fetch(`${cleanUrl}/api/status`, {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-
-		if (!response.ok) {
-			console.warn(`Server ${url} returned status ${response.status}`);
-			return { status: undefined };
+	const { data, error } = await betterFetch(`${cleanUrl}/api/status`, {
+		output: statusSchema,
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
 		}
+	});
 
-		const status = await response.json();
-		return { status: { ...status, partner: undefined } };
-	} catch (error) {
-		console.warn(`Server ${url} is not responding`);
+	if (error) {
 		return { status: undefined };
 	}
+
+	return { status: data || undefined };
 }

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v6.9.6
+
+- `better-fetch` for type-safe server status check.
+- Updated all deps.
+
 # v6.9.5
 
 - Switch from `tauri:http` to a default `fetch`.

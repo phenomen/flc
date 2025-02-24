@@ -17,9 +17,7 @@
 		SmileIcon,
 		ZapIcon,
 		DicesIcon,
-		HexagonIcon,
-		ArrowUpIcon,
-		ArrowDownIcon
+		HexagonIcon
 	} from "lucide-svelte";
 
 	import type { ServerStatus } from "$scripts/servers.svelte.js";
@@ -68,7 +66,11 @@
 	async function handleCheckStatus() {
 		status = undefined;
 
-		({ status } = await checkStatus(url));
+		const response = await checkStatus(url);
+
+		if (response.status) {
+			status = response.status;
+		}
 	}
 
 	onMount(async () => {
