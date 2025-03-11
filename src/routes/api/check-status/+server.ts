@@ -2,6 +2,8 @@ import { error, json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import type { ServerStatus } from "$scripts/servers.svelte.js";
 
+export const prerender = true;
+
 const PARTNERS = [
 	{ url: "forge-vtt.com", name: "The Forge" },
 	{ url: "forgevtt.com", name: "The Forge" },
