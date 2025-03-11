@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v6.9.7
+
+- Downgrades Linux distro for compiling
+- Updated deps.
+
 # v6.9.6
 
 - `better-fetch` for type-safe server status check.

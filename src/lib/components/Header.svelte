@@ -17,7 +17,7 @@
 	<div class="container flex w-full items-center justify-between py-2">
 		<button
 			class="flex items-center space-x-1"
-			onclick={() => open("https://flc.ruleplaying.com")}>
+			onclick={() => open("https://foundry.ruleplaying.com/flc")}>
 			<img
 				src="/logo.svg"
 				alt="FLC"
