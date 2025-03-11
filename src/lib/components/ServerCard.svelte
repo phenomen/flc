@@ -21,7 +21,7 @@
 	} from "lucide-svelte";
 
 	import type { ServerStatus } from "$scripts/servers.svelte.js";
-	import { deleteServer, updateServer, checkStatus } from "$scripts/servers.svelte.js";
+	import { deleteServer, updateServer } from "$scripts/servers.svelte.js";
 	import { openWebview } from "$scripts/webview.svelte.js";
 
 	let { server } = $props();
@@ -66,11 +66,16 @@
 	async function handleCheckStatus() {
 		status = undefined;
 
-		const response = await checkStatus(url);
+		const response = await fetch("/api/check-status", {
+			method: "POST",
+			body: JSON.stringify({ url })
+		});
 
-		if (response.status) {
-			status = response.status;
+		if (response.status !== 200) {
+			return;
 		}
+
+		status = await response.json();
 	}
 
 	onMount(async () => {

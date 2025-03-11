@@ -2,7 +2,7 @@
 
 Minimalistic app allowing users to manage and join Foundry VTT servers.
 
-More at https://flc.ruleplaying.com/
+More at https://foundry.ruleplaying.com/flc
 
 ## Recommended IDE Setup
 

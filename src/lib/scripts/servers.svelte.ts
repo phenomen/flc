@@ -1,7 +1,6 @@
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as v from "valibot";
-import { betterFetch } from "@better-fetch/fetch";
 
 const statusSchema = v.object({
 	active: v.optional(v.boolean()),
@@ -29,13 +28,6 @@ const ServerPartialSchema = v.omit(ServerSchema, ["id"]);
 
 export type Server = v.InferOutput<typeof ServerSchema>;
 export type ServerPartial = v.InferOutput<typeof ServerPartialSchema>;
-
-const PARTNERS = [
-	{ url: "forge-vtt.com", name: "The Forge" },
-	{ url: "forgevtt.com", name: "The Forge" },
-	{ url: "moltenhosting.com", name: "Molten Hosting" },
-	{ url: "foundryserver.com", name: "Foundry Server" }
-];
 
 export let servers = new PersistedState<Server[]>("servers", []);
 
@@ -79,25 +71,4 @@ export function updateServer(data: Server) {
 	);
 
 	return result;
-}
-
-export async function checkStatus(url: string) {
-	const partner = PARTNERS.find((p) => url.includes(p.url))?.name;
-	if (partner) return { status: { partner } };
-
-	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
-
-	const { data, error } = await betterFetch(`${cleanUrl}/api/status`, {
-		output: statusSchema,
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
-	});
-
-	if (error) {
-		return { status: undefined };
-	}
-
-	return { status: data || undefined };
 }
