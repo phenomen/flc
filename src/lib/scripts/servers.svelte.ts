@@ -11,6 +11,13 @@ const statusSchema = v.object({
 	partner: v.optional(v.string())
 });
 
+const PARTNERS = [
+	{ url: "forge-vtt.com", name: "The Forge" },
+	{ url: "forgevtt.com", name: "The Forge" },
+	{ url: "moltenhosting.com", name: "Molten Hosting" },
+	{ url: "foundryserver.com", name: "Foundry Server" }
+];
+
 export type ServerStatus = v.InferOutput<typeof statusSchema>;
 
 const ServerSchema = v.object({
@@ -72,3 +79,26 @@ export function updateServer(data: Server) {
 
 	return result;
 }
+
+export async function getServerStatus(url: string) {
+	const partner = PARTNERS.find((p) => url.includes(p.url))?.name;
+
+	if (partner) return { partner: partner };
+
+	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
+
+	const response = await fetch(`${cleanUrl}/api/status`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json"
+		}
+	});
+
+	if (response.status !== 200) {
+		return;
+	}
+
+	const data: ServerStatus = await response.json();
+
+	return data;
+};
