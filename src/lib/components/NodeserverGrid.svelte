@@ -1,14 +1,23 @@
 <script lang="ts">
-	import { slide } from "svelte/transition";
+	import type { Nodeserver } from "$scripts/nodeservers.svelte.js";
+	import { fade } from "svelte/transition";
 
 	import NodeserverCard from "$components/NodeserverCard.svelte";
 	import { nodeservers } from "$scripts/nodeservers.svelte.js";
+
+	function sortServers(s: Nodeserver[]) {
+		s.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
+	}
+
+	$effect(() => {
+		sortServers(nodeservers.current);
+	});
 </script>
 
 <div class="relative mb-8 grid gap-2">
 	{#if nodeservers.current.length}
 		{#each nodeservers.current as server (server.id)}
-			<div transition:slide>
+			<div transition:fade>
 				<NodeserverCard {server} />
 			</div>
 		{/each}

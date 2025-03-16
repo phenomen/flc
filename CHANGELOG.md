@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v7.0.0
+
+- Added server sorting by custom order.
+- Updated deps.
+
 # v6.9.7
 
 - Downgrades Linux distro for compiling
