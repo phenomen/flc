@@ -35,7 +35,8 @@
 
 	let label = $state<string>(server.label);
 	let url = $state<string>(server.url);
-	let notes = $state<string>(server.notes);
+	let notes = $state<string | undefined>(server.notes);
+	let order = $state<number | undefined>(server.order);
 
 	let status = $state<ServerStatus>();
 
@@ -44,7 +45,8 @@
 			id: server.id,
 			label,
 			url,
-			notes
+			notes,
+			order
 		});
 
 		if (result.success) {
@@ -111,6 +113,16 @@
 						bind:value={notes}
 						class="h-8"
 						placeholder="Notes, passwords, etc." />
+				</div>
+				<div class="grid items-center gap-2">
+					<Label for="notes"
+						>Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
+					<Input
+						id="order"
+						type="number"
+						min={0}
+						bind:value={order}
+						placeholder="Lower number is higher order" />
 				</div>
 				<Button
 					type="submit"

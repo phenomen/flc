@@ -24,11 +24,12 @@
 	let error = $state<string>("");
 
 	let label = $state<string>(server.label);
-	let notes = $state<string>(server.notes);
+	let notes = $state<string | undefined>(server.notes);
 	let foundryPath = $state<string>(server.foundryPath);
-	let dataPath = $state<string>(server.dataPath);
+	let dataPath = $state<string | undefined>(server.dataPath);
 	let port = $state<number>(server.port);
-	let args = $state<string>(server.args);
+	let args = $state<string | undefined>(server.args);
+	let order = $state<number | undefined>(server.order);
 
 	function handleUpdateServer() {
 		const result = updateServer({
@@ -38,7 +39,8 @@
 			dataPath,
 			port,
 			args,
-			notes
+			notes,
+			order
 		});
 
 		if (result.success) {
@@ -159,6 +161,18 @@
 						rows={2}
 						placeholder="Notes, passwords, etc." />
 				</div>
+
+				<div class="grid items-center gap-2">
+					<Label for="notes"
+						>Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
+					<Input
+						id="order"
+						type="number"
+						min={0}
+						bind:value={order}
+						placeholder="Lower number is higher order" />
+				</div>
+
 				<Button
 					type="submit"
 					onclick={handleUpdateServer}

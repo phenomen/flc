@@ -1,6 +1,6 @@
 [package]
 name = "flc"
-version = "6.9.7"
+version = "7.0.0"
 description = "Foundry Lightweight Client"
 authors = ["phenomen"]
 license = "MIT"

@@ -19,7 +19,8 @@ const NodeserverSchema = v.object({
 		v.minValue(1, ERROR_MESSAGES.validPort),
 		v.maxValue(65535, ERROR_MESSAGES.validPort)
 	),
-	args: v.optional(v.string())
+	args: v.optional(v.string()),
+	order: v.optional(v.number())
 });
 
 const NodeserverPartialSchema = v.omit(NodeserverSchema, ["id"]);

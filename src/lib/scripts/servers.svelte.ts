@@ -28,7 +28,8 @@ const ServerSchema = v.object({
 		v.trim(),
 		v.regex(/^https?:\/\//, "Please enter a correct URL starting with either http:// or https://")
 	),
-	notes: v.optional(v.string())
+	notes: v.optional(v.string()),
+	order: v.optional(v.number())
 });
 
 const ServerPartialSchema = v.omit(ServerSchema, ["id"]);
@@ -101,4 +102,4 @@ export async function getServerStatus(url: string) {
 	const data: ServerStatus = await response.json();
 
 	return data;
-};
+}
