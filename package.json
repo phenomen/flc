@@ -5,14 +5,14 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "prepare && vite build",
+		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"tauri": "tauri",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
+		"tauri": "tauri",
 		"ui:add": "npx shadcn-svelte@1.0.0-next.7 add",
 		"ui:update": "npx shadcn-svelte@1.0.0-next.7 update"
 	},
