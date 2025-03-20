@@ -47,8 +47,14 @@
 
 	async function selectFoundryPath() {
 		const path = await tauriOpen({
-			directory: true,
-			multiple: false
+			directory: false,
+			multiple: false,
+			filters: [
+				{
+					name: "main.js",
+					extensions: ["js"]
+				}
+			]
 		});
 
 		if (path) {
@@ -71,8 +77,8 @@
 <Sheet.Root bind:open>
 	<Sheet.Trigger class={buttonVariants({ variant: "default" })}>Add Server</Sheet.Trigger>
 	<Sheet.Content side="right">
-		<form class="grid gap-2 py-2">
-			<div class="grid items-center gap-2">
+		<form class="grid gap-3 py-2">
+			<div class="grid gap-1.5">
 				<Label for="label">Label</Label>
 				<Input
 					id="label"
@@ -80,18 +86,19 @@
 					placeholder="Server name" />
 			</div>
 
-			<div class="grid items-center gap-2">
-				<Label for="foundryPath">Foundry Installation</Label>
+			<div class="grid gap-1.5">
+				<Label for="foundryPath">Path to main.js</Label>
 				<Input
 					id="foundryPath"
 					bind:value={foundryPath}
-					placeholder="Installation directory"
+					placeholder="main.js"
 					onclick={selectFoundryPath} />
+				<p class="text-muted-foreground text-xs">/resources/app/main.js or /main.js</p>
 			</div>
 
-			<div class="grid items-center gap-2">
+			<div class="grid gap-1.5">
 				<Label for="foundryPath"
-					>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
+					>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label>
 				<Input
 					id="foundryPath"
 					bind:value={dataPath}
@@ -99,7 +106,7 @@
 					onclick={selectDataPath} />
 			</div>
 
-			<div class="grid items-center gap-2">
+			<div class="grid gap-1.5">
 				<Label for="port">Port</Label>
 				<Input
 					id="port"
@@ -108,18 +115,18 @@
 					placeholder="Foundry port" />
 			</div>
 
-			<div class="grid items-center gap-2">
+			<div class="grid gap-1.5">
 				<Label for="args"
-					>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
+					>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label>
 				<Input
 					id="args"
 					bind:value={args}
 					placeholder="Additional arguments" />
 			</div>
 
-			<div class="grid items-center gap-2">
+			<div class="grid gap-1.5">
 				<Label for="notes"
-					>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
+					>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label>
 				<Textarea
 					id="notes"
 					bind:value={notes}

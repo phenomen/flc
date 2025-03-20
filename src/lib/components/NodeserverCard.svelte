@@ -29,6 +29,7 @@
 	let dataPath = $state<string | undefined>(server.dataPath);
 	let port = $state<number>(server.port);
 	let args = $state<string | undefined>(server.args);
+	let modern = $state<boolean | undefined>(server.modern);
 	let order = $state<number | undefined>(server.order);
 
 	function handleUpdateServer() {
@@ -39,6 +40,7 @@
 			dataPath,
 			port,
 			args,
+			modern,
 			notes,
 			order
 		});
@@ -61,8 +63,14 @@
 
 	async function selectFoundryPath() {
 		const path = await tauriOpen({
-			directory: true,
-			multiple: false
+			directory: false,
+			multiple: false,
+			filters: [
+				{
+					name: "main.js",
+					extensions: ["js"]
+				}
+			]
 		});
 
 		if (path) {
@@ -89,7 +97,7 @@
 <Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
 	<button
 		onclick={handleDeleteServer}
-		class="h-full w-full max-w-8 overflow-hidden border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
+		class="border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90 h-full w-full max-w-8 overflow-hidden border"
 		title="Delete Server"
 		><XIcon
 			size={18}
@@ -97,7 +105,7 @@
 
 	<Popover.Root bind:open>
 		<Popover.Trigger
-			class="h-full w-full max-w-12 overflow-hidden bg-secondary dark:bg-secondary/50"
+			class="bg-secondary dark:bg-secondary/50 h-full w-full max-w-12 overflow-hidden"
 			title="Edit Server"
 			><SettingsIcon
 				size={18}
@@ -107,7 +115,7 @@
 			side="right"
 			sideOffset={8}>
 			<form class="grid gap-2">
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="label">Label *</Label>
 					<Input
 						id="label"
@@ -115,18 +123,18 @@
 						placeholder="Server name" />
 				</div>
 
-				<div class="grid items-center gap-2">
-					<Label for="foundryPath">Foundry Installation</Label>
+				<div class="grid gap-1.5">
+					<Label for="foundryPath">Path to main.js</Label>
 					<Input
 						id="foundryPath"
 						bind:value={foundryPath}
-						placeholder="Installation directory"
+						placeholder="main.js"
 						onclick={selectFoundryPath} />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="foundryPath"
-						>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
+						>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label>
 					<Input
 						id="foundryPath"
 						bind:value={dataPath}
@@ -134,7 +142,7 @@
 						onclick={selectDataPath} />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="port">Port</Label>
 					<Input
 						id="port"
@@ -143,18 +151,18 @@
 						placeholder="Foundry port" />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="args"
-						>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
+						>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label>
 					<Input
 						id="args"
 						bind:value={args}
 						placeholder="Additional arguments" />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="notes"
-						>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
+						>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label>
 					<Textarea
 						id="notes"
 						bind:value={notes}
@@ -162,9 +170,9 @@
 						placeholder="Notes, passwords, etc." />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="notes"
-						>Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
+						>Order <span class="text-muted-foreground text-xs">(optional)</span></Label>
 					<Input
 						id="order"
 						type="number"
@@ -193,7 +201,7 @@
 
 	<button
 		onclick={handleLoadSettings}
-		class="h-full w-full max-w-16 overflow-hidden border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+		class="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-full w-full max-w-16 overflow-hidden border"
 		title="Load Server Settings">
 		<ArrowUpToLineIcon
 			size={20}
