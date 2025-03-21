@@ -3,6 +3,7 @@
 # v7.1.0
 
 - Added support for the new Foundry Node.js build. Now users will need to select `main.js` entrypoint directly instead of Foundry directory. I added a legacy fallback for existing servers so they should still work.
+- Server sorting is now applied to servers persistent state directly during an update instead of component derived/effect render.
 
 # v7.0.0
 

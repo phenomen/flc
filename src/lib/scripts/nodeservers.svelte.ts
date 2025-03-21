@@ -71,5 +71,11 @@ export function updateServer(data: Nodeserver) {
 		server.id === result.output.id ? result.output : server
 	);
 
+	nodeservers.current = nodeservers.current.sort((a, b) => {
+		if (a.order === undefined) return 1;
+		if (b.order === undefined) return -1;
+		return a.order - b.order;
+	});
+
 	return result;
 }

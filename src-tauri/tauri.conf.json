@@ -4,9 +4,9 @@
 	"version": "7.1.0",
 	"identifier": "com.phenomen.flc",
 	"build": {
-		"beforeDevCommand": "npm run dev",
+		"beforeDevCommand": "bun run dev",
 		"devUrl": "http://localhost:1420",
-		"beforeBuildCommand": "npm run build",
+		"beforeBuildCommand": "bun run build",
 		"frontendDist": "../build"
 	},
 	"app": {
@@ -53,7 +53,7 @@
 	},
 	"plugins": {
 		"updater": {
-			"active": true,
+			"active": "v1Compatible",
 			"endpoints": ["https://github.com/phenomen/flc/releases/latest/download/latest.json"],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK",
 			"windows": {

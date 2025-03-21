@@ -91,14 +91,13 @@
 				<Input
 					id="foundryPath"
 					bind:value={foundryPath}
-					placeholder="main.js"
+					placeholder="/resources/app/main.js or /main.js"
 					onclick={selectFoundryPath} />
-				<p class="text-muted-foreground text-xs">/resources/app/main.js or /main.js</p>
 			</div>
 
 			<div class="grid gap-1.5">
 				<Label for="foundryPath"
-					>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label>
+					>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Input
 					id="foundryPath"
 					bind:value={dataPath}
@@ -117,7 +116,7 @@
 
 			<div class="grid gap-1.5">
 				<Label for="args"
-					>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label>
+					>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Input
 					id="args"
 					bind:value={args}
@@ -126,7 +125,7 @@
 
 			<div class="grid gap-1.5">
 				<Label for="notes"
-					>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label>
+					>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Textarea
 					id="notes"
 					bind:value={notes}

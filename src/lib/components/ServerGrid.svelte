@@ -1,17 +1,8 @@
 <script lang="ts">
-	import type { Server } from "$scripts/servers.svelte.js";
 	import { fade } from "svelte/transition";
 
 	import ServerCard from "$components/ServerCard.svelte";
 	import { servers } from "$scripts/servers.svelte.js";
-
-	function sortServers(s: Server[]) {
-		s.sort((a, b) => (a.order ?? 9999) - (b.order ?? 9999));
-	}
-
-	$effect(() => {
-		sortServers(servers.current);
-	});
 </script>
 
 <div class="relative mb-8 grid gap-2">

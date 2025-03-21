@@ -97,7 +97,7 @@
 <Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
 	<button
 		onclick={handleDeleteServer}
-		class="border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90 h-full w-full max-w-8 overflow-hidden border"
+		class="h-full w-full max-w-8 overflow-hidden border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
 		title="Delete Server"
 		><XIcon
 			size={18}
@@ -105,7 +105,7 @@
 
 	<Popover.Root bind:open>
 		<Popover.Trigger
-			class="bg-secondary dark:bg-secondary/50 h-full w-full max-w-12 overflow-hidden"
+			class="h-full w-full max-w-12 overflow-hidden bg-secondary dark:bg-secondary/50"
 			title="Edit Server"
 			><SettingsIcon
 				size={18}
@@ -128,13 +128,13 @@
 					<Input
 						id="foundryPath"
 						bind:value={foundryPath}
-						placeholder="main.js"
+						placeholder="/resources/app/main.js or /main.js"
 						onclick={selectFoundryPath} />
 				</div>
 
 				<div class="grid gap-1.5">
 					<Label for="foundryPath"
-						>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label>
+						>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
 						id="foundryPath"
 						bind:value={dataPath}
@@ -153,7 +153,7 @@
 
 				<div class="grid gap-1.5">
 					<Label for="args"
-						>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label>
+						>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
 						id="args"
 						bind:value={args}
@@ -162,7 +162,7 @@
 
 				<div class="grid gap-1.5">
 					<Label for="notes"
-						>Notes <span class="text-muted-foreground text-xs">(optional)</span></Label>
+						>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Textarea
 						id="notes"
 						bind:value={notes}
@@ -172,7 +172,7 @@
 
 				<div class="grid gap-1.5">
 					<Label for="notes"
-						>Order <span class="text-muted-foreground text-xs">(optional)</span></Label>
+						>Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
 						id="order"
 						type="number"
@@ -201,7 +201,7 @@
 
 	<button
 		onclick={handleLoadSettings}
-		class="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-full w-full max-w-16 overflow-hidden border"
+		class="h-full w-full max-w-16 overflow-hidden border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
 		title="Load Server Settings">
 		<ArrowUpToLineIcon
 			size={20}
