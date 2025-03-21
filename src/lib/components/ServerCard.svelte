@@ -70,7 +70,8 @@
 	});
 </script>
 
-<Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
+<Card.Root
+	class="group flex h-full w-full items-center overflow-hidden rounded-md border bg-background dark:bg-secondary/30">
 	<button
 		onclick={handleDeleteServer}
 		class="h-full w-8 border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"

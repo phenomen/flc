@@ -25,7 +25,9 @@
 			<h1 class="text-xl font-bold">FLC</h1>
 
 			{#await getVersion() then version}
-				<Badge variant="outline">
+				<Badge
+					variant="outline"
+					class="font-mono">
 					{version}
 				</Badge>
 			{/await}

@@ -82,14 +82,19 @@
 				<Label for="label">Label</Label>
 				<Input
 					id="label"
+					autocomplete="off"
 					bind:value={label}
 					placeholder="Server name" />
 			</div>
 
 			<div class="grid gap-1.5">
-				<Label for="foundryPath">Path to main.js</Label>
+				<Label for="foundryPath"
+					>Path to main.js <span class="text-xs text-muted-foreground"
+						>(in Foundry installation directory)</span
+					></Label>
 				<Input
 					id="foundryPath"
+					autocomplete="off"
 					bind:value={foundryPath}
 					placeholder="/resources/app/main.js or /main.js"
 					onclick={selectFoundryPath} />
@@ -100,6 +105,7 @@
 					>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Input
 					id="foundryPath"
+					autocomplete="off"
 					bind:value={dataPath}
 					placeholder="User data directory"
 					onclick={selectDataPath} />
@@ -109,6 +115,7 @@
 				<Label for="port">Port</Label>
 				<Input
 					id="port"
+					autocomplete="off"
 					type="number"
 					bind:value={port}
 					placeholder="Foundry port" />
@@ -119,6 +126,7 @@
 					>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
 				<Input
 					id="args"
+					autocomplete="off"
 					bind:value={args}
 					placeholder="Additional arguments" />
 			</div>

@@ -49,6 +49,7 @@ export function addServer(data: ServerPartial) {
 	servers.current = [
 		{
 			id: nanoid(),
+			order: 0,
 			...result.output
 		},
 		...servers.current
