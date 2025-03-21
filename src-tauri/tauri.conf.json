@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schema.tauri.app/config/2",
 	"productName": "FLC",
-	"version": "7.0.0",
+	"version": "7.1.0",
 	"identifier": "com.phenomen.flc",
 	"build": {
-		"beforeDevCommand": "npm run dev",
+		"beforeDevCommand": "bun run dev",
 		"devUrl": "http://localhost:1420",
-		"beforeBuildCommand": "npm run build",
+		"beforeBuildCommand": "bun run build",
 		"frontendDist": "../build"
 	},
 	"app": {
@@ -38,7 +38,7 @@
 		"category": "RolePlayingGame",
 		"copyright": "ruleplaying.com",
 		"targets": ["msi", "app", "dmg", "appimage"],
-		"createUpdaterArtifacts": "v1Compatible",
+		"createUpdaterArtifacts": true,
 		"icon": [
 			"icons/32x32.png",
 			"icons/128x128.png",
@@ -53,7 +53,7 @@
 	},
 	"plugins": {
 		"updater": {
-			"active": true,
+			"active": "v1Compatible",
 			"endpoints": ["https://github.com/phenomen/flc/releases/latest/download/latest.json"],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDVEM0E0Q0VBNDJGMDI2RTEKUldUaEp2QkM2a3c2WFNNTUpNbDJxVjJIZXdXUnh1MmhuOTdTNDM3Tk1DeFEza3JHRHJzVVlIb2QK",
 			"windows": {

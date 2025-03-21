@@ -91,21 +91,21 @@
 			side="right"
 			sideOffset={8}>
 			<form class="grid gap-2">
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="label">Label</Label>
 					<Input
 						id="label"
 						bind:value={label}
 						placeholder="Server name" />
 				</div>
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="url">URL</Label>
 					<Input
 						id="url"
 						bind:value={url}
 						placeholder="URL or IP" />
 				</div>
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="notes"
 						>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Textarea
@@ -114,7 +114,7 @@
 						class="h-8"
 						placeholder="Notes, passwords, etc." />
 				</div>
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="notes"
 						>Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input

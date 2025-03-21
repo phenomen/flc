@@ -29,6 +29,7 @@
 	let dataPath = $state<string | undefined>(server.dataPath);
 	let port = $state<number>(server.port);
 	let args = $state<string | undefined>(server.args);
+	let modern = $state<boolean | undefined>(server.modern);
 	let order = $state<number | undefined>(server.order);
 
 	function handleUpdateServer() {
@@ -39,6 +40,7 @@
 			dataPath,
 			port,
 			args,
+			modern,
 			notes,
 			order
 		});
@@ -61,8 +63,14 @@
 
 	async function selectFoundryPath() {
 		const path = await tauriOpen({
-			directory: true,
-			multiple: false
+			directory: false,
+			multiple: false,
+			filters: [
+				{
+					name: "main.js",
+					extensions: ["js"]
+				}
+			]
 		});
 
 		if (path) {
@@ -107,7 +115,7 @@
 			side="right"
 			sideOffset={8}>
 			<form class="grid gap-2">
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="label">Label *</Label>
 					<Input
 						id="label"
@@ -115,16 +123,16 @@
 						placeholder="Server name" />
 				</div>
 
-				<div class="grid items-center gap-2">
-					<Label for="foundryPath">Foundry Installation</Label>
+				<div class="grid gap-1.5">
+					<Label for="foundryPath">Path to main.js</Label>
 					<Input
 						id="foundryPath"
 						bind:value={foundryPath}
-						placeholder="Installation directory"
+						placeholder="/resources/app/main.js or /main.js"
 						onclick={selectFoundryPath} />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="foundryPath"
 						>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
@@ -134,7 +142,7 @@
 						onclick={selectDataPath} />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="port">Port</Label>
 					<Input
 						id="port"
@@ -143,7 +151,7 @@
 						placeholder="Foundry port" />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="args"
 						>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input
@@ -152,7 +160,7 @@
 						placeholder="Additional arguments" />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="notes"
 						>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Textarea
@@ -162,7 +170,7 @@
 						placeholder="Notes, passwords, etc." />
 				</div>
 
-				<div class="grid items-center gap-2">
+				<div class="grid gap-1.5">
 					<Label for="notes"
 						>Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
 					<Input

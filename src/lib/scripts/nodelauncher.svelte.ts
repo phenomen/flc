@@ -57,7 +57,17 @@ export async function launchNodeserver() {
 	nodeStatus.reset();
 
 	const server = nodeLauncher.value;
-	const normalizedFoundryPath = await join(server.foundryPath, "resources", "app", "main.js");
+
+
+	let normalizedFoundryPath: string = "";
+
+	/* workaround for the legacy Node.js build */
+	if (server.foundryPath.includes("main.js")) {
+		normalizedFoundryPath = await join(server.foundryPath);
+	} else {
+		normalizedFoundryPath = await join(server.foundryPath, "resources", "app", "main.js");
+	}
+
 	const normalizedDataPath = server.dataPath ? await join(server.dataPath) : undefined;
 
 	const command = Command.create("node", [
