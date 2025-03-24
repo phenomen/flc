@@ -1,6 +1,6 @@
 {
 	"name": "flc",
-	"version": "7.1.0",
+	"version": "7.1.5",
 	"description": "Foundry Lightweight Client",
 	"type": "module",
 	"scripts": {
@@ -13,8 +13,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"tauri": "tauri",
-		"ui:add": "npx shadcn-svelte@1.0.0-next.7 add",
-		"ui:update": "npx shadcn-svelte@1.0.0-next.7 update"
+		"ui:add": "bunx shadcn-svelte@1.0.0-next.9 add",
+		"ui:update": "bunx shadcn-svelte@1.0.0-next.9 update"
 	},
 	"license": "MIT",
 	"devDependencies": {
@@ -43,7 +43,7 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"runed": "^0.25.0",
-		"svelte": "^5.25.1",
+		"svelte": "^5.25.3",
 		"svelte-check": "^4.1.5",
 		"tailwind-merge": "^3.0.2",
 		"tailwind-variants": "^1.0.0",
@@ -53,6 +53,6 @@
 		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.27.0",
 		"valibot": "^1.0.0",
-		"vite": "^6.2.2"
+		"vite": "^6.2.3"
 	}
 }
