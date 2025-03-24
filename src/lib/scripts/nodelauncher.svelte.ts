@@ -58,7 +58,6 @@ export async function launchNodeserver() {
 
 	const server = nodeLauncher.value;
 
-
 	let normalizedFoundryPath: string = "";
 
 	/* workaround for the legacy Node.js build */

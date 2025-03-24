@@ -43,6 +43,7 @@
 				<Label for="label">Label</Label>
 				<Input
 					id="label"
+					autocomplete="off"
 					bind:value={label}
 					placeholder="Server name" />
 			</div>
@@ -50,6 +51,7 @@
 				<Label for="url">URL</Label>
 				<Input
 					id="url"
+					autocomplete="off"
 					bind:value={url}
 					placeholder="URL or IP" />
 			</div>

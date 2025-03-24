@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { fade } from "svelte/transition";
+	import { fly } from "svelte/transition";
+	import { flip } from "svelte/animate";
 
 	import ServerCard from "$components/ServerCard.svelte";
 	import { servers } from "$scripts/servers.svelte.js";
@@ -8,7 +9,9 @@
 <div class="relative mb-8 grid gap-2">
 	{#if servers.current.length}
 		{#each servers.current as server (server.id)}
-			<div transition:fade>
+			<div
+				transition:fly
+				animate:flip={{ duration: 500, delay: 200 }}>
 				<ServerCard {server} />
 			</div>
 		{/each}

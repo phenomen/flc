@@ -40,6 +40,7 @@ export function addServer(data: NodeserverPartial) {
 	nodeservers.current = [
 		{
 			id: nanoid(),
+			order: 0,
 			...result.output
 		},
 		...nodeservers.current
