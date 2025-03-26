@@ -18,7 +18,7 @@
 		ZapIcon,
 		DicesIcon,
 		HexagonIcon
-	} from "lucide-svelte";
+	} from "@lucide/svelte";
 
 	import type { ServerStatus } from "$scripts/servers.svelte.js";
 	import { deleteServer, updateServer, getServerStatus } from "$scripts/servers.svelte.js";

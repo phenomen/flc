@@ -9,7 +9,7 @@
 	import { Textarea } from "$ui/textarea/index.js";
 	import * as Alert from "$ui/alert/index.js";
 
-	import { SettingsIcon, XIcon, ArrowUpToLineIcon } from "lucide-svelte";
+	import { SettingsIcon, XIcon, ArrowUpToLineIcon } from "@lucide/svelte";
 
 	import { deleteServer, updateServer } from "$scripts/nodeservers.svelte.js";
 	import { nodeLauncher } from "$scripts/nodelauncher.svelte.js";

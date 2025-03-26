@@ -3,7 +3,7 @@
 	import { buttonVariants } from "$ui/button/index.js";
 	import { cn } from "$lib/utils.js";
 
-	import { CpuIcon } from "lucide-svelte";
+	import { CpuIcon } from "@lucide/svelte";
 
 	let glEnabled = $state(false);
 	let highPerf = $state(false);

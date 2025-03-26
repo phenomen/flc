@@ -3,7 +3,7 @@
 	import * as Alert from "$ui/alert/index.js";
 	import { ScrollArea } from "$ui/scroll-area/index.js";
 
-	import { InfoIcon } from "lucide-svelte";
+	import { InfoIcon } from "@lucide/svelte";
 
 	import {
 		nodeLauncher,
