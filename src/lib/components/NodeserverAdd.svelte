@@ -1,15 +1,9 @@
 <script lang="ts">
-	import { open as tauriOpen } from "@tauri-apps/plugin-dialog";
-
-	import { Button } from "$ui/button/index.js";
-	import { Input } from "$ui/input/index.js";
-	import { Textarea } from "$ui/textarea/index.js";
-	import { Label } from "$ui/label/index.js";
 	import * as Sheet from "$ui/sheet/index.js";
-	import * as Alert from "$ui/alert/index.js";
 	import { buttonVariants } from "$ui/button/index.js";
 
 	import { addServer } from "$scripts/nodeservers.svelte.js";
+	import NodeServerForm from "$lib/components/NodeServerForm.svelte";
 
 	let open = $state<boolean>(false);
 	let error = $state<string>("");
@@ -44,112 +38,20 @@
 			error = result.issues[0].message;
 		}
 	}
-
-	async function selectFoundryPath() {
-		const path = await tauriOpen({
-			directory: false,
-			multiple: false,
-			filters: [
-				{
-					name: "main.js",
-					extensions: ["js"]
-				}
-			]
-		});
-
-		if (path) {
-			foundryPath = path;
-		}
-	}
-
-	async function selectDataPath() {
-		const path = await tauriOpen({
-			directory: true,
-			multiple: false
-		});
-
-		if (path) {
-			dataPath = path;
-		}
-	}
 </script>
 
 <Sheet.Root bind:open>
 	<Sheet.Trigger class={buttonVariants({ variant: "default" })}>Add Server</Sheet.Trigger>
 	<Sheet.Content side="right">
-		<form class="grid gap-3 py-2">
-			<div class="grid gap-1.5">
-				<Label for="label">Label</Label>
-				<Input
-					id="label"
-					autocomplete="off"
-					bind:value={label}
-					placeholder="Server name" />
-			</div>
-
-			<div class="grid gap-1.5">
-				<Label for="foundryPath"
-					>Path to main.js <span class="text-xs text-muted-foreground"
-						>(in Foundry installation directory)</span
-					></Label>
-				<Input
-					id="foundryPath"
-					autocomplete="off"
-					bind:value={foundryPath}
-					placeholder="/resources/app/main.js or /main.js"
-					onclick={selectFoundryPath} />
-			</div>
-
-			<div class="grid gap-1.5">
-				<Label for="foundryPath"
-					>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
-				<Input
-					id="foundryPath"
-					autocomplete="off"
-					bind:value={dataPath}
-					placeholder="User data directory"
-					onclick={selectDataPath} />
-			</div>
-
-			<div class="grid gap-1.5">
-				<Label for="port">Port</Label>
-				<Input
-					id="port"
-					autocomplete="off"
-					type="number"
-					bind:value={port}
-					placeholder="Foundry port" />
-			</div>
-
-			<div class="grid gap-1.5">
-				<Label for="args"
-					>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
-				<Input
-					id="args"
-					autocomplete="off"
-					bind:value={args}
-					placeholder="Additional arguments" />
-			</div>
-
-			<div class="grid gap-1.5">
-				<Label for="notes"
-					>Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
-				<Textarea
-					id="notes"
-					bind:value={notes}
-					rows={2}
-					placeholder="Notes, passwords, etc." />
-			</div>
-			<Button
-				type="submit"
-				onclick={handleAddServer}
-				class="w-full">Add Node Server</Button>
-
-			{#if error}
-				<Alert.Root variant="destructive">
-					<Alert.Description>{error}</Alert.Description>
-				</Alert.Root>
-			{/if}
-		</form>
+		<NodeServerForm
+			mode="add"
+			bind:label
+			bind:notes
+			bind:foundryPath
+			bind:dataPath
+			bind:port
+			bind:args
+			bind:error
+			onSubmit={handleAddServer} />
 	</Sheet.Content>
 </Sheet.Root>
