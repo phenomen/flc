@@ -2,7 +2,8 @@
 
 # v7.2.0
 
-- Optimized layout so server cards now use a shared edit sheet.
+- Optimized layout to use a shared add/edit side sheet.
+- Updated Mode Watcher to set Tauri app theme.
 - Disabled link previews on macOS.
 - Updated deps.
 
