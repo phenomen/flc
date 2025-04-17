@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v7.2.0
+
+- Optimized layout to use a shared add/edit side sheet.
+- Updated Mode Watcher to set Tauri app theme.
+- Disabled link previews on macOS.
+- Updated deps.
+
 # v7.1.0
 
 - Added support for the new Foundry Node.js build. Now users will need to select `main.js` entrypoint directly instead of Foundry directory. I added a legacy fallback for existing servers so they should still work.
