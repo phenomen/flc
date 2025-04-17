@@ -3,7 +3,7 @@
 	import { Separator } from "$ui/separator/index.js";
 	import { buttonVariants } from "$ui/button/index.js";
 
-	import { CircleHelpIcon } from "lucide-svelte";
+	import { CircleHelpIcon } from "@lucide/svelte";
 </script>
 
 <Popover.Root>

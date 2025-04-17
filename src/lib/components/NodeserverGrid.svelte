@@ -3,7 +3,55 @@
 	import { flip } from "svelte/animate";
 
 	import NodeserverCard from "$components/NodeserverCard.svelte";
-	import { nodeservers } from "$scripts/nodeservers.svelte.js";
+	import { nodeservers, updateServer, type Nodeserver } from "$scripts/nodeservers.svelte.js";
+	import * as Sheet from "$ui/sheet/index.js";
+	import NodeServerForm from "$lib/components/NodeServerForm.svelte";
+
+	let editingServer = $state<Nodeserver | null>(null);
+	let isOpen = $state<boolean>(false);
+	let label = $state<string>("");
+	let notes = $state<string>("");
+	let foundryPath = $state<string>("");
+	let dataPath = $state<string>("");
+	let port = $state<number>(30000);
+	let args = $state<string>("");
+	let order = $state<number>(0);
+	let error = $state<string>("");
+
+	function openEditSheet(server: Nodeserver) {
+		editingServer = server;
+		label = server.label;
+		notes = server.notes || "";
+		foundryPath = server.foundryPath;
+		dataPath = server.dataPath || "";
+		port = server.port;
+		args = server.args || "";
+		order = server.order ?? 0;
+		error = "";
+		isOpen = true;
+	}
+
+	function handleUpdateServer() {
+		if (!editingServer) return;
+
+		const result = updateServer({
+			id: editingServer.id,
+			label,
+			foundryPath,
+			dataPath,
+			port,
+			args,
+			notes,
+			order
+		});
+
+		if (result.success) {
+			error = "";
+			isOpen = false;
+		} else {
+			error = result.issues[0].message;
+		}
+	}
 </script>
 
 <div class="relative mb-8 grid gap-2">
@@ -12,7 +60,9 @@
 			<div
 				transition:fly
 				animate:flip={{ duration: 500, delay: 200 }}>
-				<NodeserverCard {server} />
+				<NodeserverCard
+					{server}
+					onEdit={openEditSheet} />
 			</div>
 		{/each}
 	{:else}
@@ -22,3 +72,19 @@
 		</div>
 	{/if}
 </div>
+
+<Sheet.Root bind:open={isOpen}>
+	<Sheet.Content side="right">
+		<NodeServerForm
+			mode="edit"
+			bind:label
+			bind:notes
+			bind:foundryPath
+			bind:dataPath
+			bind:port
+			bind:args
+			bind:order
+			bind:error
+			onSubmit={handleUpdateServer} />
+	</Sheet.Content>
+</Sheet.Root>
