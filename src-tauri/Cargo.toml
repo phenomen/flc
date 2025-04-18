@@ -1,6 +1,6 @@
 [package]
 name = "flc"
-version = "7.2.0"
+version = "7.2.1"
 description = "Foundry Lightweight Client"
 authors = ["phenomen"]
 license = "MIT"
@@ -34,4 +34,4 @@ serde_json = "1"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2.2.0"
-tauri-plugin-updater = "2.7.0"
+tauri-plugin-updater = "2.7.1"
