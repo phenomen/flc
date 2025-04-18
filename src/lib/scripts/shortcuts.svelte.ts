@@ -1,5 +1,5 @@
 import { getAllWindows } from "@tauri-apps/api/window";
-import { register } from "@tauri-apps/plugin-global-shortcut";
+import { register, unregister, unregisterAll, isRegistered } from "@tauri-apps/plugin-global-shortcut";
 
 export async function toggleFullscreen() {
 	const windows = await getAllWindows();
@@ -12,7 +12,12 @@ export async function toggleFullscreen() {
 }
 
 export async function registerShortcuts() {
+	//console.log(await isRegistered("CommandOrControl+F11"));
+
+	await unregisterAll();
+
 	await register("CommandOrControl+F11", async (event) => {
+
 		if (event.state === "Pressed") {
 			await toggleFullscreen();
 		}
