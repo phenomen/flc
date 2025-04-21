@@ -54,7 +54,7 @@
 	}
 </script>
 
-<div class="relative mb-8 grid gap-2">
+<div class="relative mb-8 grid gap-3">
 	{#if nodeservers.current.length}
 		{#each nodeservers.current as server (server.id)}
 			<div

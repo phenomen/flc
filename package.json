@@ -13,13 +13,13 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"tauri": "tauri",
-		"ui:add": "bunx shadcn-svelte@1.0.0-next.9 add",
-		"ui:update": "bunx shadcn-svelte@1.0.0-next.9 update"
+		"ui:add": "bunx shadcn-svelte@next add",
+		"ui:update": "bunx shadcn-svelte@next update"
 	},
 	"license": "MIT",
 	"devDependencies": {
 		"@fontsource-variable/inter": "^5.2.5",
-		"@lucide/svelte": "^0.501.0",
+		"@lucide/svelte": "^0.503.0",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/kit": "^2.20.7",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
