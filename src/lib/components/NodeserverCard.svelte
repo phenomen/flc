@@ -29,23 +29,25 @@
 </script>
 
 <Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
-	<button
-		onclick={handleDeleteServer}
-		class="h-full w-full max-w-8 overflow-hidden border border-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90"
-		title="Delete Server"
-		><XIcon
-			size={18}
-			class="mx-auto" /></button>
+	<div class="flex h-full w-10 flex-col border-r">
+		<button
+			onclick={() => onEdit(server)}
+			class="h-full w-full border-b hover:bg-secondary"
+			title="Edit Server"
+			><SettingsIcon
+				size={18}
+				class="mx-auto" /></button>
 
-	<button
-		onclick={() => onEdit(server)}
-		class="h-full w-full max-w-12 overflow-hidden bg-secondary dark:bg-secondary/50"
-		title="Edit Server"
-		><SettingsIcon
-			size={18}
-			class="mx-auto" /></button>
+		<button
+			onclick={handleDeleteServer}
+			class="h-full w-full text-destructive hover:bg-destructive/20"
+			title="Delete Server"
+			><XIcon
+				size={18}
+				class="mx-auto" /></button>
+	</div>
 
-	<div class="w-full px-2 py-6">
+	<div class="w-full px-4 py-6">
 		<h1 class="overflow-hidden text-ellipsis text-nowrap font-semibold">{server.label}</h1>
 	</div>
 

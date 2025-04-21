@@ -11,16 +11,13 @@ export async function openWebview(
 	const webview = new WebviewWindow(`foundry-${id}-${nanoid()}`, {
 		title: `Foundry VTT - ${title}`,
 		url,
-		x: 0,
-		y: 0,
 		width: 1280,
 		height: 800,
 		focus: true,
 		center: true,
 		devtools: true,
 		dragDropEnabled: false,
-		zoomHotkeysEnabled: true,
-		allowLinkPreview: false
+		zoomHotkeysEnabled: true
 	});
 
 	webview.once("tauri://created", function () {

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v7.2.5
+
+- Fixed broken fullscreen shortcut.
+- UI tweaks.
+
 # v7.2.0
 
 - Optimized layout to use a shared add/edit side sheet.
