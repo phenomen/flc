@@ -1,14 +1,14 @@
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
-import * as v from "valibot";
+import * as z from "zod/v4";
 
-const statusSchema = v.object({
-	active: v.optional(v.boolean()),
-	version: v.optional(v.string()),
-	world: v.optional(v.string()),
-	system: v.optional(v.string()),
-	users: v.optional(v.number()),
-	partner: v.optional(v.string())
+const statusSchema = z.object({
+	active: z.boolean().optional(),
+	version: z.string().optional(),
+	world: z.string().optional(),
+	system: z.string().optional(),
+	users: z.number().optional(),
+	partner: z.string().optional()
 });
 
 const PARTNERS = [
@@ -18,29 +18,25 @@ const PARTNERS = [
 	{ url: "foundryserver.com", name: "Foundry Server" }
 ];
 
-export type ServerStatus = v.InferOutput<typeof statusSchema>;
+export type ServerStatus = z.infer<typeof statusSchema>;
 
-const ServerSchema = v.object({
-	id: v.string(),
-	label: v.pipe(v.string(), v.trim(), v.minLength(1, "Please enter a server name")),
-	url: v.pipe(
-		v.string(),
-		v.trim(),
-		v.regex(/^https?:\/\//, "Please enter a correct URL starting with either http:// or https://")
-	),
-	notes: v.optional(v.string()),
-	order: v.optional(v.number())
+const ServerSchema = z.object({
+	id: z.string(),
+	label: z.string().trim().min(1, "Please enter a server name"),
+	url: z.url("Please enter a valid URL"),
+	notes: z.string().optional(),
+	order: z.number().optional()
 });
 
-const ServerPartialSchema = v.omit(ServerSchema, ["id"]);
+const ServerPartialSchema = ServerSchema.partial({ id: true });
 
-export type Server = v.InferOutput<typeof ServerSchema>;
-export type ServerPartial = v.InferOutput<typeof ServerPartialSchema>;
+export type Server = z.infer<typeof ServerSchema>;
+export type ServerPartial = z.infer<typeof ServerPartialSchema>;
 
 export let servers = new PersistedState<Server[]>("servers", []);
 
 export function addServer(data: ServerPartial) {
-	const result = v.safeParse(ServerPartialSchema, data);
+	const result = ServerPartialSchema.safeParse(data);
 
 	if (!result.success) {
 		return result;
@@ -50,7 +46,7 @@ export function addServer(data: ServerPartial) {
 		{
 			id: nanoid(),
 			order: 0,
-			...result.output
+			...result.data
 		},
 		...servers.current
 	];
@@ -59,24 +55,24 @@ export function addServer(data: ServerPartial) {
 }
 
 export function deleteServer(id: string) {
-	const result = v.safeParse(v.string(), id);
+	const result = z.string().safeParse(id);
 
 	if (result.success) {
-		servers.current = servers.current.filter((s: Server) => s.id !== result.output);
+		servers.current = servers.current.filter((s: Server) => s.id !== result.data);
 	}
 
 	return result;
 }
 
 export function updateServer(data: Server) {
-	const result = v.safeParse(ServerSchema, data);
+	const result = ServerSchema.safeParse(data);
 
 	if (!result.success) {
 		return result;
 	}
 
 	servers.current = servers.current.map((server) =>
-		server.id === result.output.id ? result.output : server
+		server.id === result.data.id ? result.data : server
 	);
 
 	servers.current = servers.current.sort((a, b) => {

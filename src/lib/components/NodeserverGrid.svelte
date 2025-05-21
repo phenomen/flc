@@ -7,6 +7,8 @@
 	import * as Sheet from "$ui/sheet/index.js";
 	import NodeServerForm from "$lib/components/NodeServerForm.svelte";
 
+	import { z } from "zod/v4";
+
 	let editingServer = $state<Nodeserver | null>(null);
 	let isOpen = $state<boolean>(false);
 	let label = $state<string>("");
@@ -49,7 +51,7 @@
 			error = "";
 			isOpen = false;
 		} else {
-			error = result.issues[0].message;
+			error = z.prettifyError(result.error);
 		}
 	}
 </script>
@@ -67,14 +69,16 @@
 		{/each}
 	{:else}
 		<div
-			class="w-full rounded-md border border-dashed border-muted-foreground p-2 text-center font-medium">
+			class="border-muted-foreground w-full rounded-md border border-dashed p-2 text-center font-medium">
 			<p>There are no Node servers yet. Start by adding a new server.</p>
 		</div>
 	{/if}
 </div>
 
 <Sheet.Root bind:open={isOpen}>
-	<Sheet.Content side="right">
+	<Sheet.Content
+		side="right"
+		class="px-2 py-4">
 		<NodeServerForm
 			mode="edit"
 			bind:label

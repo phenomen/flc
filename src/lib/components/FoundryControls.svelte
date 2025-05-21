@@ -9,7 +9,7 @@
 <Popover.Root>
 	<Popover.Trigger>
 		<div
-			class={buttonVariants({ variant: "outline", size: "icon" })}
+			class={buttonVariants({ variant: "outline-solid", size: "icon" })}
 			title="Hotkeys">
 			<CircleHelpIcon size={24} />
 		</div>
@@ -17,7 +17,7 @@
 	<Popover.Content>
 		<div class="grid gap-2 text-xs font-medium">
 			<div class="flex w-full">
-				<span class="mx-auto pb-1.5 text-center text-muted-foreground"
+				<span class="text-muted-foreground mx-auto pb-1.5 text-center"
 					>Hotkeys in Foundry VTT window</span>
 			</div>
 			<div class="flex w-full items-center justify-between space-x-2">

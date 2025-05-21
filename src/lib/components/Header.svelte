@@ -13,8 +13,8 @@
 	import FoundryControls from "$components/FoundryControls.svelte";
 </script>
 
-<header class="sticky top-0 z-10 w-full border-b bg-background">
-	<div class="container flex w-full items-center justify-between py-2">
+<header class="bg-background sticky top-0 z-10 w-full border-b">
+	<div class="container mx-auto flex w-full max-w-3xl items-center justify-between py-2">
 		<button
 			class="flex items-center space-x-1"
 			onclick={() => open("https://foundry.ruleplaying.com/flc")}>

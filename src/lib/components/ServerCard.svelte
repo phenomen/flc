@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 
-	import * as Card from "$ui/card/index.js";
 	import { Badge } from "$ui/badge/index.js";
 
 	import {
@@ -33,7 +32,7 @@
 		const result = deleteServer(server.id);
 
 		if (!result.success) {
-			console.error(result.issues);
+			console.error(result.error.message);
 		}
 	}
 
@@ -42,12 +41,12 @@
 	});
 </script>
 
-<Card.Root
-	class="group flex h-full w-full items-center overflow-hidden rounded-md border bg-secondary/10">
+<div
+	class="group bg-secondary/10 flex h-full w-full items-center overflow-hidden rounded-md border">
 	<div class="flex h-full w-10 flex-col border-r">
 		<button
 			onclick={() => onEdit(server)}
-			class="h-full w-full border-b hover:bg-secondary"
+			class="hover:bg-secondary h-full w-full border-b"
 			title="Edit Server"
 			><SettingsIcon
 				size={18}
@@ -55,7 +54,7 @@
 
 		<button
 			onclick={handleDeleteServer}
-			class="h-full w-full text-destructive hover:bg-destructive/20"
+			class="text-destructive hover:bg-destructive/20 h-full w-full"
 			title="Delete Server"
 			><XIcon
 				size={18}
@@ -64,8 +63,8 @@
 
 	<div class="w-full px-4 py-3">
 		<div class="grid gap-1.5">
-			<h1 class="overflow-hidden text-ellipsis text-nowrap font-semibold">{server.label}</h1>
-			<div class="flex items-center gap-1 text-xs text-muted-foreground">
+			<h1 class="overflow-hidden font-semibold text-nowrap text-ellipsis">{server.label}</h1>
+			<div class="text-muted-foreground flex items-center gap-1 text-xs">
 				{#if status?.partner}
 					<Badge>
 						<ZapIcon
@@ -102,10 +101,10 @@
 
 	<button
 		onclick={() => openWebview(server.url, server.id, server.label)}
-		class="h-full w-16 border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+		class="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-full w-16 border"
 		title="Join Server">
 		<LogInIcon
 			size={20}
 			class="mx-auto" />
 	</button>
-</Card.Root>
+</div>

@@ -42,7 +42,7 @@
 			placeholder="URL or IP" />
 	</div>
 	<div class="grid gap-1.5">
-		<Label for="notes">Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
+		<Label for="notes">Notes <span class="text-muted-foreground text-xs">(optional)</span></Label>
 		<Textarea
 			id="notes"
 			bind:value={notes}
@@ -51,7 +51,7 @@
 	</div>
 	{#if mode === "edit"}
 		<div class="grid gap-1.5">
-			<Label for="order">Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
+			<Label for="order">Order <span class="text-muted-foreground text-xs">(optional)</span></Label>
 			<Input
 				id="order"
 				type="number"

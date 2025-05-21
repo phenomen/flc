@@ -74,7 +74,7 @@
 
 	<div class="grid gap-1.5">
 		<Label for="foundryPath"
-			>Path to main.js <span class="text-xs text-muted-foreground"
+			>Path to main.js <span class="text-muted-foreground text-xs"
 				>(in Foundry installation directory)</span
 			></Label>
 		<Input
@@ -87,7 +87,7 @@
 
 	<div class="grid gap-1.5">
 		<Label for="dataPath"
-			>Foundry User Data <span class="text-xs text-muted-foreground">(optional)</span></Label>
+			>Foundry User Data <span class="text-muted-foreground text-xs">(optional)</span></Label>
 		<Input
 			id="dataPath"
 			autocomplete="off"
@@ -108,7 +108,7 @@
 
 	<div class="grid gap-1.5">
 		<Label for="args"
-			>Arguments <span class="text-xs text-muted-foreground">(optional)</span></Label>
+			>Arguments <span class="text-muted-foreground text-xs">(optional)</span></Label>
 		<Input
 			id="args"
 			autocomplete="off"
@@ -117,7 +117,7 @@
 	</div>
 
 	<div class="grid gap-1.5">
-		<Label for="notes">Notes <span class="text-xs text-muted-foreground">(optional)</span></Label>
+		<Label for="notes">Notes <span class="text-muted-foreground text-xs">(optional)</span></Label>
 		<Textarea
 			id="notes"
 			bind:value={notes}
@@ -127,7 +127,7 @@
 
 	{#if mode === "edit"}
 		<div class="grid gap-1.5">
-			<Label for="order">Order <span class="text-xs text-muted-foreground">(optional)</span></Label>
+			<Label for="order">Order <span class="text-muted-foreground text-xs">(optional)</span></Label>
 			<Input
 				id="order"
 				type="number"
