@@ -1,6 +1,6 @@
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
-import * as v from "valibot";
+import * as z from "zod/v4";
 
 const ERROR_MESSAGES = {
 	serverName: "Please enter a server name",
@@ -8,30 +8,29 @@ const ERROR_MESSAGES = {
 	validPort: "Please enter a valid port number"
 };
 
-const NodeserverSchema = v.object({
-	id: v.string(),
-	label: v.pipe(v.string(), v.trim(), v.minLength(1, ERROR_MESSAGES.serverName)),
-	notes: v.optional(v.string()),
-	foundryPath: v.pipe(v.string(), v.trim(), v.minLength(1, ERROR_MESSAGES.foundryPath)),
-	dataPath: v.optional(v.string()),
-	port: v.pipe(
-		v.number(),
-		v.minValue(1, ERROR_MESSAGES.validPort),
-		v.maxValue(65535, ERROR_MESSAGES.validPort)
-	),
-	args: v.optional(v.string()),
-	order: v.optional(v.number())
+const NodeserverSchema = z.object({
+	id: z.string(),
+	label: z.string().trim().min(1, { error: ERROR_MESSAGES.serverName }),
+	notes: z.optional(z.string()),
+	foundryPath: z.string().trim().min(1, { error: ERROR_MESSAGES.foundryPath }),
+	dataPath: z.optional(z.string().trim()),
+	port: z
+		.number()
+		.min(1, { error: ERROR_MESSAGES.validPort })
+		.max(65535, { error: ERROR_MESSAGES.validPort }),
+	args: z.optional(z.string()),
+	order: z.optional(z.number())
 });
 
-const NodeserverPartialSchema = v.omit(NodeserverSchema, ["id"]);
+const NodeserverPartialSchema = NodeserverSchema.partial({ id: true });
 
-export type Nodeserver = v.InferOutput<typeof NodeserverSchema>;
-export type NodeserverPartial = v.InferOutput<typeof NodeserverPartialSchema>;
+export type Nodeserver = z.infer<typeof NodeserverSchema>;
+export type NodeserverPartial = z.infer<typeof NodeserverPartialSchema>;
 
 export let nodeservers = new PersistedState<Nodeserver[]>("nodeservers", []);
 
 export function addServer(data: NodeserverPartial) {
-	const result = v.safeParse(NodeserverPartialSchema, data);
+	const result = z.safeParse(NodeserverPartialSchema, data);
 
 	if (!result.success) {
 		return result;
@@ -41,7 +40,7 @@ export function addServer(data: NodeserverPartial) {
 		{
 			id: nanoid(),
 			order: 0,
-			...result.output
+			...result.data
 		},
 		...nodeservers.current
 	];
@@ -50,26 +49,26 @@ export function addServer(data: NodeserverPartial) {
 }
 
 export function deleteServer(id: string) {
-	const result = v.safeParse(v.string(), id);
+	const result = z.safeParse(z.string(), id);
 
 	if (!result.success) {
 		return result;
 	}
 
-	nodeservers.current = nodeservers.current.filter((server) => server.id !== result.output);
+	nodeservers.current = nodeservers.current.filter((server) => server.id !== result.data);
 
 	return result;
 }
 
 export function updateServer(data: Nodeserver) {
-	const result = v.safeParse(NodeserverSchema, data);
+	const result = z.safeParse(NodeserverSchema, data);
 
 	if (!result.success) {
 		return result;
 	}
 
 	nodeservers.current = nodeservers.current.map((server) =>
-		server.id === result.output.id ? result.output : server
+		server.id === result.data.id ? result.data : server
 	);
 
 	nodeservers.current = nodeservers.current.sort((a, b) => {

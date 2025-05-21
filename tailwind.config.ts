@@ -1,6 +1,4 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
-import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
 	darkMode: ["class"],
@@ -67,8 +65,7 @@ const config: Config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: ["Inter Variable", ...fontFamily.sans],
-				serif: [...fontFamily.serif]
+				sans: ["Inter Variable", "sans-serif"]
 			},
 			keyframes: {
 				"accordion-down": {
@@ -90,8 +87,7 @@ const config: Config = {
 				"caret-blink": "caret-blink 1.25s ease-out infinite"
 			}
 		}
-	},
-	plugins: [tailwindcssAnimate]
+	}
 };
 
 export default config;
