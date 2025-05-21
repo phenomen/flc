@@ -5,7 +5,6 @@
 	"windows": ["main"],
 	"platforms": ["macOS", "windows", "linux"],
 	"permissions": [
-		"core:app:allow-set-app-theme",
 		"core:default",
 		"core:webview:allow-create-webview-window",
 		"core:webview:allow-create-webview",

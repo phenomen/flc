@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# v7.3.1
+
+- Migrated TailwindCSS V3 to V4.
+- Migrated Zod V3 to V4.
+- Disabled changing the window theme since it crashes the app on macOS.
+
 # v7.2.5
 
 - Fixed broken fullscreen shortcut.
