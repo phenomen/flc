@@ -1,6 +1,4 @@
 <script lang="ts">
-	import * as Card from "$ui/card/index.js";
-
 	import { SettingsIcon, XIcon, ArrowUpToLineIcon } from "@lucide/svelte";
 
 	import { deleteServer, type Nodeserver } from "$scripts/nodeservers.svelte.js";
@@ -19,7 +17,7 @@
 		const result = deleteServer(server.id);
 
 		if (!result.success) {
-			console.error(result.issues);
+			console.error(result.error.message);
 		}
 	}
 
@@ -28,11 +26,11 @@
 	}
 </script>
 
-<Card.Root class="group flex h-full w-full items-center overflow-hidden rounded-md border">
+<div class="group flex h-full w-full items-center overflow-hidden rounded-md border">
 	<div class="flex h-full w-10 flex-col border-r">
 		<button
 			onclick={() => onEdit(server)}
-			class="h-full w-full border-b hover:bg-secondary"
+			class="hover:bg-secondary h-full w-full border-b"
 			title="Edit Server"
 			><SettingsIcon
 				size={18}
@@ -40,7 +38,7 @@
 
 		<button
 			onclick={handleDeleteServer}
-			class="h-full w-full text-destructive hover:bg-destructive/20"
+			class="text-destructive hover:bg-destructive/20 h-full w-full"
 			title="Delete Server"
 			><XIcon
 				size={18}
@@ -48,15 +46,15 @@
 	</div>
 
 	<div class="w-full px-4 py-6">
-		<h1 class="overflow-hidden text-ellipsis text-nowrap font-semibold">{server.label}</h1>
+		<h1 class="overflow-hidden font-semibold text-nowrap text-ellipsis">{server.label}</h1>
 	</div>
 
 	<button
 		onclick={handleLoadSettings}
-		class="h-full w-full max-w-16 overflow-hidden border border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+		class="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-full w-full max-w-16 overflow-hidden border"
 		title="Load Server Settings">
 		<ArrowUpToLineIcon
 			size={20}
 			class="mx-auto" />
 	</button>
-</Card.Root>
+</div>

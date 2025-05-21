@@ -5,6 +5,8 @@
 	import { addServer } from "$scripts/nodeservers.svelte.js";
 	import NodeServerForm from "$lib/components/NodeServerForm.svelte";
 
+	import { z } from "zod/v4";
+
 	let open = $state<boolean>(false);
 	let error = $state<string>("");
 
@@ -35,14 +37,16 @@
 			error = "";
 			open = false;
 		} else {
-			error = result.issues[0].message;
+			error = z.prettifyError(result.error);
 		}
 	}
 </script>
 
 <Sheet.Root bind:open>
 	<Sheet.Trigger class={buttonVariants({ variant: "default" })}>Add Server</Sheet.Trigger>
-	<Sheet.Content side="right">
+	<Sheet.Content
+		side="right"
+		class="px-2 py-4">
 		<NodeServerForm
 			mode="add"
 			bind:label

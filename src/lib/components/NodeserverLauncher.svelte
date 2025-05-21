@@ -15,7 +15,7 @@
 	let { launched, status, stdoutData, stderrData } = $derived(nodeStatus?.value);
 </script>
 
-<div class="flex flex-col space-y-2 rounded-md border bg-accent p-2 dark:border-primary/10">
+<div class="bg-accent dark:border-primary/10 flex flex-col space-y-2 rounded-md border p-2">
 	<Alert.Root>
 		<InfoIcon class="size-5" />
 
