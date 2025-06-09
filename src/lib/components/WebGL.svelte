@@ -30,7 +30,7 @@
 			class={cn(
 				buttonVariants({ variant: "outline", size: "icon" }),
 				"border-emerald-500 text-emerald-500 hover:text-emerald-500",
-				!glEnabled && !highPerf && "border-red-500 text-red-500 hover:text-red-500"
+				!glEnabled && !highPerf && "border-destructive text-destructive hover:text-destructive"
 			)}
 			title="Performance Report">
 			<CpuIcon class="block size-5" />

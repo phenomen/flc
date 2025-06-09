@@ -1,5 +1,12 @@
 # CHANGELOG
 
+# v7.4.0
+
+- New warm theme inspired by Claude.
+- Replaced Inter font with Geist.
+- shadcn-svelte release migration.
+- Fixes to Node server logic.
+
 # v7.3.1
 
 - Migrated TailwindCSS V3 to V4.

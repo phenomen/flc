@@ -21,7 +21,7 @@
 			<img
 				src="/logo.svg"
 				alt="FLC"
-				class="h-8 w-8" />
+				class="size-8" />
 			<h1 class="text-xl font-bold">FLC</h1>
 
 			{#await getVersion() then version}
@@ -35,13 +35,13 @@
 
 		<div class="flex items-center space-x-2">
 			<Button
-				variant="ghost"
+				variant="link"
 				href="/"
-				class={page.url.pathname === "/" ? "bg-secondary" : ""}>Join Server</Button>
+				class={page.url.pathname === "/" ? "bg-accent" : ""}>Join Server</Button>
 			<Button
-				variant="ghost"
+				variant="link"
 				href="/node"
-				class={page.url.pathname === "/node" ? "bg-secondary" : ""}>Launch Server</Button>
+				class={page.url.pathname === "/node" ? "bg-accent" : ""}>Launch Server</Button>
 		</div>
 
 		<div class="flex items-center space-x-2">
