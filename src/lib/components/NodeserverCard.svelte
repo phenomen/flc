@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { SettingsIcon, XIcon, ArrowUpToLineIcon } from "@lucide/svelte";
 
+	import { Button } from "$ui/button/index.js";
+
 	import { deleteServer, type Nodeserver } from "$scripts/nodeservers.svelte.js";
 	import { nodeLauncher } from "$scripts/nodelauncher.svelte.js";
 
@@ -26,35 +28,33 @@
 	}
 </script>
 
-<div class="group flex h-full w-full items-center overflow-hidden rounded-md border">
-	<div class="flex h-full w-10 flex-col border-r">
-		<button
+<div class="flex h-full w-full items-center">
+	<div class="grid gap-1">
+		<Button
 			onclick={() => onEdit(server)}
-			class="hover:bg-secondary h-full w-full border-b"
-			title="Edit Server"
-			><SettingsIcon
-				size={18}
-				class="mx-auto" /></button>
+			class="hover:text-primary"
+			size="icon"
+			variant="outline"
+			title="Edit Server"><SettingsIcon /></Button>
 
-		<button
+		<Button
 			onclick={handleDeleteServer}
-			class="text-destructive hover:bg-destructive/20 h-full w-full"
-			title="Delete Server"
-			><XIcon
-				size={18}
-				class="mx-auto" /></button>
+			class="hover:text-destructive"
+			variant="outline"
+			size="icon"
+			title="Delete Server"><XIcon /></Button>
 	</div>
 
-	<div class="w-full px-4 py-6">
-		<h1 class="overflow-hidden font-semibold text-nowrap text-ellipsis">{server.label}</h1>
+	<div class="bg-accent/50 ring-border mx-2 flex h-full w-full rounded-md px-4 py-3 ring-1">
+		<h1 class="my-auto overflow-hidden font-semibold text-nowrap text-ellipsis">
+			{server.label}
+		</h1>
 	</div>
 
-	<button
+	<Button
 		onclick={handleLoadSettings}
-		class="border-primary bg-primary text-primary-foreground hover:bg-primary/90 h-full w-full max-w-16 overflow-hidden border"
+		class="h-full w-16"
 		title="Load Server Settings">
-		<ArrowUpToLineIcon
-			size={20}
-			class="mx-auto" />
-	</button>
+		<ArrowUpToLineIcon class="size-5" />
+	</Button>
 </div>

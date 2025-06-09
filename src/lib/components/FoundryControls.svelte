@@ -9,7 +9,7 @@
 <Popover.Root>
 	<Popover.Trigger>
 		<div
-			class={buttonVariants({ variant: "outline-solid", size: "icon" })}
+			class={buttonVariants({ variant: "outline", size: "icon" })}
 			title="Hotkeys">
 			<CircleHelpIcon size={24} />
 		</div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Update } from "@tauri-apps/plugin-updater";
 
+	import { Button } from "$ui/button/index.js";
 	import { onMount } from "svelte";
 	import { check } from "@tauri-apps/plugin-updater";
 
@@ -47,13 +48,14 @@
 </script>
 
 {#if update}
-	<footer class="fixed bottom-0 z-10 w-full bg-yellow-400 text-black">
-		<div class="flex w-full items-center justify-center space-x-4 px-4 py-1 text-sm">
-			<div class="font-medium">{message}</div>
+	<footer class="bg-primary fixed bottom-0 z-10 flex h-10 w-full align-middle">
+		<div class="my-auto flex w-full items-center justify-center space-x-4 px-4">
+			<span class="text-primary-foreground font-medium">{message}</span>
 			{#if install}
-				<button
-					class="rounded-md bg-black px-2 py-0.5 font-medium text-white"
-					onclick={installUpdate}>Update</button>
+				<Button
+					size="sm"
+					variant="secondary"
+					onclick={installUpdate}>Update</Button>
 			{/if}
 		</div>
 	</footer>
