@@ -1,6 +1,6 @@
 {
 	"name": "flc",
-	"version": "7.3.1",
+	"version": "7.4.1",
 	"description": "Foundry Lightweight Client",
 	"type": "module",
 	"scripts": {
@@ -13,8 +13,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"tauri": "tauri",
-		"ui:add": "bunx shadcn-svelte@next add",
-		"ui:update": "bunx shadcn-svelte@next update"
+		"ui:add": "bunx shadcn-svelte add",
+		"ui:update": "bunx shadcn-svelte update"
 	},
 	"license": "MIT",
 	"devDependencies": {
