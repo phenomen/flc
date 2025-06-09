@@ -29,7 +29,7 @@
 		<div
 			class={cn(
 				buttonVariants({ variant: "outline", size: "icon" }),
-				"border-emerald-500 text-emerald-500 hover:text-emerald-500",
+				" text-emerald-500 hover:text-emerald-400",
 				!glEnabled && !highPerf && "border-destructive text-destructive hover:text-destructive"
 			)}
 			title="Performance Report">

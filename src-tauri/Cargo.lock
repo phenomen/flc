@@ -902,7 +902,7 @@ dependencies = [
 
 [[package]]
 name = "flc"
-version = "7.4.0"
+version = "7.4.1"
 dependencies = [
  "serde",
  "serde_json",

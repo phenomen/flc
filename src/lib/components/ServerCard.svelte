@@ -68,17 +68,28 @@
 						<ZapIcon />{status.partner}</Badge>
 				{:else if status?.version}
 					<Badge>
-						<ZapIcon />Online</Badge>
-					<Badge variant="secondary"><HexagonIcon />{status.version}</Badge>
-					{#if status.system}<Badge variant="secondary"
-							><DicesIcon />{status.system.toUpperCase()}</Badge>
+						<ZapIcon />Online
+					</Badge>
+					<Badge variant="outline">
+						<HexagonIcon />
+						{status.version}
+					</Badge>
+					{#if status.system}
+						<Badge variant="outline">
+							<DicesIcon />
+							{status.system.toUpperCase()}
+						</Badge>
 					{/if}
-					{#if status.users !== undefined}<Badge variant="secondary"
-							><SmileIcon />{status.users}</Badge
-						>{/if}
+					{#if status.users !== undefined}
+						<Badge variant="outline">
+							<SmileIcon />
+							{status.users}
+						</Badge>
+					{/if}
 				{:else}
 					<Badge variant="destructive">
-						<ZapIcon />Offline</Badge>
+						<ZapIcon />Offline
+					</Badge>
 				{/if}
 			</div>
 		</div>
