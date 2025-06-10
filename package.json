@@ -1,6 +1,6 @@
 {
 	"name": "flc",
-	"version": "7.4.1",
+	"version": "7.4.5",
 	"description": "Foundry Lightweight Client",
 	"type": "module",
 	"scripts": {
@@ -21,7 +21,7 @@
 		"@internationalized/date": "^3.8.2",
 		"@lucide/svelte": "^0.513.0",
 		"@sveltejs/adapter-static": "^3.0.8",
-		"@sveltejs/kit": "^2.21.3",
+		"@sveltejs/kit": "^2.21.4",
 		"@sveltejs/vite-plugin-svelte": "^5.1.0",
 		"@tailwindcss/vite": "^4.1.8",
 		"@tauri-apps/api": "^2.5.0",
@@ -35,7 +35,7 @@
 		"clsx": "^2.1.1",
 		"eslint": "^9.28.0",
 		"eslint-config-prettier": "^10.1.5",
-		"eslint-plugin-svelte": "^3.9.1",
+		"eslint-plugin-svelte": "^3.9.2",
 		"globals": "^16.2.0",
 		"mode-watcher": "^1.0.7",
 		"prettier": "^3.5.3",
@@ -52,7 +52,7 @@
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.34.0",
 		"vite": "^6.3.5",
-		"zod": "^3.25.56"
+		"zod": "^3.25.57"
 	},
 	"trustedDependencies": [
 		"@tailwindcss/oxide",
