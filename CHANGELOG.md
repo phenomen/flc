@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v7.5.0
+
+- Added Incognito Mode toggle. In incognito mode, a Foundry window will not share context (cache/cookies) with a standard window. This allows you to use separate FLC windows for GM and Player on the same server.
+
 # v7.4.0
 
 - New warm theme inspired by Claude.
@@ -7,7 +11,7 @@
 - shadcn-svelte release migration.
 - Fixes to Node server logic.
 
-# v7.3.1
+# v7.3.0
 
 - Migrated TailwindCSS V3 to V4.
 - Migrated Zod V3 to V4.

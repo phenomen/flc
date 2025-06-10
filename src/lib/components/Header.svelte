@@ -6,11 +6,12 @@
 	import { Button } from "$ui/button/index.js";
 	import { Badge } from "$ui/badge/index.js";
 
-	import LightSwitch from "$components/LightSwitch.svelte";
 	import ServerAdd from "$components/ServerAdd.svelte";
 	import NodeserverAdd from "$components/NodeserverAdd.svelte";
-	import WebGl from "$components/WebGL.svelte";
-	import FoundryControls from "$components/FoundryControls.svelte";
+	import ToolbarLightSwitch from "$components/ToolbarLightSwitch.svelte";
+	import ToolbarWebGl from "$components/ToolbarWebGL.svelte";
+	import ToolbarControls from "$components/ToolbarControls.svelte";
+	import ToolbarIncognito from "$components/ToolbarIncognito.svelte";
 </script>
 
 <header class="bg-background sticky top-0 z-10 w-full border-b">
@@ -45,9 +46,10 @@
 		</div>
 
 		<div class="flex items-center space-x-2">
-			<FoundryControls />
-			<LightSwitch />
-			<WebGl />
+			<ToolbarIncognito />
+			<ToolbarLightSwitch />
+			<ToolbarWebGl />
+			<ToolbarControls />
 			{#if page.url.pathname === "/"}
 				<ServerAdd />
 			{:else}

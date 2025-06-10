@@ -161,6 +161,6 @@
 	}
 
 	.kbd {
-		@apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono font-medium opacity-100 select-none;
+		@apply bg-secondary text-secondary-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono font-medium opacity-100 select-none;
 	}
 }
