@@ -22,7 +22,7 @@
 		"@internationalized/date": "^3.8.2",
 		"@lucide/svelte": "^0.515.0",
 		"@sveltejs/adapter-static": "^3.0.8",
-		"@sveltejs/kit": "2.21.5",
+		"@sveltejs/kit": "^2.21.5",
 		"@sveltejs/vite-plugin-svelte": "^5.1.0",
 		"@tailwindcss/vite": "^4.1.10",
 		"@tauri-apps/api": "^2.5.0",
