@@ -5,8 +5,6 @@
 	import { addServer } from "$scripts/nodeservers.svelte.js";
 	import NodeServerForm from "$lib/components/NodeServerForm.svelte";
 
-	import { z } from "zod/v4";
-
 	let open = $state<boolean>(false);
 	let error = $state<string>("");
 
@@ -27,23 +25,25 @@
 			args
 		});
 
-		if (result.success) {
-			label = "";
-			notes = "";
-			foundryPath = "";
-			dataPath = "";
-			port = 30000;
-			args = "";
-			error = "";
-			open = false;
-		} else {
-			error = z.prettifyError(result.error);
+		if ("error" in result) {
+			error = result.error as string;
+			return;
 		}
+
+		label = "";
+		notes = "";
+		foundryPath = "";
+		dataPath = "";
+		port = 30000;
+		args = "";
+		error = "";
+		open = false;
 	}
 </script>
 
 <Sheet.Root bind:open>
-	<Sheet.Trigger class={buttonVariants({ variant: "default" })}>Add Server</Sheet.Trigger>
+	<Sheet.Trigger class={buttonVariants({ variant: "outline", class: "w-full" })}
+		>Add Server</Sheet.Trigger>
 	<Sheet.Content
 		side="right"
 		class="px-2 py-4">

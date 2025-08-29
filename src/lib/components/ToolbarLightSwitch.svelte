@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-	import { SunMoon } from "@lucide/svelte";
+	import { SunIcon } from "@lucide/svelte";
 
 	import { toggleMode } from "mode-watcher";
 	import { Button } from "$ui/button/index.js";
@@ -13,7 +13,7 @@
 				onclick={toggleMode}
 				variant="outline"
 				size="icon">
-				<SunMoon class="size-5" />
+				<SunIcon class="size-5" />
 			</Button></Tooltip.Trigger>
 		<Tooltip.Content
 			arrowClasses="bg-secondary"

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
 	import { PersistedState } from "runed";
-	import { ScanEyeIcon } from "@lucide/svelte";
+	import { HatGlassesIcon } from "@lucide/svelte";
 
 	import { Button } from "$ui/button/index.js";
 
@@ -16,7 +16,7 @@
 				class={[incognito.current && "border-primary text-primary"]}
 				variant="outline"
 				size="icon">
-				<ScanEyeIcon class="size-5" />
+				<HatGlassesIcon class="size-5" />
 			</Button>
 		</Tooltip.Trigger>
 		<Tooltip.Content

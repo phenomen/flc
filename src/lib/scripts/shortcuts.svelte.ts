@@ -1,10 +1,5 @@
 import { getAllWindows } from "@tauri-apps/api/window";
-import {
-	register,
-	unregister,
-	unregisterAll,
-	isRegistered
-} from "@tauri-apps/plugin-global-shortcut";
+import { register, unregisterAll } from "@tauri-apps/plugin-global-shortcut";
 
 async function toggleFullscreen() {
 	const windows = await getAllWindows();
