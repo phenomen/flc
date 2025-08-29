@@ -1,13 +1,8 @@
 <script lang="ts">
 	import { getVersion } from "@tauri-apps/api/app";
 
-	import { page } from "$app/state";
-
-	import { Button } from "$ui/button/index.js";
 	import { Badge } from "$ui/badge/index.js";
-
-	import ServerAdd from "$components/ServerAdd.svelte";
-	import NodeserverAdd from "$components/NodeserverAdd.svelte";
+	import * as Tabs from "$lib/components/ui/tabs/index.js";
 	import ToolbarLightSwitch from "$components/ToolbarLightSwitch.svelte";
 	import ToolbarWebGl from "$components/ToolbarWebGL.svelte";
 	import ToolbarControls from "$components/ToolbarControls.svelte";
@@ -34,27 +29,20 @@
 			{/await}
 		</button>
 
-		<div class="flex items-center space-x-2">
-			<Button
-				variant="link"
-				href="/"
-				class={page.url.pathname === "/" ? "bg-accent" : ""}>Join Server</Button>
-			<Button
-				variant="link"
-				href="/node"
-				class={page.url.pathname === "/node" ? "bg-accent" : ""}>Launch Server</Button>
-		</div>
+		<Tabs.List>
+			<Tabs.Trigger
+				value="join"
+				class="w-48">Join Server</Tabs.Trigger>
+			<Tabs.Trigger
+				value="launch"
+				class="w-48">Launch Server</Tabs.Trigger>
+		</Tabs.List>
 
 		<div class="flex items-center space-x-2">
 			<ToolbarIncognito />
 			<ToolbarLightSwitch />
 			<ToolbarWebGl />
 			<ToolbarControls />
-			{#if page.url.pathname === "/"}
-				<ServerAdd />
-			{:else}
-				<NodeserverAdd />
-			{/if}
 		</div>
 	</div>
 </header>

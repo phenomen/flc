@@ -27,13 +27,13 @@ const NodeserverPartialSchema = NodeserverSchema.partial({ id: true });
 export type Nodeserver = z.infer<typeof NodeserverSchema>;
 export type NodeserverPartial = z.infer<typeof NodeserverPartialSchema>;
 
-export let nodeservers = new PersistedState<Nodeserver[]>("nodeservers", []);
+export const nodeservers = new PersistedState<Nodeserver[]>("nodeservers", []);
 
 export function addServer(data: NodeserverPartial) {
 	const result = z.safeParse(NodeserverPartialSchema, data);
 
 	if (!result.success) {
-		return result;
+		return { error: z.prettifyError(result.error) };
 	}
 
 	nodeservers.current = [
@@ -52,7 +52,7 @@ export function deleteServer(id: string) {
 	const result = z.safeParse(z.string(), id);
 
 	if (!result.success) {
-		return result;
+		return z.prettifyError(result.error);
 	}
 
 	nodeservers.current = nodeservers.current.filter((server) => server.id !== result.data);
@@ -64,7 +64,7 @@ export function updateServer(data: Nodeserver) {
 	const result = z.safeParse(NodeserverSchema, data);
 
 	if (!result.success) {
-		return result;
+		return z.prettifyError(result.error);
 	}
 
 	nodeservers.current = nodeservers.current.map((server) =>

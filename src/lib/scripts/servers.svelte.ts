@@ -2,6 +2,7 @@ import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as z from "zod/v4";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const statusSchema = z.object({
 	active: z.boolean().optional(),
 	version: z.string().optional(),
@@ -33,13 +34,13 @@ const ServerPartialSchema = ServerSchema.partial({ id: true });
 export type Server = z.infer<typeof ServerSchema>;
 export type ServerPartial = z.infer<typeof ServerPartialSchema>;
 
-export let servers = new PersistedState<Server[]>("servers", []);
+export const servers = new PersistedState<Server[]>("servers", []);
 
 export function addServer(data: ServerPartial) {
 	const result = ServerPartialSchema.safeParse(data);
 
 	if (!result.success) {
-		return result;
+		return { error: z.prettifyError(result.error) };
 	}
 
 	servers.current = [
@@ -68,7 +69,7 @@ export function updateServer(data: Server) {
 	const result = ServerSchema.safeParse(data);
 
 	if (!result.success) {
-		return result;
+		return z.prettifyError(result.error);
 	}
 
 	servers.current = servers.current.map((server) =>

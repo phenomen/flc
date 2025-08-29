@@ -7,8 +7,6 @@
 	import * as Sheet from "$ui/sheet/index.js";
 	import ServerForm from "$lib/components/ServerForm.svelte";
 
-	import { z } from "zod/v4";
-
 	let editingServer = $state<Server | null>(null);
 	let isOpen = $state<boolean>(false);
 	let label = $state<string>("");
@@ -42,7 +40,7 @@
 			error = "";
 			isOpen = false;
 		} else {
-			error = z.prettifyError(result.error);
+			error = result.error.message;
 		}
 	}
 </script>
