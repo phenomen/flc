@@ -1,83 +1,88 @@
 # CHANGELOG
 
-# v7.5.0
+## v7.6.0
+
+- Updated the underlying dependencies before tackling the user-reported issues, to make sure these issues are in my code and not in the dependencies.
+- Restructured the layout to use tabs instead of routes for Join/Launch Server. It should prevent a loss of context of launched servers when you switch to another tab.
+
+## v7.5.0
 
 - Added Incognito Mode toggle. In incognito mode, a Foundry window will not share context (cache/cookies) with a standard window. This allows you to use separate FLC windows for GM and Player on the same server.
 
-# v7.4.0
+## v7.4.0
 
 - New warm theme inspired by Claude.
 - Replaced Inter font with Geist.
 - shadcn-svelte release migration.
 - Fixes to Node server logic.
 
-# v7.3.0
+## v7.3.0
 
 - Migrated TailwindCSS V3 to V4.
 - Migrated Zod V3 to V4.
 - Disabled changing the window theme since it crashes the app on macOS.
 
-# v7.2.5
+## v7.2.5
 
 - Fixed broken fullscreen shortcut.
 - UI tweaks.
 
-# v7.2.0
+## v7.2.0
 
 - Optimized layout to use a shared add/edit side sheet.
 - Updated Mode Watcher to set Tauri app theme.
 - Disabled link previews on macOS.
 - Updated deps.
 
-# v7.1.0
+## v7.1.0
 
 - Added support for the new Foundry Node.js build. Now users will need to select `main.js` entrypoint directly instead of Foundry directory. I added a legacy fallback for existing servers so they should still work.
 - Server sorting is now applied to servers persistent state directly during an update instead of component derived/effect render.
 
-# v7.0.0
+## v7.0.0
 
 - Added server sorting by custom order.
 - Updated deps.
 
-# v6.9.7
+## v6.9.7
 
 - Downgrades Linux distro for compiling
 - Updated deps.
 
-# v6.9.6
+## v6.9.6
 
 - `better-fetch` for type-safe server status check.
 - Updated all deps.
 
-# v6.9.5
+## v6.9.5
 
 - Switch from `tauri:http` to a default `fetch`.
 
-# v6.9.0
+## v6.9.0
 
 - Fixed MacOS bundle. It should not throw a "damaged" error anymore but will ask users to verify opening an unsigned app.
 - Display FLC version in the header.
 
-# v6.8.0
+## v6.8.0
 
 - Security fix in dependency
 - UI tweaks
 
-# v6.7.5
+## v6.7.5
 
 - Use `runed`/`PersistedState` as a new local storage solution.
 - Use `$app/state` instead of `$app/stores`.
 - Dark mode tweaks.
 
-# v6.7.0
+## v6.7.0
 
 - Additional type-safety and data validation.
 
-# v6.6.0
+## v6.6.0
 
 - Fixed server check edge cases (partner hostings, subpaths).
 
-# v6.5.0
+## v6.5.0
 
 - Changed the default Foundry window size to fit the login screen UI.
 - The update data is now fetched directly from Github repo instead of the website.
