@@ -64,7 +64,7 @@ export function updateServer(data: Nodeserver) {
 	const result = z.safeParse(NodeserverSchema, data);
 
 	if (!result.success) {
-		return z.prettifyError(result.error);
+		return { error: z.prettifyError(result.error) };
 	}
 
 	nodeservers.current = nodeservers.current.map((server) =>

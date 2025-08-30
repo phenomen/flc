@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v7.6.1
+
+- Fixed #79
+- Fixed #82
+- Fixed #83
+
 ## v7.6.0
 
 - Updated the underlying dependencies before tackling the user-reported issues, to make sure these issues are in my code and not in the dependencies.

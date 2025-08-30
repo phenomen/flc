@@ -45,11 +45,11 @@
 			order
 		});
 
-		if (result.success) {
+		if ("error" in result) {
+			error = result.error as string;
+		} else {
 			error = "";
 			isOpen = false;
-		} else {
-			error = result.error.message;
 		}
 	}
 </script>
