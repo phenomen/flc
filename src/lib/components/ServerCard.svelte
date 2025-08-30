@@ -66,10 +66,10 @@
 			<h1 class="overflow-hidden font-semibold text-nowrap text-ellipsis">{server.label}</h1>
 			<div class="text-muted-foreground flex items-center gap-1 text-xs">
 				{#if status?.partner}
-					<Badge>
+					<Badge class="bg-lime-800">
 						<ZapIcon />{status.partner}</Badge>
 				{:else if status?.version}
-					<Badge>
+					<Badge class="bg-lime-800">
 						<ZapIcon />Online
 					</Badge>
 					<Badge variant="outline">

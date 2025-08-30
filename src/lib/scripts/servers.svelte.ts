@@ -69,7 +69,7 @@ export function updateServer(data: Server) {
 	const result = ServerSchema.safeParse(data);
 
 	if (!result.success) {
-		return z.prettifyError(result.error);
+		return { error: z.prettifyError(result.error) };
 	}
 
 	servers.current = servers.current.map((server) =>
@@ -90,9 +90,27 @@ export async function getServerStatus(url: string) {
 
 	if (partner) return { partner: partner };
 
-	const cleanUrl = url.replace(/\/+$/, "").replace(/\/(game|join)$/, "");
+	// Build the status URL robustly, preserving subpaths and stripping query/hash
+	let statusUrl: string;
+	try {
+		const parsed = new URL(url);
+		let pathname = parsed.pathname.replace(/\/+$/, "");
+		pathname = pathname.replace(/\/(game|join|setup)$/, "");
+		const base = new URL(
+			(pathname || "/").endsWith("/") ? pathname || "/" : `${pathname}/`,
+			parsed.origin
+		);
+		statusUrl = new URL("api/status", base).toString();
+	} catch {
+		// Fallback for non-standard inputs
+		const cleanUrl = url
+			.split(/[?#]/)[0]
+			.replace(/\/+$/, "")
+			.replace(/\/(game|join|setup)$/, "");
+		statusUrl = `${cleanUrl}/api/status`;
+	}
 
-	const response = await fetch(`${cleanUrl}/api/status`, {
+	const response = await fetch(statusUrl, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json"
