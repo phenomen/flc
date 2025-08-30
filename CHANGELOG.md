@@ -2,9 +2,9 @@
 
 ## v7.6.1
 
-- Fixed #79
-- Fixed #82
-- Fixed #83
+- Fixed https://github.com/phenomen/flc/issues/79
+- Fixed https://github.com/phenomen/flc/issues/82
+- Fixed https://github.com/phenomen/flc/issues/83
 
 ## v7.6.0
 
