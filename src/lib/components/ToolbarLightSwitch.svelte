@@ -13,7 +13,7 @@
 				onclick={toggleMode}
 				variant="outline"
 				size="icon">
-				<SunIcon class="size-5" />
+				<SunIcon class="block size-5" />
 			</Button></Tooltip.Trigger>
 		<Tooltip.Content
 			arrowClasses="bg-secondary"

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v7.6.4
+
+- Fixed FLC logo URL not opening
+- Various style tweaks and formatting
+
 ## v7.6.3
 
 - Fixed https://github.com/phenomen/flc/issues/79
