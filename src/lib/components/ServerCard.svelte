@@ -12,7 +12,8 @@
 		SmileIcon,
 		ZapIcon,
 		DicesIcon,
-		HexagonIcon
+		HexagonIcon,
+		RefreshCcwIcon
 	} from "@lucide/svelte";
 
 	import type { ServerStatus, Server } from "$scripts/servers.svelte.js";
@@ -39,8 +40,12 @@
 		}
 	}
 
-	onMount(async () => {
+	async function handleRefreshServer() {
 		status = await getServerStatus(server.url);
+	}
+
+	onMount(async () => {
+		await handleRefreshServer();
 	});
 </script>
 
@@ -92,6 +97,10 @@
 					<Badge variant="destructive">
 						<ZapIcon />Offline
 					</Badge>
+					<Badge
+						variant="default"
+						class="hover:bg-primary/90 hover:cursor-pointer"
+						onclick={handleRefreshServer}><RefreshCcwIcon /> Check</Badge>
 				{/if}
 			</div>
 		</div>

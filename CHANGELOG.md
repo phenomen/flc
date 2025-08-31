@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v7.6.1
+## v7.6.3
 
 - Fixed https://github.com/phenomen/flc/issues/79
 - Fixed https://github.com/phenomen/flc/issues/82

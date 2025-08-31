@@ -1,8 +1,10 @@
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
-import { nanoid } from "nanoid";
 
 export async function openWebview(url: string, id: string, title: string, incognito: boolean) {
-	const webview = new WebviewWindow(`foundry-${id}-${nanoid()}`, {
+	// strip id from not alphanumeric characters
+	const sanitizedId = id.replace(/[^a-zA-Z0-9]/g, "");
+
+	const webview = new WebviewWindow(`foundry${sanitizedId}`, {
 		title: `Foundry VTT - ${title}`,
 		url,
 		width: 1280,
@@ -12,7 +14,7 @@ export async function openWebview(url: string, id: string, title: string, incogn
 		devtools: true,
 		dragDropEnabled: false,
 		zoomHotkeysEnabled: true,
-		incognito: incognito
+		incognito
 	});
 
 	webview.once("tauri://created", function () {
