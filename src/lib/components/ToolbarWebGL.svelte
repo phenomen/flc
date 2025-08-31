@@ -29,8 +29,8 @@
 		<Tooltip.Trigger>
 			<div
 				class={cn(
-					buttonVariants({ variant: "outline", size: "icon" }),
-					" text-emerald-500 hover:text-emerald-400",
+					buttonVariants({ variant: "ghost", size: "icon", class: "hover:cursor-help" }),
+					" text-lime-600 hover:text-lime-500",
 					!glEnabled && !highPerf && "border-destructive text-destructive hover:text-destructive"
 				)}>
 				<CpuIcon class="block size-5" />

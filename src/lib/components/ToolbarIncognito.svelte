@@ -16,7 +16,7 @@
 				class={[incognito.current && "border-primary text-primary"]}
 				variant="outline"
 				size="icon">
-				<HatGlassesIcon class="size-5" />
+				<HatGlassesIcon class="block size-5" />
 			</Button>
 		</Tooltip.Trigger>
 		<Tooltip.Content

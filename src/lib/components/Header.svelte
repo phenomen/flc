@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getVersion } from "@tauri-apps/api/app";
+	import { open } from "@tauri-apps/plugin-shell";
 
 	import { Badge } from "$ui/badge/index.js";
 	import * as Tabs from "$lib/components/ui/tabs/index.js";
