@@ -1,9 +1,19 @@
 {
 	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "default",
-	"description": "Capability for the main window",
-	"windows": ["main"],
-	"webviews": ["main"],
+	"identifier": "foundry",
+	"description": "Capability for the Foundry window",
+	"windows": ["foundry*"],
+	"webviews": ["foundry*"],
+	"remote": {
+		"urls": [
+			"https://*",
+			"http://*",
+			"https://*:*",
+			"http://*:*",
+			"http://localhost:*",
+			"https://localhost:*"
+		]
+	},
 	"platforms": ["macOS", "windows", "linux"],
 	"permissions": [
 		"core:default",
@@ -24,32 +34,7 @@
 		"core:window:allow-set-focus",
 		"core:window:allow-set-fullscreen",
 		"core:window:default",
-		"dialog:default",
-		"global-shortcut:default",
-		"global-shortcut:allow-register",
-		"global-shortcut:allow-unregister",
-		"global-shortcut:allow-unregister-all",
-		"global-shortcut:allow-is-registered",
 		"shell:default",
-		"shell:allow-open",
-		"shell:allow-execute",
-		"shell:allow-kill",
-		"shell:allow-spawn",
-		"updater:default",
-		"updater:allow-check",
-		"updater:allow-download-and-install",
-		"updater:allow-download",
-		"updater:allow-install",
-		{
-			"identifier": "shell:allow-spawn",
-			"allow": [
-				{
-					"name": "node",
-					"cmd": "node",
-					"args": true
-				}
-			],
-			"sidecar": false
-		}
+		"shell:allow-open"
 	]
 }
