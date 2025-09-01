@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v7.6.6
+
+- Fixed issue with opening multiple windows of the same server
+
 ## v7.6.4
 
 - Fixed FLC logo URL not opening

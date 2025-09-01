@@ -1,9 +1,11 @@
 {
 	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "foundry",
-	"description": "Capability for the Foundry window",
-	"windows": ["foundry*"],
-	"webviews": ["foundry*"],
+	"identifier": "remote",
+	"description": "Capability for remote windows",
+	"windows": ["*"],
+	"webviews": ["*"],
+	"platforms": ["macOS", "windows", "linux"],
+	"local": false,
 	"remote": {
 		"urls": [
 			"https://*",
@@ -14,27 +16,29 @@
 			"https://localhost:*"
 		]
 	},
-	"platforms": ["macOS", "windows", "linux"],
 	"permissions": [
 		"core:default",
 		"core:webview:default",
+		"core:webview:allow-clear-all-browsing-data",
 		"core:webview:allow-create-webview-window",
 		"core:webview:allow-create-webview",
+		"core:webview:allow-reparent",
 		"core:webview:allow-set-webview-focus",
+		"core:webview:allow-set-webview-position",
 		"core:webview:allow-set-webview-size",
 		"core:webview:allow-set-webview-zoom",
-		"core:webview:allow-set-webview-position",
 		"core:webview:allow-webview-close",
+		"core:webview:allow-webview-hide",
 		"core:webview:allow-webview-show",
-		"core:webview:allow-clear-all-browsing-data",
+		"core:window:default",
 		"core:window:allow-close",
 		"core:window:allow-create",
 		"core:window:allow-is-focused",
 		"core:window:allow-is-fullscreen",
 		"core:window:allow-set-focus",
 		"core:window:allow-set-fullscreen",
-		"core:window:default",
-		"shell:default",
-		"shell:allow-open"
+		"core:window:allow-set-simple-fullscreen",
+		"dialog:default",
+		"shell:default"
 	]
 }
