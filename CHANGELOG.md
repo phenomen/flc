@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v7.7.0
+
+- Downgrade Tauri to fix broken `window.open()` function in webviews.
+- Add Spyre as a partner hosting.
+
 ## v7.6.6
 
 - Fixed issue with opening multiple windows of the same server
