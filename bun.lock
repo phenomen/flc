@@ -18,7 +18,7 @@
         "@tauri-apps/plugin-dialog": "=2.2.2",
         "@tauri-apps/plugin-global-shortcut": "=2.2.1",
         "@tauri-apps/plugin-shell": "=2.2.2",
-        "@tauri-apps/plugin-updater": "=2.6.1",
+        "@tauri-apps/plugin-updater": "=2.7.1",
         "bits-ui": "^2.9.6",
         "clsx": "^2.1.1",
         "eslint": "^9.34.0",
@@ -279,7 +279,7 @@
 
     "@tauri-apps/plugin-shell": ["@tauri-apps/plugin-shell@2.2.2", "", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-fg9XKWfzRQsN8p+Zrk82WeHvXFvGVnG0/mTlujQdLWNnO5cM6WD9qCrHbFytScVS+WhmRAkuypQPcxeKKl3VBg=="],
 
-    "@tauri-apps/plugin-updater": ["@tauri-apps/plugin-updater@2.6.1", "", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-iiOevw4kc12Ok99J9KthXwUqwPv1sYjG+tNEDZqPmwvOmIq7s58nKMRz6NJPKXT4U16NzMPffFcP/LUOsz6c4A=="],
+    "@tauri-apps/plugin-updater": ["@tauri-apps/plugin-updater@2.7.1", "", { "dependencies": { "@tauri-apps/api": "^2.0.0" } }, "sha512-1OPqEY/z7NDVSeTEMIhD2ss/vXWdpfZ5Th2Mk0KtPR/RA6FKuOTDGZQhxoyYBk0pcZJ+nNZUbl/IujDCLBApjA=="],
 
     "@types/cookie": ["@types/cookie@0.6.0", "", {}, "sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA=="],
 

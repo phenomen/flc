@@ -27,9 +27,9 @@ tauri-build = { version = "=2.2.0", features = [] }
 tauri-utils = "=2.4.0"
 
 [dependencies]
-tauri = { version = "=2.5.0", features = ["devtools"] }
+tauri = { version = "=2.5.1", features = ["devtools"] }
 tauri-utils = "=2.4.0"
-tauri-plugin = "=2.2.0"
+# tauri-plugin = "=2.2.0"
 tauri-plugin-shell = "=2.2.2"
 tauri-plugin-dialog = "=2.2.2"
 serde = { version = "1", features = ["derive"] }
@@ -37,4 +37,4 @@ serde_json = "1"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "=2.2.1"
-tauri-plugin-updater = "=2.6.1"
+tauri-plugin-updater = "=2.7.1"
