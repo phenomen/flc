@@ -16,7 +16,8 @@ const PARTNERS = [
 	{ url: "forge-vtt.com", name: "The Forge" },
 	{ url: "forgevtt.com", name: "The Forge" },
 	{ url: "moltenhosting.com", name: "Molten Hosting" },
-	{ url: "foundryserver.com", name: "Foundry Server" }
+	{ url: "foundryserver.com", name: "Foundry Server" },
+	{ url: "sqyre.app", name: "Sqyre" }
 ];
 
 export type ServerStatus = z.infer<typeof statusSchema>;
@@ -112,12 +113,10 @@ export async function getServerStatus(url: string) {
 
 	const response = await fetch(statusUrl, {
 		method: "GET",
-		headers: {
-			"Content-Type": "application/json"
-		}
+		headers: { Accept: "application/json" }
 	});
 
-	if (response.status !== 200) {
+	if (!response.ok) {
 		return;
 	}
 
