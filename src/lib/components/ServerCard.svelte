@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { PersistedState } from "runed";
 
 	import { Badge } from "$ui/badge/index.js";
 	import { Button } from "$ui/button/index.js";
@@ -30,7 +29,6 @@
 	}
 
 	let status = $state<ServerStatus>();
-	let incognito = new PersistedState("incognito", false);
 
 	function handleDeleteServer() {
 		const result = deleteServer(server.id);
@@ -49,7 +47,7 @@
 	});
 </script>
 
-<div class="bg-muted/40 flex h-full w-full items-center rounded-md border p-1.5">
+<div class="bg-muted/40 flex h-full w-full items-center rounded-md border p-1.5 shadow-sm">
 	<div class="grid gap-1">
 		<Button
 			onclick={() => onEdit(server)}
@@ -107,7 +105,7 @@
 	</div>
 
 	<Button
-		onclick={() => openWebview(server.url, server.id, server.label, incognito.current)}
+		onclick={() => openWebview(server.url, server.id, server.label)}
 		class="size-19"
 		title="Join Server">
 		<LogInIcon class="size-5" />
