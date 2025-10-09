@@ -14,9 +14,7 @@
 			size="icon">
 			<SunIcon class="block size-5" />
 		</Button></Tooltip.Trigger>
-	<Tooltip.Content
-		arrowClasses="bg-secondary"
-		class="bg-secondary text-secondary-foreground text-sm">
+	<Tooltip.Content>
 		<p class="font-semibold">Toggle Theme</p>
 	</Tooltip.Content>
 </Tooltip.Root>

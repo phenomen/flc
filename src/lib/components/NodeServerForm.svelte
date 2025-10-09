@@ -62,7 +62,7 @@
 	}
 </script>
 
-<form class="grid gap-3 py-2">
+<form class="grid gap-4 py-2">
 	<div class="grid gap-1.5">
 		<Label for="label">Label</Label>
 		<Input

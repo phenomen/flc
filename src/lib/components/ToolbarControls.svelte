@@ -1,8 +1,7 @@
 <script lang="ts">
-	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-	import { Separator } from "$ui/separator/index.js";
+	import * as Tooltip from "$ui/tooltip/index.js";
+	import * as Kbd from "$ui/kbd/index.js";
 	import { buttonVariants } from "$ui/button/index.js";
-	import { Badge } from "$ui/badge/index.js";
 
 	import { KeyboardIcon } from "@lucide/svelte";
 </script>
@@ -13,35 +12,45 @@
 			<KeyboardIcon class="block size-5" />
 		</div>
 	</Tooltip.Trigger>
-	<Tooltip.Content
-		arrowClasses="bg-secondary"
-		class="bg-muted text-muted-foreground text-sm">
-		<div class="grid gap-2 text-center text-sm">
+	<Tooltip.Content>
+		<div class="grid gap-2 p-1 text-center text-sm">
 			<div class="flex w-full">
 				<span class="mx-auto pb-1.5 text-center font-semibold">Hotkeys in Foundry VTT window</span>
 			</div>
-			<div class="flex items-center space-x-1">
-				<Badge variant="outline">Ctrl/⌘</Badge>
-				<Badge variant="outline">F11</Badge>
-				<span class="ml-auto">Toggle Fullscreen</span>
+			<div class="flex items-center justify-between">
+				<span>Toggle Fullscreen</span>
+				<Kbd.Group>
+					<Kbd.Root>Ctrl/⌘</Kbd.Root>
+					<span>+</span>
+					<Kbd.Root class="w-6">F11</Kbd.Root>
+				</Kbd.Group>
 			</div>
-			<Separator />
-			<div class="flex items-center space-x-1">
-				<Badge variant="outline">Ctrl/⌘</Badge>
-				<Badge variant="outline">+</Badge>
-				<span class="ml-auto">Zoom In</span>
+
+			<div class="flex items-center justify-between">
+				<span>Zoom In</span>
+				<Kbd.Group>
+					<Kbd.Root>Ctrl/⌘</Kbd.Root>
+					<span>+</span>
+					<Kbd.Root class="w-6">+</Kbd.Root>
+				</Kbd.Group>
 			</div>
-			<Separator />
-			<div class="flex items-center space-x-1">
-				<Badge variant="outline">Ctrl/⌘</Badge>
-				<Badge variant="outline">-</Badge>
-				<span class="ml-auto">Zoom Out</span>
+
+			<div class="flex items-center justify-between">
+				<span>Zoom Out</span>
+				<Kbd.Group>
+					<Kbd.Root>Ctrl/⌘</Kbd.Root>
+					<span>+</span>
+					<Kbd.Root class="w-6">-</Kbd.Root>
+				</Kbd.Group>
 			</div>
-			<Separator />
-			<div class="flex items-center space-x-1">
-				<Badge variant="outline">Ctrl/⌘</Badge>
-				<Badge variant="outline">0</Badge>
-				<span class="ml-auto">Reset Zoom</span>
+
+			<div class="flex items-center justify-between">
+				<span>Reset Zoom</span>
+				<Kbd.Group>
+					<Kbd.Root>Ctrl/⌘</Kbd.Root>
+					<span>+</span>
+					<Kbd.Root class="w-6">0</Kbd.Root>
+				</Kbd.Group>
 			</div>
 		</div>
 	</Tooltip.Content>

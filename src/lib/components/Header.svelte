@@ -45,8 +45,8 @@
 			<Tooltip.Provider>
 				<ToolbarIncognito />
 				<ToolbarLightSwitch />
-				<ToolbarWebGl />
 				<ToolbarControls />
+				<ToolbarWebGl />
 			</Tooltip.Provider>
 		</div>
 	</div>
