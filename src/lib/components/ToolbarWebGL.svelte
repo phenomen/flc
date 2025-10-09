@@ -24,38 +24,36 @@
 	checkWebGL();
 </script>
 
-<Tooltip.Provider>
-	<Tooltip.Root>
-		<Tooltip.Trigger>
-			<div
-				class={cn(
-					buttonVariants({ variant: "ghost", size: "icon", class: "hover:cursor-help" }),
-					" text-lime-600 hover:text-lime-500",
-					!glEnabled && !highPerf && "border-destructive text-destructive hover:text-destructive"
-				)}>
-				<CpuIcon class="block size-5" />
-			</div>
-		</Tooltip.Trigger>
-		<Tooltip.Content
-			arrowClasses="bg-secondary"
-			class="bg-secondary text-secondary-foreground text-sm">
-			<div class="grid gap-2 text-center">
-				<span>
-					{#if glEnabled}
-						WebGL2 is available.
-					{:else}
-						WebGL2 is not available.
-					{/if}
-				</span>
+<Tooltip.Root>
+	<Tooltip.Trigger>
+		<div
+			class={cn(
+				buttonVariants({ variant: "ghost", size: "icon", class: "hover:cursor-help" }),
+				" text-lime-600 hover:text-lime-500",
+				!glEnabled && !highPerf && "border-destructive text-destructive hover:text-destructive"
+			)}>
+			<CpuIcon class="block size-5" />
+		</div>
+	</Tooltip.Trigger>
+	<Tooltip.Content
+		arrowClasses="bg-secondary"
+		class="bg-secondary text-secondary-foreground text-sm">
+		<div class="grid gap-2 text-center">
+			<span>
+				{#if glEnabled}
+					WebGL2 is available.
+				{:else}
+					WebGL2 is not available.
+				{/if}
+			</span>
 
-				<span>
-					{#if highPerf}
-						High-performance GPU is available.
-					{:else}
-						High-performance GPU is not available.
-					{/if}
-				</span>
-			</div>
-		</Tooltip.Content>
-	</Tooltip.Root>
-</Tooltip.Provider>
+			<span>
+				{#if highPerf}
+					High-performance GPU is available.
+				{:else}
+					High-performance GPU is not available.
+				{/if}
+			</span>
+		</div>
+	</Tooltip.Content>
+</Tooltip.Root>
