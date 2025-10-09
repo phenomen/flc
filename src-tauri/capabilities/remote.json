@@ -1,10 +1,10 @@
 {
 	"$schema": "../gen/schemas/desktop-schema.json",
-	"identifier": "default",
-	"description": "Capability for the main window",
+	"identifier": "remote",
+	"description": "Capability for the remote windows",
 	"windows": ["*"],
 	"webviews": ["*"],
-	"local": true,
+	"local": false,
 	"remote": {
 		"urls": [
 			"https://*",
@@ -40,22 +40,6 @@
 		"shell:allow-kill",
 		"shell:allow-open",
 		"shell:allow-spawn",
-		"shell:default",
-		"updater:allow-check",
-		"updater:allow-download-and-install",
-		"updater:allow-download",
-		"updater:allow-install",
-		"updater:default",
-		{
-			"identifier": "shell:allow-spawn",
-			"allow": [
-				{
-					"name": "node",
-					"cmd": "node",
-					"args": true
-				}
-			],
-			"sidecar": false
-		}
+		"shell:default"
 	]
 }

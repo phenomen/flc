@@ -16,6 +16,11 @@ const config = {
 			"$scripts/*": "src/lib/scripts/*",
 			"$ui/*": "src/lib/components/ui/*"
 		}
+	},
+	compilerOptions: {
+		experimental: {
+			async: true
+		}
 	}
 };
 
