@@ -4,6 +4,8 @@
 
 	import { Badge } from "$ui/badge/index.js";
 	import * as Tabs from "$lib/components/ui/tabs/index.js";
+	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
+
 	import ToolbarLightSwitch from "$components/ToolbarLightSwitch.svelte";
 	import ToolbarWebGl from "$components/ToolbarWebGL.svelte";
 	import ToolbarControls from "$components/ToolbarControls.svelte";
@@ -40,10 +42,12 @@
 		</Tabs.List>
 
 		<div class="flex items-center space-x-2">
-			<ToolbarIncognito />
-			<ToolbarLightSwitch />
-			<ToolbarWebGl />
-			<ToolbarControls />
+			<Tooltip.Provider>
+				<ToolbarIncognito />
+				<ToolbarLightSwitch />
+				<ToolbarWebGl />
+				<ToolbarControls />
+			</Tooltip.Provider>
 		</div>
 	</div>
 </header>

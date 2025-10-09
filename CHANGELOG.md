@@ -1,9 +1,15 @@
 # CHANGELOG
 
+## v.7.8.0
+
+- Rewrote Webview creation as Rust function to allow `NewWindowResponse::Allow`
+- Updated all deps since there is now a workaround for bugged pop-ups.
+- Use a single `Tooltip.Provider` for all header buttons
+
 ## v7.7.0
 
-- Downgrade Tauri to fix broken `window.open()` function in webviews.
-- Add Spyre as a partner hosting.
+- Downgraded Tauri to fix broken `window.open()` function in webviews.
+- Added Spyre as a partner hosting.
 
 ## v7.6.6
 

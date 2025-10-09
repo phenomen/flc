@@ -7,7 +7,7 @@
 	import NodeserverAdd from "$components/NodeserverAdd.svelte";
 </script>
 
-<main class="container mx-auto flex max-w-3xl flex-col space-y-4 py-4">
+<main class="container mx-auto grid max-w-3xl gap-2 py-2">
 	<Tabs.Content
 		value="join"
 		class="space-y-4">

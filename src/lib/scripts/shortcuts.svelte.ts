@@ -12,7 +12,6 @@ async function toggleFullscreen() {
 }
 
 export async function registerShortcuts() {
-	//console.log(await isRegistered("CommandOrControl+F11"));
 	await unregisterAll();
 
 	await register("CommandOrControl+F11", async (event) => {
@@ -21,5 +20,4 @@ export async function registerShortcuts() {
 			await toggleFullscreen();
 		}
 	});
-	//console.log(await isRegistered("CommandOrControl+F11"));
 }

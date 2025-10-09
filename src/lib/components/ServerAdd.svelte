@@ -33,7 +33,7 @@
 </script>
 
 <Sheet.Root bind:open>
-	<Sheet.Trigger class={buttonVariants({ variant: "outline", class: "w-full" })}
+	<Sheet.Trigger class={buttonVariants({ variant: "outline", class: "bg-secondary/20 w-full" })}
 		>Add Server</Sheet.Trigger>
 	<Sheet.Content
 		side="right"
