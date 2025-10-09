@@ -8,32 +8,32 @@ FLC is a lightweight desktop application for managing and connecting to Foundry 
 
 ## Features
 
-### Fast and bloat-free
+### Fast and Bloat-free
 
 No browser bloat saves valuable resources. The entire app is just 5MB and uses 60% less RAM than Google Chrome.
 
-### Secure and open-source
+### Secure and Open-Source
 
 All your data is stored locally. No analytics and statistics are collected. Source code is available on GitHub.
 
-### High compatibility
+### High Compatibility
 
 Works with local servers, IPs, VPN, http and https URLs, and official Foundry VTT hosting providers.
 
-### Headless server launcher
+### Server Launcher
 
 NodeJS server is an efficient way to run local Foundry server. It requires significantly less resources than a standalone Electron-based client.
 
 ## Installation
 
-Download the latest release for your platform from [GitHub Releases](https://github.com/phenomen/flc/releases)
+Download the latest release for your platform from [GitHub Releases](https://github.com/phenomen/flc/releases) or [Website](https://foundry.ruleplaying.com/flc).
 
 ## Development
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) (package manager)
-- [Rust](https://www.rust-lang.org/) (latest stable)
+- [Bun](https://bun.sh/)
+- [Rust Toolchain](https://www.rust-lang.org/)
 - [Tauri Prerequisites](https://tauri.app/v1/guides/getting-started/prerequisites)
 
 ### Setup
@@ -63,6 +63,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) f
 
 ## Acknowledgments
 
-- Built with [Tauri](https://tauri.app/) and [Svelte](https://svelte.dev/)
-- UI components from [shadcn-svelte](https://www.shadcn-svelte.com/)
-- Icons from [Lucide](https://lucide.dev/)
+- [Tauri](https://tauri.app/) - Rust-powered backend
+- [Svelte](https://svelte.dev/) - Frontend UI framework
+- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
+- [shadcn-svelte](https://www.shadcn-svelte.com/) - UI components
+- [Lucide](https://lucide.dev/) - Icons
