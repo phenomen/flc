@@ -19,8 +19,7 @@ async fn open_webview(
         new_id = format!("foundry{}{}", sanitized_id, random_number);
     }
 
-    // Build the webview window
-    let mut builder = WebviewWindowBuilder::new(
+    WebviewWindowBuilder::new(
         &app,
         &new_id,
         tauri::WebviewUrl::External(url.parse().map_err(|e| format!("Invalid URL: {}", e))?),
@@ -30,26 +29,19 @@ async fn open_webview(
     .inner_size(1280.0, 800.0)
     .focused(true)
     .center()
-    .devtools(true);
-
-    // drag_and_drop is only available on Windows
-    #[cfg(target_os = "windows")]
-    {
-        builder = builder.drag_and_drop(false);
-    }
-
-    builder
-        .zoom_hotkeys_enabled(true)
-        .maximizable(true)
-        .resizable(true)
-        .minimizable(true)
-        .closable(true)
-        .on_new_window(|_url, _features| {
-            // Allow popup windows to open
-            NewWindowResponse::Allow
-        })
-        .build()
-        .map_err(|e| format!("Failed to create webview: {}", e))?;
+    .devtools(true)
+    .disable_drag_drop_handler()
+    .zoom_hotkeys_enabled(true)
+    .maximizable(true)
+    .resizable(true)
+    .minimizable(true)
+    .closable(true)
+    .on_new_window(|_url, _features| {
+        // Allow popup windows to open
+        NewWindowResponse::Allow
+    })
+    .build()
+    .map_err(|e| format!("Failed to create webview: {}", e))?;
 
     Ok(())
 }
