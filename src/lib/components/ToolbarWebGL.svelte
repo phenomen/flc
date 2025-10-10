@@ -35,9 +35,7 @@
 			<CpuIcon class="block size-5" />
 		</div>
 	</Tooltip.Trigger>
-	<Tooltip.Content
-		arrowClasses="bg-secondary"
-		class="bg-secondary text-secondary-foreground text-sm">
+	<Tooltip.Content>
 		<div class="grid gap-2 text-center">
 			<span>
 				{#if glEnabled}

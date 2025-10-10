@@ -5,7 +5,11 @@
 	import ServerCard from "$components/ServerCard.svelte";
 	import { servers, updateServer, type Server } from "$scripts/servers.svelte.js";
 	import * as Sheet from "$ui/sheet/index.js";
+	import * as Empty from "$ui/empty/index.js";
+
 	import ServerForm from "$lib/components/ServerForm.svelte";
+
+	import { SquareDashedIcon } from "@lucide/svelte";
 
 	let editingServer = $state<Server | null>(null);
 	let isOpen = $state<boolean>(false);
@@ -57,10 +61,17 @@
 			</div>
 		{/each}
 	{:else}
-		<div
-			class="border-muted-foreground w-full rounded-md border border-dashed p-2 text-center font-medium">
-			<p>There are no servers yet. Start by adding a new server.</p>
-		</div>
+		<Empty.Root class="border border-dashed">
+			<Empty.Header>
+				<Empty.Media variant="icon">
+					<SquareDashedIcon />
+				</Empty.Media>
+				<Empty.Title>No Servers</Empty.Title>
+				<Empty.Description>
+					There are no servers yet. Start by adding a new server.
+				</Empty.Description>
+			</Empty.Header>
+		</Empty.Root>
 	{/if}
 </div>
 

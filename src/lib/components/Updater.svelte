@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Update } from "@tauri-apps/plugin-updater";
+	import { open } from "@tauri-apps/plugin-shell";
 
 	import { Button } from "$ui/button/index.js";
 	import { onMount } from "svelte";
@@ -49,13 +50,18 @@
 
 {#if update}
 	<footer class="bg-primary fixed bottom-0 z-10 flex h-10 w-full align-middle">
-		<div class="my-auto flex w-full items-center justify-center space-x-4 px-4">
+		<div class="my-auto flex w-full items-center justify-center space-x-3 px-4">
 			<span class="text-primary-foreground font-medium">{message}</span>
 			{#if install}
 				<Button
 					size="sm"
 					variant="secondary"
 					onclick={installUpdate}>Update</Button>
+
+				<button
+					class="text-primary-foreground text-xs underline underline-offset-4"
+					onclick={() => open("https://github.com/phenomen/flc/blob/main/CHANGELOG.md")}
+					>CHANGELOG</button>
 			{/if}
 		</div>
 	</footer>

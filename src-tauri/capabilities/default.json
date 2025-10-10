@@ -1,19 +1,9 @@
 {
 	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "default",
-	"description": "Capability for the local window",
+	"description": "Capability for local windows",
 	"windows": ["*"],
 	"webviews": ["*"],
-	"remote": {
-		"urls": [
-			"https://*",
-			"http://*",
-			"https://*:*",
-			"http://*:*",
-			"http://localhost:*",
-			"https://localhost:*"
-		]
-	},
 	"platforms": ["macOS", "windows", "linux"],
 	"permissions": [
 		"core:default",

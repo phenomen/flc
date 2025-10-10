@@ -18,9 +18,7 @@
 			<HatGlassesIcon class="block size-5" />
 		</Button>
 	</Tooltip.Trigger>
-	<Tooltip.Content
-		arrowClasses="bg-secondary"
-		class="bg-secondary text-secondary-foreground text-center text-sm">
+	<Tooltip.Content>
 		<p class="font-semibold">Toggle Incognito Mode</p>
 		<p>New Foundry windows will open with a fresh non-shared cache.</p>
 		<p>This will allow you to log in as different users on the same server.</p>

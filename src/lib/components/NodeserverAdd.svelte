@@ -43,7 +43,7 @@
 
 <Sheet.Root bind:open>
 	<Sheet.Trigger class={buttonVariants({ variant: "outline", class: "bg-secondary/20 w-full" })}
-		>Add Server</Sheet.Trigger>
+		>Add Node Server</Sheet.Trigger>
 	<Sheet.Content
 		side="right"
 		class="px-2 py-4">
