@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v.7.8.2
+
+- Fixed drag-and-drop in Foundry
+- Removed unused remote capatabilities
+- UI tweaks
+
 ## v.7.8.0
 
 - Rewrote Webview creation as Rust function to allow `NewWindowResponse::Allow`
