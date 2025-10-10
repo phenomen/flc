@@ -3,7 +3,7 @@
 ## v.7.8.2
 
 - Fixed drag-and-drop in Foundry
-- Removed unused remote capatabilities
+- Removed unused remote capabilities
 - UI tweaks
 
 ## v.7.8.0
