@@ -30,7 +30,7 @@
 				"Cross-Origin-Embedder-Policy": "require-corp"
 			},
 			"csp": null,
-			"capabilities": ["default", "remote"]
+			"capabilities": ["default"]
 		}
 	},
 	"bundle": {
