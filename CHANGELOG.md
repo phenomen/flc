@@ -1,6 +1,17 @@
 # CHANGELOG
 
-## v.7.8.0
+## v7.8.4
+
+- An attempt to fix Linux issue with `EGL_BAD_PARAMETER` #99
+- Fix Node server log output horizontal scroll
+
+## v7.8.2
+
+- Fixed drag-and-drop in Foundry
+- Removed unused remote capabilities
+- UI tweaks
+
+## v7.8.0
 
 - Rewrote Webview creation as Rust function to allow `NewWindowResponse::Allow`
 - Updated all deps since there is now a workaround for bugged pop-ups.
