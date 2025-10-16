@@ -40,20 +40,23 @@
 	{/if}
 
 	{#if status}
-		<div class="rounded-md bg-black p-2 font-mono text-sm text-lime-500">
+		<div class="max-w-[750px] rounded-md bg-black p-2 font-mono text-sm text-lime-500">
 			<pre>{status}</pre>
 		</div>
 	{/if}
 
 	{#if launched}
 		{#if stdoutData}
-			<ScrollArea class="h-48 max-h-48 rounded-md bg-black p-2 font-mono text-sm text-white">
+			<ScrollArea
+				class="h-48 max-h-48 max-w-[750px] rounded-md bg-black p-2 font-mono text-sm text-white"
+				orientation="both">
 				<pre>{stdoutData}</pre>
 			</ScrollArea>
 		{/if}
 	{/if}
 	{#if stderrData}
-		<ScrollArea class="h-48 max-h-48 rounded-md bg-black p-2 font-mono text-sm text-red-500">
+		<ScrollArea
+			class="h-48 max-h-48 max-w-[750px] rounded-md bg-black p-2 font-mono text-sm text-red-500">
 			<pre>{stderrData}</pre>
 		</ScrollArea>
 	{/if}
