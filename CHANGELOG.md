@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v7.8.5
+
+- Updated Tauri, all deps and UI components.
+
 ## v7.8.4
 
 - An attempt to fix Linux issue with `EGL_BAD_PARAMETER` #99
