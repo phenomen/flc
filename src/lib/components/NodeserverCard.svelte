@@ -11,9 +11,11 @@
 		onEdit?: (server: Nodeserver) => void;
 	}>();
 
-	if (!server) {
-		throw new Error("Node Server not found");
-	}
+	$effect.pre(() => {
+		if (!server) {
+			throw new Error("Node Server not found");
+		}
+	});
 
 	function handleDeleteServer() {
 		const result = deleteServer(server.id);

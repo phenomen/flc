@@ -12,7 +12,8 @@
 		ZapIcon,
 		DicesIcon,
 		HexagonIcon,
-		RefreshCcwIcon
+		RefreshCcwIcon,
+		ClipboardIcon
 	} from "@lucide/svelte";
 
 	import type { ServerStatus, Server } from "$scripts/servers.svelte.js";
@@ -24,9 +25,11 @@
 		onEdit?: (server: Server) => void;
 	}>();
 
-	if (!server) {
-		throw new Error("Server not found");
-	}
+	$effect.pre(() => {
+		if (!server) {
+			throw new Error("Server not found");
+		}
+	});
 
 	let status = $state<ServerStatus>();
 
