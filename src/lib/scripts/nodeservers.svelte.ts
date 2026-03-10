@@ -1,6 +1,6 @@
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
-import * as z from "zod/v4";
+import * as z from "zod";
 
 const ERROR_MESSAGES = {
 	serverName: "Please enter a server name",

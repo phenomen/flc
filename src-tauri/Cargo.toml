@@ -1,6 +1,6 @@
 [package]
 name = "flc"
-version = "7.8.5"
+version = "7.8.6"
 description = "Foundry Lightweight Client"
 authors = ["phenomen"]
 license = "MIT"
@@ -23,18 +23,18 @@ name = "flc_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
-tauri-build = { version = "2.5.5", features = [] }
-tauri-utils = "2.8.2"
+tauri-build = { version = "2.5.6", features = [] }
+tauri-utils = "2.8.3"
 
 [dependencies]
-tauri = { version = "2.10.2", features = ["devtools"] }
-tauri-utils = "2.8.2"
+tauri = { version = "2.10.3", features = ["devtools"] }
+tauri-utils = "2.8.3"
 # tauri-plugin = "2.4.0"
 tauri-plugin-shell = "2.3.5"
 tauri-plugin-dialog = "2.6.0"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-rand = "0.9.2"
+rand = "0.10.0"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-global-shortcut = "2.3.1"

@@ -1,6 +1,6 @@
 {
 	"name": "flc",
-	"version": "7.8.5",
+	"version": "7.8.6",
 	"description": "Foundry Lightweight Client",
 	"type": "module",
 	"scripts": {

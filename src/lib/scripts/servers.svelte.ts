@@ -1,6 +1,6 @@
 import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
-import * as z from "zod/v4";
+import * as z from "zod";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const statusSchema = z.object({
