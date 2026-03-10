@@ -48,6 +48,14 @@ async fn open_webview(
 
 #[cfg(not(mobile))]
 pub fn run() {
+    #[cfg(target_os = "windows")]
+    {
+        std::env::set_var(
+            "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
+            "--force-high-performance-gpu"
+        )
+    }
+
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
