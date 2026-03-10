@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v7.8.6
+
+- Force GPU acceleration on Windows
+- Fix HTTP connection on macOS
+
 ## v7.8.5
 
 - Updated Tauri, all deps and UI components.
