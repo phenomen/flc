@@ -51,11 +51,9 @@ export function addServer(data: NodeserverPartial) {
 export function deleteServer(id: string) {
 	const result = z.safeParse(z.string(), id);
 
-	if (!result.success) {
-		return z.prettifyError(result.error);
+	if (result.success) {
+		nodeservers.current = nodeservers.current.filter((server) => server.id !== result.data);
 	}
-
-	nodeservers.current = nodeservers.current.filter((server) => server.id !== result.data);
 
 	return result;
 }
