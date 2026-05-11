@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v7.8.7
+
+- Updated UI components and Tauri deps
+- I'm aware of the issues on Linux. Most of them are caused by incorrect dependency bundling. I'm waiting for the `tauri-action@v1` update, which should resolve the issue. If it's not fixed by then, the only option will be to package CEF instead of WebKitGTK. CEF is heavier, but 100% compatible with Chrome.
+
 ## v7.8.6
 
 - Force GPU acceleration on Windows

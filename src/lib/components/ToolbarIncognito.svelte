@@ -19,9 +19,13 @@
 		</Button>
 	</Tooltip.Trigger>
 	<Tooltip.Content>
-		<p class="font-semibold">Toggle Incognito Mode</p>
-		<p>New Foundry windows will open with a fresh non-shared cache.</p>
-		<p>This will allow you to log in as different users on the same server.</p>
-		<p>You may use non-incognito for GM window and incognito for Player.</p>
+		<div>
+			<p class="font-semibold">Toggle Incognito Mode</p>
+			<p>
+				New Foundry windows will open with a fresh non-shared cache. This will allow you to log in
+				as different users on the same server. You may use non-incognito for GM window and incognito
+				for Player.
+			</p>
+		</div>
 	</Tooltip.Content>
 </Tooltip.Root>
