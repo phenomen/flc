@@ -1,6 +1,5 @@
 <script lang="ts">
 	import "../app.css";
-	import "@fontsource-variable/geist";
 
 	import { ModeWatcher } from "mode-watcher";
 
