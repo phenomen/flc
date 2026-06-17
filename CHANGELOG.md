@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v7.9.1
+
+- Moved global shortcut registration from JS to Rust. Fixes #121
+- Added a visual feedback to "Check" button. Fixes #117
+- Bumped Ubuntu build to 24
+
 ## v7.9.0
 
 - Replaced browser local storage with Tauri Store plugin. Now servers and settings are saved in json files that should be a more reliable solution. Added an automatic settings migration. Fixes #51 #80 #107

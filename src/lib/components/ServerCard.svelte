@@ -32,6 +32,7 @@
 	});
 
 	let status = $state<ServerStatus>();
+	let refreshing = $state(false);
 
 	function handleDeleteServer() {
 		const result = deleteServer(server.id);
@@ -42,7 +43,12 @@
 	}
 
 	async function handleRefreshServer() {
-		status = await getServerStatus(server.url);
+		refreshing = true;
+		try {
+			status = await getServerStatus(server.url);
+		} finally {
+			refreshing = false;
+		}
 	}
 
 	onMount(async () => {
@@ -99,9 +105,11 @@
 						<ZapIcon />Offline
 					</Badge>
 					<Badge
-						variant="default"
-						class="hover:bg-primary/90 hover:cursor-pointer"
-						onclick={handleRefreshServer}><RefreshCcwIcon /> Check</Badge>
+						variant={refreshing ? "secondary" : "default"}
+						class={refreshing ? "cursor-wait" : "hover:bg-primary/90 hover:cursor-pointer"}
+						onclick={() => !refreshing && handleRefreshServer()}>
+						<RefreshCcwIcon class={refreshing ? "animate-spin" : ""} /> Check
+					</Badge>
 				{/if}
 			</div>
 		</div>
