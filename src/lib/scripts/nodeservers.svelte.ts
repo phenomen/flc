@@ -1,6 +1,7 @@
-import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as z from "zod";
+
+import { PersistedStore, STORE_FILES } from "$scripts/storage.svelte.js";
 
 const ERROR_MESSAGES = {
 	serverName: "Please enter a server name",
@@ -27,7 +28,11 @@ const NodeserverPartialSchema = NodeserverSchema.partial({ id: true });
 export type Nodeserver = z.infer<typeof NodeserverSchema>;
 export type NodeserverPartial = z.infer<typeof NodeserverPartialSchema>;
 
-export const nodeservers = new PersistedState<Nodeserver[]>("nodeservers", []);
+export const nodeservers = new PersistedStore<Nodeserver[]>(
+	STORE_FILES.nodeservers,
+	"nodeservers",
+	[]
+);
 
 export function addServer(data: NodeserverPartial) {
 	const result = z.safeParse(NodeserverPartialSchema, data);

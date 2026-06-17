@@ -32,7 +32,6 @@ Download the latest release for your platform from [GitHub Releases](https://git
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/)
 - [Rust Toolchain](https://www.rust-lang.org/)
 - [Tauri Prerequisites](https://tauri.app/v1/guides/getting-started/prerequisites)
 
@@ -48,13 +47,13 @@ cd flc
 2. Install dependencies:
 
 ```bash
-bun install
+pnpm install
 ```
 
 3. Run in development mode:
 
 ```bash
-bun run tauri dev
+pnpm tauri dev
 ```
 
 ## License

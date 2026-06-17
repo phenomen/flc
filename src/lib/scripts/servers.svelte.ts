@@ -1,6 +1,7 @@
-import { PersistedState } from "runed";
 import { nanoid } from "nanoid";
 import * as z from "zod";
+
+import { PersistedStore, STORE_FILES } from "$scripts/storage.svelte.js";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const statusSchema = z.object({
@@ -35,7 +36,7 @@ const ServerPartialSchema = ServerSchema.partial({ id: true });
 export type Server = z.infer<typeof ServerSchema>;
 export type ServerPartial = z.infer<typeof ServerPartialSchema>;
 
-export const servers = new PersistedState<Server[]>("servers", []);
+export const servers = new PersistedStore<Server[]>(STORE_FILES.servers, "servers", []);
 
 export function addServer(data: ServerPartial) {
 	const result = ServerPartialSchema.safeParse(data);

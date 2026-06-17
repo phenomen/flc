@@ -26,7 +26,6 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
 
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
@@ -47,7 +46,7 @@ jobs:
 
       - name: install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: bun install # change this to npm or pnpm depending on which one you use.
+        run: pnpm install # change this to npm or pnpm depending on which one you use.
 
       - uses: tauri-apps/tauri-action@v0
         env:

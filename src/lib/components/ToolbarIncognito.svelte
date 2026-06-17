@@ -1,11 +1,9 @@
 <script lang="ts">
 	import * as Tooltip from "$lib/components/ui/tooltip/index.js";
-	import { PersistedState } from "runed";
 	import { HatGlassesIcon } from "@lucide/svelte";
 
 	import { Button } from "$ui/button/index.js";
-
-	let incognito = new PersistedState("incognito", false);
+	import { incognito } from "$scripts/settings.svelte.js";
 </script>
 
 <Tooltip.Root>
