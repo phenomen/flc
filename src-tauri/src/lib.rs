@@ -1,5 +1,7 @@
 use tauri::webview::{NewWindowResponse, WebviewWindowBuilder};
 use tauri::{AppHandle, Manager};
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
+use tauri_plugin_global_shortcut::{GlobalShortcutExt, ShortcutState};
 
 #[tauri::command]
 async fn open_webview(
@@ -46,6 +48,34 @@ async fn open_webview(
     Ok(())
 }
 
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
+fn toggle_foundry_fullscreen(app: &AppHandle) {
+    let foundry_windows: Vec<_> = app
+        .webview_windows()
+        .into_iter()
+        .filter(|(label, _)| label.starts_with("foundry"))
+        .map(|(_, window)| window)
+        .collect();
+
+    if foundry_windows.is_empty() {
+        return;
+    }
+
+    if let Some(window) = foundry_windows
+        .iter()
+        .find(|window| window.is_focused().unwrap_or(false))
+    {
+        let is_fullscreen = window.is_fullscreen().unwrap_or(false);
+        let _ = window.set_fullscreen(!is_fullscreen);
+        return;
+    }
+
+    for window in foundry_windows {
+        let is_fullscreen = window.is_fullscreen().unwrap_or(false);
+        let _ = window.set_fullscreen(!is_fullscreen);
+    }
+}
+
 #[cfg(not(mobile))]
 pub fn run() {
     #[cfg(target_os = "windows")]
@@ -62,6 +92,20 @@ pub fn run() {
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        .setup(|app| {
+            #[cfg(not(any(target_os = "android", target_os = "ios")))]
+            {
+                app.global_shortcut().on_shortcut(
+                    "CommandOrControl+F11",
+                    |app, _shortcut, event| {
+                        if event.state == ShortcutState::Pressed {
+                            toggle_foundry_fullscreen(app);
+                        }
+                    },
+                )?;
+            }
+            Ok(())
+        })
         .invoke_handler(tauri::generate_handler![open_webview])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
