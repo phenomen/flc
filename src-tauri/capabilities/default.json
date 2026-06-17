@@ -45,6 +45,7 @@
 				}
 			],
 			"sidecar": false
-		}
+		},
+		"store:default"
 	]
 }

@@ -49,14 +49,15 @@ async fn open_webview(
 #[cfg(not(mobile))]
 pub fn run() {
     #[cfg(target_os = "windows")]
-    {
+    unsafe {
         std::env::set_var(
             "WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS",
-            "--force-high-performance-gpu"
-        )
+            "--force-high-performance-gpu --allow-insecure-localhost --allow-running-insecure-content --block-new-web-contents=false",
+        );
     }
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_shell::init())

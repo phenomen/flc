@@ -3,10 +3,13 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
+# Build artefacts
 /src-tauri/target
 /src-tauri/gen
 /build
 /dist
+
+# Third party
 /public
 /src/lib/components/ui
 /src/lib/utils.ts

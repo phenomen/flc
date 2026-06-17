@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v7.9.0
+
+- Replaced browser local storage with Tauri Store plugin. Now servers and settings are saved in json files that should be a more reliable solution. Added an automatic settings migration. Fixes #51 #80 #107
+- Disabled some unecessary WebView security features that interfered with localhost and non-secured Foundry servers. Fixes #123
+- Migrated from Bun to pnpm since it takes forever for Github to setup Bun action.
+- Updated all deps.
+
 ## v7.8.7
 
 - Updated UI components and Tauri deps

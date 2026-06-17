@@ -5,10 +5,10 @@ fn main() {
     flc_lib::run()
 }
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[cfg(target_os = "windows")]
 pub static NvOptimusEnablement: u32 = 0x00000001;
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 #[cfg(target_os = "windows")]
 pub static AmdPowerXpressRequestHighPerformance: i32 = 1;
