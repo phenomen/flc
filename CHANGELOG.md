@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v7.9.2
+
+- Reverted changes to global shortcut registration back to JS API. Fixes #126
+- Fixed some lint errors to align with the newest Svelte API.
+
 ## v7.9.1
 
 - Moved global shortcut registration from JS to Rust. Fixes #121

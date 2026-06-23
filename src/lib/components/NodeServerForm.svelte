@@ -15,7 +15,6 @@
 		dataPath = $bindable(""),
 		port = $bindable(30000),
 		args = $bindable(""),
-		modern = $bindable(undefined),
 		order = $bindable(0),
 		error = $bindable(""),
 		onSubmit
@@ -27,7 +26,6 @@
 		dataPath?: string;
 		port?: number;
 		args?: string;
-		modern?: boolean;
 		order?: number;
 		error?: string;
 		onSubmit: () => void;

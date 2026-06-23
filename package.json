@@ -23,13 +23,13 @@
 		"@fontsource-variable/geist": "^5.2.9",
 		"@fontsource-variable/geist-mono": "^5.2.8",
 		"@internationalized/date": "^3.12.2",
-		"@lucide/svelte": "^1.20.0",
+		"@lucide/svelte": "^1.21.0",
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.65.2",
+		"@sveltejs/kit": "^2.66.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"@tailwindcss/vite": "^4.3.1",
 		"@tauri-apps/api": "^2.11.1",
-		"@tauri-apps/cli": "^2.11.2",
+		"@tauri-apps/cli": "^2.11.3",
 		"@tauri-apps/plugin-dialog": "^2.7.1",
 		"@tauri-apps/plugin-global-shortcut": "^2.3.2",
 		"@tauri-apps/plugin-shell": "^2.3.5",
@@ -42,7 +42,7 @@
 		"eslint-plugin-svelte": "^3.19.0",
 		"globals": "^17.6.0",
 		"mode-watcher": "^1.1.0",
-		"nanoid": "^5.1.11",
+		"nanoid": "^5.1.15",
 		"prettier": "^3.8.4",
 		"prettier-plugin-svelte": "^4.1.1",
 		"prettier-plugin-tailwindcss": "^0.8.0",
@@ -63,5 +63,5 @@
 		"@tailwindcss/oxide",
 		"esbuild"
 	],
-	"packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
+	"packageManager": "pnpm@11.8.0+sha512.c1f5e7c4cb241c8f174b743851d82f42b802324afc8b0f116b96adb15aa06664948dde36960a3ba1079ba5b4b29dd0140135b94b5b5f5263592249d68e555f26"
 }
