@@ -12,15 +12,14 @@
 		ZapIcon,
 		DicesIcon,
 		HexagonIcon,
-		RefreshCcwIcon,
-		ClipboardIcon
+		RefreshCcwIcon
 	} from "@lucide/svelte";
 
 	import type { ServerStatus, Server } from "$scripts/servers.svelte.js";
 	import { deleteServer, getServerStatus } from "$scripts/servers.svelte.js";
 	import { openWebview } from "$scripts/webview.svelte.js";
 
-	let { server, onEdit = $bindable((server: Server) => {}) } = $props<{
+	let { server, onEdit = $bindable((_server: Server) => {}) } = $props<{
 		server: Server;
 		onEdit?: (server: Server) => void;
 	}>();

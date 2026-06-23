@@ -21,7 +21,7 @@
 
 		<Alert.Description
 			><p class="font-medium">
-				<span class="font-semibold">Node.js 22+</span> is required to launch a Foundry VTT server.
+				<span class="font-semibold">Node.js 24+</span> is required to launch a Foundry VTT server.
 				Download it at <span class="text-primary">nodejs.org</span>
 			</p></Alert.Description>
 	</Alert.Root>

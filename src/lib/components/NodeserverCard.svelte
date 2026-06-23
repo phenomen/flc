@@ -6,7 +6,7 @@
 	import { deleteServer, type Nodeserver } from "$scripts/nodeservers.svelte.js";
 	import { nodeLauncher } from "$scripts/nodelauncher.svelte.js";
 
-	let { server, onEdit = $bindable((server: Nodeserver) => {}) } = $props<{
+	let { server, onEdit = $bindable((_server: Nodeserver) => {}) } = $props<{
 		server: Nodeserver;
 		onEdit?: (server: Nodeserver) => void;
 	}>();

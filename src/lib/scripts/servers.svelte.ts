@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { SvelteURL } from "svelte/reactivity";
 import * as z from "zod";
 
 import { PersistedStore, STORE_FILES } from "$scripts/storage.svelte.js";
@@ -95,14 +96,14 @@ export async function getServerStatus(url: string) {
 	// Build the status URL robustly, preserving subpaths and stripping query/hash
 	let statusUrl: string;
 	try {
-		const parsed = new URL(url);
+		const parsed = new SvelteURL(url);
 		let pathname = parsed.pathname.replace(/\/+$/, "");
 		pathname = pathname.replace(/\/(game|join|setup)$/, "");
-		const base = new URL(
+		const base = new SvelteURL(
 			(pathname || "/").endsWith("/") ? pathname || "/" : `${pathname}/`,
 			parsed.origin
 		);
-		statusUrl = new URL("api/status", base).toString();
+		statusUrl = new SvelteURL("api/status", base).toString();
 	} catch {
 		// Fallback for non-standard inputs
 		const cleanUrl = url
