@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.9.3
+
+- Workaround for WebKitGTK / Linux white screen bug. Fixes #112
+
 ## v7.9.2
 
 - Reverted changes to global shortcut registration back to JS API. Fixes #126
