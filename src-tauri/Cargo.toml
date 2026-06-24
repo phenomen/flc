@@ -1,6 +1,6 @@
 [package]
 name = "flc"
-version = "7.9.2"
+version = "7.9.3"
 description = "Foundry Lightweight Client"
 authors = ["phenomen"]
 license = "MIT"
@@ -27,7 +27,7 @@ tauri-build = { version = "^2.6.3", features = [] }
 tauri-utils = "^2.9.3"
 
 [dependencies]
-tauri = { version = "^2.11.1", features = ["devtools"] }
+tauri = { version = "^2.11.3", features = ["devtools"] }
 tauri-plugin-dialog = "^2.7.1"
 tauri-plugin-shell = "^2.3.5"
 tauri-plugin-store = "^2.4.3"

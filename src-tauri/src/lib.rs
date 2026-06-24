@@ -56,6 +56,15 @@ pub fn run() {
         );
     }
 
+    // WebKitGTK white screen bug workaround
+    // https://github.com/khoj-ai/pipali/pull/44
+    #[cfg(target_os = "linux")]
+    for var in ["WEBKIT_DISABLE_DMABUF_RENDERER", "WEBKIT_DISABLE_COMPOSITING_MODE"] {
+        if std::env::var_os(var).is_none() {
+            std::env::set_var(var, "1");
+        }
+    }
+
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())
