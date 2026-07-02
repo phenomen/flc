@@ -25,17 +25,18 @@ async fn open_webview(
         tauri::WebviewUrl::External(url.parse().map_err(|e| format!("Invalid URL: {}", e))?),
     )
     .title(format!("Foundry VTT - {}", title))
-    .incognito(incognito)
-    .inner_size(1280.0, 800.0)
-    .focused(true)
     .center()
+    .closable(true)
     .devtools(true)
     .disable_drag_drop_handler()
-    .zoom_hotkeys_enabled(true)
+    .focused(true)
+    .general_autofill_enabled(false)
+    .incognito(incognito)
+    .inner_size(1280.0, 800.0)
     .maximizable(true)
-    .resizable(true)
     .minimizable(true)
-    .closable(true)
+    .resizable(true)
+    .zoom_hotkeys_enabled(true)
     .on_new_window(|_url, _features| {
         // Allow popup windows to open
         NewWindowResponse::Allow
@@ -60,7 +61,10 @@ pub fn run() {
     // https://github.com/khoj-ai/pipali/pull/44
     #[cfg(target_os = "linux")]
     unsafe {
-        for var in ["WEBKIT_DISABLE_DMABUF_RENDERER", "WEBKIT_DISABLE_COMPOSITING_MODE"] {
+        for var in [
+            "WEBKIT_DISABLE_DMABUF_RENDERER",
+            "WEBKIT_DISABLE_COMPOSITING_MODE",
+        ] {
             if std::env::var_os(var).is_none() {
                 std::env::set_var(var, "1");
             }
