@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.9.4
+
+- Disable default autofill.
+
 ## 7.9.3
 
 - Workaround for WebKitGTK / Linux white screen bug. Fixes #112
