@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.9.5
+
+- Updated all package dependencies.  It could help with false AV detection on deps with known vulnerabilities.
+
 ## 7.9.4
 
 - Disable default autofill.
