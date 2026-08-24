@@ -10,6 +10,7 @@
 	import ToolbarWebGl from "$components/ToolbarWebGL.svelte";
 	import ToolbarControls from "$components/ToolbarControls.svelte";
 	import ToolbarIncognito from "$components/ToolbarIncognito.svelte";
+	import ServerImportExport from "$components/ServerImportExport.svelte";
 </script>
 
 <header class="bg-background sticky top-0 z-10 w-full border-b">
@@ -44,6 +45,7 @@
 		<div class="flex items-center space-x-2">
 			<Tooltip.Provider>
 				<ToolbarIncognito />
+				<ServerImportExport />
 				<ToolbarLightSwitch />
 				<ToolbarControls />
 				<ToolbarWebGl />

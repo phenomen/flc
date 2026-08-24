@@ -12,6 +12,6 @@
 <SheetPrimitive.Title
 	bind:ref
 	data-slot="sheet-title"
-	class={cn("font-heading text-foreground text-base font-medium", className)}
+	class={cn("font-heading text-base font-medium text-foreground", className)}
 	{...restProps}
 />

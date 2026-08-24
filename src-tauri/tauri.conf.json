@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schema.tauri.app/config/2",
 	"productName": "FLC",
-	"version": "7.9.5",
+	"version": "8.0.0",
 	"identifier": "com.phenomen.flc",
 	"build": {
-		"beforeDevCommand": "pnpm run dev",
+		"beforeDevCommand": "bun run dev",
 		"devUrl": "http://localhost:1420",
-		"beforeBuildCommand": "pnpm run build",
+		"beforeBuildCommand": "bun run build",
 		"frontendDist": "../build"
 	},
 	"app": {

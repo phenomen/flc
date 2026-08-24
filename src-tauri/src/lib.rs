@@ -2,6 +2,16 @@ use tauri::webview::{NewWindowResponse, WebviewWindowBuilder};
 use tauri::{AppHandle, Manager};
 
 #[tauri::command]
+fn read_text_file(path: String) -> Result<String, String> {
+    std::fs::read_to_string(&path).map_err(|e| format!("Failed to read file: {e}"))
+}
+
+#[tauri::command]
+fn write_text_file(path: String, contents: String) -> Result<(), String> {
+    std::fs::write(&path, contents).map_err(|e| format!("Failed to write file: {e}"))
+}
+
+#[tauri::command]
 async fn open_webview(
     app: AppHandle,
     url: String,
@@ -77,7 +87,11 @@ pub fn run() {
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
-        .invoke_handler(tauri::generate_handler![open_webview])
+        .invoke_handler(tauri::generate_handler![
+            open_webview,
+            read_text_file,
+            write_text_file
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

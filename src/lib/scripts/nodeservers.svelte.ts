@@ -9,7 +9,7 @@ const ERROR_MESSAGES = {
 	validPort: "Please enter a valid port number"
 };
 
-const NodeserverSchema = z.object({
+export const NodeserverSchema = z.object({
 	id: z.string(),
 	label: z.string().trim().min(1, { error: ERROR_MESSAGES.serverName }),
 	notes: z.optional(z.string()),

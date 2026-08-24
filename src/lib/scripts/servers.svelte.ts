@@ -24,7 +24,7 @@ const PARTNERS = [
 
 export type ServerStatus = z.infer<typeof statusSchema>;
 
-const ServerSchema = z.object({
+export const ServerSchema = z.object({
 	id: z.string(),
 	label: z.string().trim().min(1, "Please enter a server name"),
 	url: z.url("Please enter a valid URL"),

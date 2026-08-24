@@ -1,5 +1,0 @@
-minimumReleaseAgeExclude:
-  - '@sveltejs/kit@2.65.2 || 2.70.3'
-  - "@tauri-apps/api@2.11.1"
-  - vite@8.1.3
-  - '@lucide/svelte@1.32.0'
