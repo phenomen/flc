@@ -44,15 +44,12 @@ jobs:
         with:
           workspaces: "./src-tauri -> target"
 
-      - uses: pnpm/action-setup@v6
-
-      - uses: actions/setup-node@v6
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 24
-          cache: pnpm
+          bun-version: latest
 
       - name: install frontend dependencies
-        run: pnpm install
+        run: bun install --frozen-lockfile
 
       - uses: tauri-apps/tauri-action@v0
         env:

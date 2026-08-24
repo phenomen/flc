@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { Separator } from "$lib/components/ui/separator/index.js";
 	import { cn, type WithElementRef } from "$lib/utils.js";
-	import type { HTMLAttributes } from "svelte/elements";
 	import type { Snippet } from "svelte";
+	import type { HTMLAttributes } from "svelte/elements";
 
 	let {
 		ref = $bindable(null),
@@ -26,7 +26,7 @@
 	<Separator class="absolute inset-0 top-1/2" />
 	{#if children}
 		<span
-			class="text-muted-foreground px-2 bg-background relative mx-auto block w-fit"
+			class="px-2 text-muted-foreground relative mx-auto block w-fit bg-background"
 			data-slot="field-separator-content"
 		>
 			{@render children()}

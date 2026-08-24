@@ -1,8 +1,13 @@
 # CHANGELOG
 
+## 8.0.0
+
+- Import and Export for server lists.
+- Replaced pnpm with Bun.
+
 ## 7.9.5
 
-- Updated all package dependencies.  It could help with false AV detection on deps with known vulnerabilities.
+- Updated all package dependencies. It could help with false AV detection on deps with known vulnerabilities.
 
 ## 7.9.4
 
