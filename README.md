@@ -2,8 +2,8 @@
 
 FLC is a lightweight desktop application for managing and connecting to Foundry Virtual Tabletop servers.
 
-- **Website:** https://foundry.ruleplaying.com/flc
-- **Issues**: https://github.com/phenomen/flc/issues
+- **Website:** <https://foundry.ruleplaying.com/flc>
+- **Issues**: <https://github.com/phenomen/flc/issues>
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
 ## Features
@@ -54,6 +54,22 @@ pnpm install
 
 ```bash
 pnpm tauri dev
+```
+
+### Troubleshooting
+
+**Wayland: Protocol error on startup**
+
+If you see `Error 71 (Protocol error) dispatching to Wayland display`, WebKitGTK has a known compositing issue on some Wayland compositors. The `make run` target sets `WEBKIT_DISABLE_COMPOSITING_MODE=1` automatically. If running Tauri directly, prefix the command:
+
+```bash
+WEBKIT_DISABLE_COMPOSITING_MODE=1 bun run tauri dev
+```
+
+Alternatively, force the X11 backend via XWayland:
+
+```bash
+GDK_BACKEND=x11 bun run tauri dev
 ```
 
 ## License
