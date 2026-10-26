@@ -16,6 +16,7 @@
 	let label = $state<string>("");
 	let url = $state<string>("");
 	let notes = $state<string>("");
+	let quickCopyText = $state<string>("");
 	let order = $state<number>(0);
 	let error = $state<string>("");
 
@@ -24,6 +25,7 @@
 		label = server.label;
 		url = server.url;
 		notes = server.notes || "";
+		quickCopyText = server.quickCopyText ?? "";
 		order = server.order ?? 0;
 		error = "";
 		isOpen = true;
@@ -37,6 +39,7 @@
 			label,
 			url,
 			notes,
+			quickCopyText,
 			order
 		});
 
@@ -84,6 +87,7 @@
 			bind:label
 			bind:url
 			bind:notes
+			bind:quickCopyText
 			bind:order
 			bind:error
 			onSubmit={handleUpdateServer} />

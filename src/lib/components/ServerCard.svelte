@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from "svelte";
+	import CopyTextButton from "$components/CopyTextButton.svelte";
 
 	import { Badge } from "$ui/badge/index.js";
 	import { Button } from "$ui/button/index.js";
@@ -114,6 +115,7 @@
 		</div>
 	</div>
 
+	<CopyTextButton text={server.quickCopyText ?? ""} />
 	<Button
 		onclick={() => openWebview(server.url, server.id, server.label)}
 		class="size-19"

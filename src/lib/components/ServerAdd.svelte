@@ -11,12 +11,14 @@
 	let label = $state<string>("");
 	let url = $state<string>("");
 	let notes = $state<string>("");
+	let quickCopyText = $state<string>("");
 
 	function handleAddServer() {
 		const result = addServer({
 			label,
 			url,
-			notes
+			notes,
+			quickCopyText
 		});
 
 		if ("error" in result) {
@@ -27,6 +29,7 @@
 		url = "";
 		label = "";
 		notes = "";
+		quickCopyText = "";
 		error = "";
 		open = false;
 	}
@@ -43,6 +46,7 @@
 			bind:label
 			bind:url
 			bind:notes
+			bind:quickCopyText
 			bind:error
 			onSubmit={handleAddServer} />
 	</Sheet.Content>

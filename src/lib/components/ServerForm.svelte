@@ -10,6 +10,7 @@
 		label = $bindable(""),
 		url = $bindable(""),
 		notes = $bindable(""),
+		quickCopyText = $bindable(""),
 		order = $bindable(0),
 		error = $bindable(""),
 		onSubmit
@@ -18,6 +19,7 @@
 		label?: string;
 		url?: string;
 		notes?: string;
+		quickCopyText?: string;
 		order?: number;
 		error?: string;
 		onSubmit: () => void;
@@ -48,6 +50,15 @@
 			bind:value={notes}
 			rows={2}
 			placeholder="Notes, passwords, etc." />
+	</div>
+	<div class="grid gap-1.5">
+		<Label for="quick-copy-text"
+			>Quick Copy Text <span class="text-muted-foreground text-xs">(optional)</span></Label>
+		<Textarea
+			id="quick-copy-text"
+			bind:value={quickCopyText}
+			rows={2}
+			placeholder="Text to copy from the server list" />
 	</div>
 	{#if mode === "edit"}
 		<div class="grid gap-1.5">

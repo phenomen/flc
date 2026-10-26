@@ -29,6 +29,7 @@ export const ServerSchema = z.object({
 	label: z.string().trim().min(1, "Please enter a server name"),
 	url: z.url("Please enter a valid URL"),
 	notes: z.string().optional(),
+	quickCopyText: z.string().optional(),
 	order: z.number().optional()
 });
 
