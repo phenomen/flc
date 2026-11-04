@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Os avisos do chat aparecem como notificações do Windows.
+
 ## 1.2.0
 
 - O chat do portal abre numa janela própria.

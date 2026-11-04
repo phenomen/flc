@@ -46,6 +46,9 @@
 			],
 			"sidecar": false
 		},
-		"store:default"
+		"store:default",
+		"allow-open-webview",
+		"allow-read-text-file",
+		"allow-write-text-file"
 	]
 }
