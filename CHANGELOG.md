@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.0
+
+- O chat do portal abre numa janela própria.
+
 ## 8.0.0
 
 - Import and Export for server lists.
