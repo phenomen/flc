@@ -1,6 +1,7 @@
 use std::sync::Mutex;
 use tauri::webview::{NewWindowResponse, PageLoadEvent, WebviewWindowBuilder};
 use tauri::{AppHandle, Manager, Url, WebviewUrl};
+use tauri_plugin_shell::ShellExt;
 
 // Crônicas Eternas: aplicativo do grupo, baseado no FLC (Foundry Lightweight Client)
 // de Phenomen, licença MIT. A janela principal abre o portal; quando o portal manda
@@ -11,6 +12,9 @@ const PORTAL: &str = "https://cronicaseternas.com";
 
 /// Endereço do Foundry: navegações para cá abrem na janela do jogo
 const HOST_FOUNDRY: &str = "vtt.cronicaseternas.com";
+
+/// Endereço do chat do portal: navegações para cá abrem na janela do chat
+const HOST_CHAT: &str = "chat.cronicaseternas.com";
 
 /// Avisa o portal de que este aplicativo sabe fazer o login no Foundry sozinho
 const SCRIPT_PORTAL: &str = "window.cronicasEternasApp = Object.freeze({ loginFoundry: true });";
@@ -224,6 +228,89 @@ fn abrir_jogo(app: &AppHandle, url: Url) {
     }
 }
 
+/// Guarda o login que veio no endereço do Foundry e abre o jogo fora do evento de navegação
+fn encaminhar_jogo(app: &AppHandle, url: &Url) {
+    // Guarda o login que veio do portal e tira ele do endereço antes de abrir o jogo
+    if let Some(login) = login_do_endereco(url) {
+        if let Ok(mut pendente) = app.state::<LoginPendente>().0.lock() {
+            *pendente = Some(login);
+        }
+    }
+    let mut destino = url.clone();
+    destino.set_fragment(None);
+    let app = app.clone();
+    // Cria a janela fora deste evento, para não travar no Windows
+    tauri::async_runtime::spawn(async move { abrir_jogo(&app, destino) });
+}
+
+/// Leva a janela principal para o endereço pedido e traz ela para a frente
+fn voltar_ao_portal(app: &AppHandle, url: Url) {
+    if let Some(janela) = app.get_webview_window("main") {
+        let _ = janela.navigate(url);
+        let _ = janela.unminimize();
+        let _ = janela.set_focus();
+    }
+}
+
+/// Abre o chat do portal numa janela própria. Se ela já existir, traz para a frente e,
+/// se o endereço pedido for outro, navega para ele.
+fn abrir_chat(app: &AppHandle, url: Url) {
+    if let Some(janela) = app.get_webview_window("chat") {
+        if janela.url().ok().as_ref() != Some(&url) {
+            let _ = janela.navigate(url);
+        }
+        let _ = janela.unminimize();
+        let _ = janela.set_focus();
+        return;
+    }
+
+    let navegacao = app.clone();
+    let links = app.clone();
+    let resultado = WebviewWindowBuilder::new(app, "chat", WebviewUrl::External(url))
+        .title("Crônicas Eternas · Chat")
+        .inner_size(1200.0, 800.0)
+        .min_inner_size(1100.0, 640.0)
+        .center()
+        .focused(true)
+        .disable_drag_drop_handler()
+        .zoom_hotkeys_enabled(true)
+        .initialization_script(SCRIPT_PORTAL)
+        .on_navigation(move |url| {
+            if !matches!(url.scheme(), "http" | "https") {
+                return true;
+            }
+            match url.host_str() {
+                Some(HOST_CHAT) => true,
+                Some(HOST_FOUNDRY) => {
+                    encaminhar_jogo(&navegacao, url);
+                    false
+                }
+                _ => {
+                    // O link "← Portal" e afins: abrem na janela principal, o chat continua
+                    let handle = navegacao.clone();
+                    let destino = url.clone();
+                    tauri::async_runtime::spawn(async move { voltar_ao_portal(&handle, destino) });
+                    false
+                }
+            }
+        })
+        .on_new_window(move |url, _features| {
+            // Links das mensagens (target="_blank") abrem no navegador padrão
+            if matches!(url.scheme(), "http" | "https") {
+                #[allow(deprecated)]
+                if let Err(erro) = links.shell().open(url.as_str(), None) {
+                    eprintln!("Não foi possível abrir o link no navegador: {erro}");
+                }
+            }
+            NewWindowResponse::Deny
+        })
+        .build();
+
+    if let Err(erro) = resultado {
+        eprintln!("Não foi possível abrir a janela do chat: {erro}");
+    }
+}
+
 /// Cria a janela principal já no portal
 fn criar_janela_principal(app: &AppHandle) -> tauri::Result<()> {
     let portal: Url = PORTAL.parse().expect("endereço do portal inválido");
@@ -237,22 +324,19 @@ fn criar_janela_principal(app: &AppHandle) -> tauri::Result<()> {
         .disable_drag_drop_handler()
         .zoom_hotkeys_enabled(true)
         .initialization_script(SCRIPT_PORTAL)
-        .on_navigation(move |url| {
-            if url.host_str() != Some(HOST_FOUNDRY) {
-                return true;
+        .on_navigation(move |url| match url.host_str() {
+            Some(HOST_FOUNDRY) => {
+                encaminhar_jogo(&handle, url);
+                false // o portal continua na janela principal
             }
-            // Guarda o login que veio do portal e tira ele do endereço antes de abrir o jogo
-            if let Some(login) = login_do_endereco(url) {
-                if let Ok(mut pendente) = handle.state::<LoginPendente>().0.lock() {
-                    *pendente = Some(login);
-                }
+            Some(HOST_CHAT) => {
+                let handle = handle.clone();
+                let destino = url.clone();
+                // Cria a janela fora deste evento, para não travar no Windows
+                tauri::async_runtime::spawn(async move { abrir_chat(&handle, destino) });
+                false // o portal continua na janela principal
             }
-            let mut destino = url.clone();
-            destino.set_fragment(None);
-            let handle = handle.clone();
-            // Cria a janela fora deste evento, para não travar no Windows
-            tauri::async_runtime::spawn(async move { abrir_jogo(&handle, destino) });
-            false // o portal continua na janela principal
+            _ => true,
         })
         .build()?;
 
