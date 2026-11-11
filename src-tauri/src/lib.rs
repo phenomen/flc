@@ -1,6 +1,7 @@
 use std::sync::Mutex;
 use tauri::webview::{NewWindowResponse, PageLoadEvent, WebviewWindowBuilder};
-use tauri::{AppHandle, Manager, Url, WebviewUrl};
+use tauri::{AppHandle, Manager, Url, WebviewUrl, WebviewWindow};
+use tauri_plugin_notification::NotificationExt;
 use tauri_plugin_shell::ShellExt;
 
 // Crônicas Eternas: aplicativo do grupo, baseado no FLC (Foundry Lightweight Client)
@@ -18,6 +19,18 @@ const HOST_CHAT: &str = "chat.cronicaseternas.com";
 
 /// Avisa o portal de que este aplicativo sabe fazer o login no Foundry sozinho
 const SCRIPT_PORTAL: &str = "window.cronicasEternasApp = Object.freeze({ loginFoundry: true });";
+
+/// Na janela do chat, além do aviso do login, oferece o `avisar`, que mostra uma
+/// notificação do sistema no lugar do `Notification` do navegador
+const SCRIPT_CHAT: &str = r#"window.cronicasEternasApp = Object.freeze({
+  loginFoundry: true,
+  avisar: (titulo, corpo) =>
+    window.__TAURI_INTERNALS__.invoke("avisar", { titulo: String(titulo), corpo: String(corpo) }),
+});"#;
+
+/// Tamanho máximo do título e do corpo dos avisos do chat, em caracteres
+const LIMITE_TITULO: usize = 120;
+const LIMITE_CORPO: usize = 240;
 
 /// Faz o login na tela de entrada do Foundry: preenche usuário e senha e usa o próprio
 /// botão de entrar. Se a tela continuar no login, tenta o pedido direto. No pior caso,
@@ -127,6 +140,26 @@ fn login_do_endereco(url: &Url) -> Option<(String, String)> {
         }
     }
     Some((usuario?, senha?))
+}
+
+/// Corta o texto em `limite` caracteres
+fn cortar(texto: &str, limite: usize) -> String {
+    texto.chars().take(limite).collect()
+}
+
+/// Mostra uma notificação do sistema com um aviso do chat. Só atende a janela do chat.
+#[tauri::command]
+fn avisar(janela: WebviewWindow, titulo: String, corpo: String) -> Result<(), String> {
+    if janela.label() != "chat" {
+        return Err("avisar só funciona na janela do chat".into());
+    }
+    janela
+        .notification()
+        .builder()
+        .title(cortar(&titulo, LIMITE_TITULO))
+        .body(cortar(&corpo, LIMITE_CORPO))
+        .show()
+        .map_err(|erro| format!("Não foi possível mostrar o aviso: {erro}"))
 }
 
 #[tauri::command]
@@ -274,7 +307,7 @@ fn abrir_chat(app: &AppHandle, url: Url) {
         .focused(true)
         .disable_drag_drop_handler()
         .zoom_hotkeys_enabled(true)
-        .initialization_script(SCRIPT_PORTAL)
+        .initialization_script(SCRIPT_CHAT)
         .on_navigation(move |url| {
             if !matches!(url.scheme(), "http" | "https") {
                 return true;
@@ -372,7 +405,9 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        .plugin(tauri_plugin_notification::init())
         .invoke_handler(tauri::generate_handler![
+            avisar,
             open_webview,
             read_text_file,
             write_text_file
