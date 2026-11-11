@@ -387,6 +387,12 @@
       "description": "Permission identifier",
       "oneOf": [
         {
+          "description": "Enables the atalho_do_microfone command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-atalho-do-microfone",
+          "markdownDescription": "Enables the atalho_do_microfone command without any pre-configured scope."
+        },
+        {
           "description": "Enables the avisar command without any pre-configured scope.",
           "type": "string",
           "const": "allow-avisar",
@@ -409,6 +415,12 @@
           "type": "string",
           "const": "allow-write-text-file",
           "markdownDescription": "Enables the write_text_file command without any pre-configured scope."
+        },
+        {
+          "description": "Denies the atalho_do_microfone command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-atalho-do-microfone",
+          "markdownDescription": "Denies the atalho_do_microfone command without any pre-configured scope."
         },
         {
           "description": "Denies the avisar command without any pre-configured scope.",

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-atalho-do-microfone"
+description = "Enables the atalho_do_microfone command without any pre-configured scope."
+commands.allow = ["atalho_do_microfone"]
+
+[[permission]]
+identifier = "deny-atalho-do-microfone"
+description = "Denies the atalho_do_microfone command without any pre-configured scope."
+commands.deny = ["atalho_do_microfone"]

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.0
+
+- O atalho do microfone do chat vale em qualquer janela durante a chamada.
+
 ## 1.3.0
 
 - Os avisos do chat aparecem como notificações do Windows.

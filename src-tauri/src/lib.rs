@@ -1,6 +1,7 @@
 use std::sync::Mutex;
 use tauri::webview::{NewWindowResponse, PageLoadEvent, WebviewWindowBuilder};
-use tauri::{AppHandle, Manager, Url, WebviewUrl, WebviewWindow};
+use tauri::{AppHandle, Manager, Url, WebviewUrl, WebviewWindow, WindowEvent};
+use tauri_plugin_global_shortcut::{GlobalShortcutExt, Shortcut, ShortcutState};
 use tauri_plugin_notification::NotificationExt;
 use tauri_plugin_shell::ShellExt;
 
@@ -21,12 +22,19 @@ const HOST_CHAT: &str = "chat.cronicaseternas.com";
 const SCRIPT_PORTAL: &str = "window.cronicasEternasApp = Object.freeze({ loginFoundry: true });";
 
 /// Na janela do chat, além do aviso do login, oferece o `avisar`, que mostra uma
-/// notificação do sistema no lugar do `Notification` do navegador
+/// notificação do sistema no lugar do `Notification` do navegador, e o
+/// `atalhoDoMicrofone`, que liga o atalho do microfone em qualquer janela
 const SCRIPT_CHAT: &str = r#"window.cronicasEternasApp = Object.freeze({
   loginFoundry: true,
   avisar: (titulo, corpo) =>
     window.__TAURI_INTERNALS__.invoke("avisar", { titulo: String(titulo), corpo: String(corpo) }),
+  atalhoDoMicrofone: (atalho) =>
+    window.__TAURI_INTERNALS__.invoke("atalho_do_microfone", { atalho: atalho == null ? null : String(atalho) }),
 });"#;
+
+/// Avisos do atalho do microfone para a página do chat. Os textos são fixos.
+const SCRIPT_ATALHO_APERTOU: &str = r#"window.dispatchEvent(new CustomEvent("cronicas-eternas:atalho", { detail: { estado: "apertou" } }))"#;
+const SCRIPT_ATALHO_SOLTOU: &str = r#"window.dispatchEvent(new CustomEvent("cronicas-eternas:atalho", { detail: { estado: "soltou" } }))"#;
 
 /// Tamanho máximo do título e do corpo dos avisos do chat, em caracteres
 const LIMITE_TITULO: usize = 120;
@@ -125,6 +133,19 @@ const SCRIPT_LOGIN: &str = r#"(async () => {
 #[derive(Default)]
 struct LoginPendente(Mutex<Option<(String, String)>>);
 
+/// Atalho do microfone registrado no sistema enquanto a pessoa está numa chamada
+#[derive(Default)]
+struct AtalhoMicrofone(Mutex<Option<Shortcut>>);
+
+/// Tira o atalho do microfone do sistema, se houver um
+fn tirar_atalho(app: &AppHandle, atual: &mut Option<Shortcut>) {
+    if let Some(anterior) = atual.take() {
+        if let Err(erro) = app.global_shortcut().unregister(anterior) {
+            eprintln!("Não foi possível tirar o atalho do microfone: {erro}");
+        }
+    }
+}
+
 /// Lê o usuário e a senha que o portal mandou no fim do endereço (depois do #)
 fn login_do_endereco(url: &Url) -> Option<(String, String)> {
     let fragmento = url.fragment()?;
@@ -160,6 +181,43 @@ fn avisar(janela: WebviewWindow, titulo: String, corpo: String) -> Result<(), St
         .body(cortar(&corpo, LIMITE_CORPO))
         .show()
         .map_err(|erro| format!("Não foi possível mostrar o aviso: {erro}"))
+}
+
+/// Liga o atalho do microfone em qualquer janela (com um texto) ou desliga (com `None`).
+/// Só atende a janela do chat.
+#[tauri::command]
+fn atalho_do_microfone(janela: WebviewWindow, atalho: Option<String>) -> Result<(), String> {
+    if janela.label() != "chat" {
+        return Err("atalho_do_microfone só funciona na janela do chat".into());
+    }
+    let app = janela.app_handle();
+    let estado = app.state::<AtalhoMicrofone>();
+    let mut atual = estado
+        .0
+        .lock()
+        .map_err(|_| "Não foi possível trocar o atalho.".to_string())?;
+
+    tirar_atalho(app, &mut atual);
+    let Some(texto) = atalho else {
+        return Ok(());
+    };
+
+    let novo = texto
+        .parse::<Shortcut>()
+        .map_err(|_| format!("O atalho {texto} não é válido."))?;
+    app.global_shortcut()
+        .on_shortcut(novo, |app, _atalho, evento| {
+            let script = match evento.state {
+                ShortcutState::Pressed => SCRIPT_ATALHO_APERTOU,
+                ShortcutState::Released => SCRIPT_ATALHO_SOLTOU,
+            };
+            if let Some(chat) = app.get_webview_window("chat") {
+                let _ = chat.eval(script);
+            }
+        })
+        .map_err(|_| "Outro programa já usa esse atalho.".to_string())?;
+    *atual = Some(novo);
+    Ok(())
 }
 
 #[tauri::command]
@@ -339,8 +397,19 @@ fn abrir_chat(app: &AppHandle, url: Url) {
         })
         .build();
 
-    if let Err(erro) = resultado {
-        eprintln!("Não foi possível abrir a janela do chat: {erro}");
+    match resultado {
+        Ok(janela) => {
+            // Ao fechar o chat, o atalho do microfone sai do sistema
+            let handle = app.clone();
+            janela.on_window_event(move |evento| {
+                if matches!(evento, WindowEvent::Destroyed) {
+                    if let Ok(mut atual) = handle.state::<AtalhoMicrofone>().0.lock() {
+                        tirar_atalho(&handle, &mut atual);
+                    }
+                }
+            });
+        }
+        Err(erro) => eprintln!("Não foi possível abrir a janela do chat: {erro}"),
     }
 }
 
@@ -407,6 +476,7 @@ pub fn run() {
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_notification::init())
         .invoke_handler(tauri::generate_handler![
+            atalho_do_microfone,
             avisar,
             open_webview,
             read_text_file,
@@ -414,6 +484,7 @@ pub fn run() {
         ])
         .setup(|app| {
             app.manage(LoginPendente::default());
+            app.manage(AtalhoMicrofone::default());
             criar_janela_principal(app.handle())?;
             Ok(())
         })

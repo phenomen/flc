@@ -1,11 +1,11 @@
 {
 	"$schema": "../gen/schemas/desktop-schema.json",
 	"identifier": "chat",
-	"description": "Janela do chat: só pode mostrar avisos",
+	"description": "Janela do chat: só pode mostrar avisos e ligar o atalho do microfone",
 	"windows": ["chat"],
 	"remote": {
 		"urls": ["https://chat.cronicaseternas.com/*"]
 	},
 	"platforms": ["macOS", "windows", "linux"],
-	"permissions": ["allow-avisar"]
+	"permissions": ["allow-avisar", "allow-atalho-do-microfone"]
 }
